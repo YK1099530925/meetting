@@ -71,10 +71,11 @@ border:1px solid black;
 $(function(){
 	$("#submit").click(function(){
 		var userName = $("#userName").trim();
+		var password = $("#password").trim();
 		$.ajax({
 			url:"login",
 			type:"post",
-			data:
+			data:"userName="+userName+"&password="+password
 		});
 	});
 });
