@@ -34,16 +34,16 @@ border:1px solid black;
 			<div class="col-md-5 col-md-offset-5">
 				<form class="form-horizontal">
 					<div class="form-group">
-						<label for="inputEmail3" class="col-sm-2 control-label">账号</label>
+						<label for="userName" class="col-sm-2 control-label">账号</label>
 						<div class="col-sm-10">
-							<input type="email" class="form-control" id="inputEmail3"
+							<input type="text" class="form-control" id="userName"
 								placeholder="账号">
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="inputPassword3" class="col-sm-2 control-label">密码</label>
+						<label for="password" class="col-sm-2 control-label">密码</label>
 						<div class="col-sm-10">
-							<input type="password" class="form-control" id="inputPassword3"
+							<input type="password" class="form-control" id="password"
 								placeholder="密码">
 						</div>
 					</div>
@@ -57,7 +57,7 @@ border:1px solid black;
 					</div>
 					<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-10">
-							<button type="submit" class="btn btn-default">登录</button>
+							<button type="submit" id="submit" class="btn btn-default">登录</button>
 						</div>
 					</div>
 				</form>
@@ -66,4 +66,18 @@ border:1px solid black;
 
 	</div>
 </body>
+<script type="text/javascript">
+
+$(function(){
+	$("#submit").click(function(){
+		var userName = $("#userName").trim();
+		$.ajax({
+			url:"login",
+			type:"post",
+			data:
+		});
+	});
+});
+
+</script>
 </html>
