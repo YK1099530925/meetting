@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yk.dao.LoginMapper">
+	<resultMap id="BaseResultMap" type="com.yk.pojo.User">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="loginId" jdbcType="INTEGER" property="loginid" />
+		<result column="password" jdbcType="VARCHAR" property="password" />
+		<result column="userName" jdbcType="VARCHAR" property="username" />
+		<result column="sex" jdbcType="VARCHAR" property="sex" />
+		<result column="birthday" jdbcType="DATE" property="birthday" />
+		<result column="tel" jdbcType="VARCHAR" property="tel" />
+		<result column="addr" jdbcType="VARCHAR" property="addr" />
+		<result column="deptId" jdbcType="INTEGER" property="deptid" />
+		<result column="roleId" jdbcType="INTEGER" property="roleid" />
+	</resultMap>
+	<sql id="Login_Column_List">
+		loginId,password,userName,sex,birthday,tel,addr,deptId
+	</sql>
+	<select id="loginByLoginId"  parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Login_Column_List"></include>
+		from y_user
+		where loginId=#{loginId}
+	</select>
+</mapper>

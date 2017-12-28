@@ -50,4 +50,10 @@ public class DepartMent {
     public void setDepttel(String depttel) {
         this.depttel = depttel == null ? null : depttel.trim();
     }
+
+	@Override
+	public String toString() {
+		return "DepartMent [id=" + id + ", deptname=" + deptname + ", depttel=" + depttel + "]";
+	}
+    
 }

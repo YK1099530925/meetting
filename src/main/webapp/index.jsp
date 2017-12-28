@@ -13,6 +13,14 @@
 	rel="stylesheet">
 <script src="${appPath }/js/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 
+<script type="text/javascript">
+
+$(function(){
+	
+});
+
+</script>
+
 <style type="text/css">
 .loginBack{
 background: url("img/loginBack.jpg");
@@ -29,21 +37,21 @@ border:1px solid black;
 				<h4>账户登录</h4>
 			</div>
 		</div>
-
+		
 		<div class="row">
 			<div class="col-md-5 col-md-offset-5">
-				<form class="form-horizontal">
+				<form class="form-horizontal" action="login" method="post">
 					<div class="form-group">
 						<label for="userName" class="col-sm-2 control-label">账号</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="userName"
+							<input type="text" class="form-control" id="loginId" name="loginId"
 								placeholder="账号">
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="password" class="col-sm-2 control-label">密码</label>
 						<div class="col-sm-10">
-							<input type="password" class="form-control" id="password"
+							<input type="password" class="form-control" id="password" name="password"
 								placeholder="密码">
 						</div>
 					</div>
@@ -57,7 +65,7 @@ border:1px solid black;
 					</div>
 					<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-10">
-							<button type="submit" id="submit" class="btn btn-default">登录</button>
+							<button type="submit" class="btn btn-default">登录</button>
 						</div>
 					</div>
 				</form>
@@ -66,19 +74,5 @@ border:1px solid black;
 
 	</div>
 </body>
-<script type="text/javascript">
 
-$(function(){
-	$("#submit").click(function(){
-		var userName = $("#userName").trim();
-		var password = $("#password").trim();
-		$.ajax({
-			url:"login",
-			type:"post",
-			data:"userName="+userName+"&password="+password
-		});
-	});
-});
-
-</script>
 </html>

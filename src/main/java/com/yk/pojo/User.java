@@ -151,4 +151,11 @@ public class User {
     public void setRoleid(Integer roleid) {
         this.roleid = roleid;
     }
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", loginid=" + loginid + ", password=" + password + ", username=" + username
+				+ ", sex=" + sex + ", birthday=" + birthday + ", tel=" + tel + ", addr=" + addr + ", deptid=" + deptid
+				+ ", roleid=" + roleid + "]";
+	}
 }

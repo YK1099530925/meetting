@@ -80,4 +80,11 @@ public class MeettingInfo {
     public void setInfomation(String infomation) {
         this.infomation = infomation == null ? null : infomation.trim();
     }
+
+	@Override
+	public String toString() {
+		return "MeettingInfo [id=" + id + ", title=" + title + ", profile=" + profile + ", meettingtime=" + meettingtime
+				+ ", addr=" + addr + ", infomation=" + infomation + "]";
+	}
+    
 }

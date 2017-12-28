@@ -39,4 +39,10 @@ public class Permission {
     public void setRoleid(Integer roleid) {
         this.roleid = roleid;
     }
+
+	@Override
+	public String toString() {
+		return "Permission [id=" + id + ", permissionname=" + permissionname + ", roleid=" + roleid + "]";
+	}
+    
 }

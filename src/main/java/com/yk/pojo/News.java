@@ -52,4 +52,10 @@ public class News {
     public void setNewsinfo(String newsinfo) {
         this.newsinfo = newsinfo == null ? null : newsinfo.trim();
     }
+
+	@Override
+	public String toString() {
+		return "News [id=" + id + ", title=" + title + ", profile=" + profile + ", newsinfo=" + newsinfo + "]";
+	}
+    
 }

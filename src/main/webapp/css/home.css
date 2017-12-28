@@ -1,0 +1,58 @@
+
+/* head */
+.head {
+	height: 60px;
+	margin-left: 90px;
+}
+
+.body {
+	height: 600px;
+}
+
+.tail {
+	height: 50px;
+}
+
+.head-last-margin {
+	margin-top: 10px;
+}
+
+.head-logo {
+	margin-top: 10px;
+	height: 40px;
+	width: 200px;
+}
+
+.head-search {
+	margin-top: 15px;
+}
+
+.bg-my{
+	background-color: black;
+	opacity: 0.6;
+}
+
+/* body */
+.body-left {
+	position: absolute;
+	margin-left: 90px;
+	margin-top: 50px;
+	height: 450px;
+	width: 250px;
+	/* border: 1px solid black; */
+	background-color: black;
+	border-radius:6px;/* 圆角 */
+	opacity: 0.6; /* 透明度 */
+}
+
+.body-right {
+	position: absolute;
+	margin-left: 350px;
+	margin-top: 10px;
+	height: 580px;
+	width: 1000px;
+	/* border: 1px solid black; */
+	background-color: black;
+	border-radius:6px;
+	opacity: 0.6; /* 透明度 */
+}
