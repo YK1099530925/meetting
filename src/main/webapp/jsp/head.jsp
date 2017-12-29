@@ -17,7 +17,7 @@
 </head>
 <body>
 	<!-- 头 -->
-	<div class="container head row bg-my">
+	<div class="head row bg-info">
 
 		<!-- logo -->
 		<div class="col-md-3">
@@ -60,12 +60,11 @@
 		<!-- 用户 -->
 		<div class="head-last-margin col-md-1">
 			<c:if test="${sessionScope.userName != null }">
-				<a href="${appPath }/jsp/mycenter/mycenter.jsp"> <label
-					id="userName">${sessionScope.userName }</label>
+				<a href="${appPath }/jsp/mycenter/mycenter.jsp"> <label>${sessionScope.userName }</label>
 				</a>
 			</c:if>
 			<c:if test="${sessionScope.userName == null }">
-				<a href="${appPath }/index.jsp"><label id="userName">登录</label></a>
+				<a href="${appPath }/index.jsp"><label>登录</label></a>
 			</c:if>
 		</div>
 	</div>

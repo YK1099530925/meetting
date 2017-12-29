@@ -7,24 +7,59 @@
 <title></title>
 </head>
 <body>
-	<!-- 右 -->
+	<!-- 我的个人资料 -->
 	<div class="body-right">
 		<div class="panel panel-info">
 			<div class="panel-heading">我的基本信息</div>
-			<div class="panel-body">
+			<div class="panel-body panel-body-my">
 				<form class="form-horizontal">
 					<div class="form-group">
 						<label for="loginId" class="col-sm-2 control-label">账号</label>
 						<div class="col-sm-5">
 							<input type="text" class="form-control" id="loginId"
-								name="loginId" disabled>
+								name="loginId"value="${sessionScope.user.user.loginid }" disabled>
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="userName" class="col-sm-2 control-label">姓名</label>
+						<label for="username" class="col-sm-2 control-label">姓名</label>
 						<div class="col-sm-5">
-							<input type="text" class="form-control" id="userName"
-								name="userName" disabled>
+							<input type="text" class="form-control" id="username"
+								name="username" value="${sessionScope.user.user.username }" disabled>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="sex" class="col-sm-2 control-label">性别</label>
+						<div class="col-sm-5">
+							<input type="text" class="form-control" id="sex"
+								name="sex" value="${sessionScope.user.user.sex }" disabled>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="birthday" class="col-sm-2 control-label">出生日期</label>
+						<div class="col-sm-5">
+							<input type="text" class="form-control" id="birthday"
+								name="birthday" value="${sessionScope.user.user.birthday }" disabled>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="tel" class="col-sm-2 control-label">联系方式</label>
+						<div class="col-sm-5">
+							<input type="text" class="form-control" id="tel"
+								name="tel" value="${sessionScope.user.user.tel }" disabled>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="addr" class="col-sm-2 control-label">住址</label>
+						<div class="col-sm-5">
+							<input type="text" class="form-control" id="addr"
+								name="addr" value="${sessionScope.user.user.addr }" disabled>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="deptid" class="col-sm-2 control-label">部门id</label>
+						<div class="col-sm-5">
+							<input type="text" class="form-control" id="deptid"
+								name="deptid" value="${sessionScope.user.user.deptid }" disabled>
 						</div>
 					</div>
 					<div class="form-group">
@@ -42,11 +77,19 @@
 	$(function() {
 		/* 点击修改时，将disabled属性删除 */
 		$("#update").click(function(){
-			$("#userName").removeAttr("disabled");
+			$("#username").removeAttr("disabled");
+			$("#sex").removeAttr("disabled");
+			$("#birthday").removeAttr("disabled");
+			$("#tel").removeAttr("disabled");
+			$("#addr").removeAttr("disabled");
 		});
 		/* 点击保存时，将disabled添加属性 */
 		$("#save").click(function(){
-			$("#userName").attr("disabled","disabled");
+			$("#username").attr("disabled","disabled");
+			$("#sex").attr("disabled","disabled");
+			$("#birthday").attr("disabled","disabled");
+			$("#tel").attr("disabled","disabled");
+			$("#addr").attr("disabled","disabled");
 		});
 	});
 </script>
