@@ -1,78 +1,30 @@
 package com.yk.pojo;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class User {
-	/**
-	 * 用户id
-	 */
+public class User implements Serializable{
     private Integer id;
 
-    /**
-	 * 用户登录id
-	 */
     private Integer loginid;
 
-    /**
-	 * 用户密码
-	 */
     private String password;
 
-    /**
-	 * 用户名
-	 */
     private String username;
 
-    /**
-	 * 性别
-	 */
     private String sex;
 
-    /**
-	 * 生日
-	 */
     private Date birthday;
 
-    /**
-	 * 电话
-	 */
     private String tel;
 
-    /**
-	 * 地址
-	 */
     private String addr;
 
-    /**
-	 * 部门id
-	 */
     private Integer deptid;
 
-    /**
-	 * 角色
-	 */
     private Integer roleid;
 
-    public User() {
-		super();
-	}
-
-	public User(Integer id, Integer loginid, String password, String username, String sex, Date birthday, String tel,
-			String addr, Integer deptid, Integer roleid) {
-		super();
-		this.id = id;
-		this.loginid = loginid;
-		this.password = password;
-		this.username = username;
-		this.sex = sex;
-		this.birthday = birthday;
-		this.tel = tel;
-		this.addr = addr;
-		this.deptid = deptid;
-		this.roleid = roleid;
-	}
-
-	public Integer getId() {
+    public Integer getId() {
         return id;
     }
 

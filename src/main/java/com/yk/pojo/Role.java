@@ -1,14 +1,10 @@
 package com.yk.pojo;
 
-public class Role {
-	/**
-	 * 角色id
-	 */
+import java.io.Serializable;
+
+public class Role implements Serializable{
     private Integer id;
 
-    /**
-	 * 角色
-	 */
     private String rolename;
 
     public Integer getId() {
@@ -31,5 +27,4 @@ public class Role {
 	public String toString() {
 		return "Role [id=" + id + ", rolename=" + rolename + "]";
 	}
-    
 }

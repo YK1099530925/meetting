@@ -29,7 +29,7 @@ public class MapperTest {
 	public void test() {
 		/*deptmapper.insertSelective(new DepartMent(null,"开发部","028-1234"));
 		deptmapper.insertSelective(new DepartMent(null,"销售部","028-3521"));*/
-		usermapper.insertSelective(new User(null,10001,"123456","杨宽","男",new Date(),"","",null,null));
+		//usermapper.insertSelective(new User(null,10001,"123456","杨宽","男",new Date(),"","",null,null));
 		System.out.println("添加完成");
 	}
 }

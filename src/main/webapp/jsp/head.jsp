@@ -17,7 +17,7 @@
 </head>
 <body>
 	<!-- 头 -->
-	<div class="head row bg-info">
+	<div class="head row" style="background-color: black; opacity: 0.6;">
 
 		<!-- logo -->
 		<div class="col-md-3">
@@ -71,7 +71,37 @@
 </body>
 <script type="text/javascript">
 	$(function() {
+		var webServer = "ws://192.168.0.118:8080/metting/websocket/${sessionScope.loginId}";//服务器地址
+		var websocket = new WebSocket(webServer);//创建websocket对象;
+		alert(websocket.readyState);
 
+		//建立连接的回调方法
+		websocket.onopen = function(e) {
+			//alert("建立了websocket连接");
+		};
+		//关闭连接的回调方法
+		websocket.onclose = function(e) {
+			//alert("关闭了websocket连接");
+
+		};
+		//收到服务器信息，用e.data获取
+		websocket.onmessage = function(e) {
+			alert("服务器推送消息：" + e.data);
+		};
+		//产生异常
+		websocket.onerror = function(e) {
+		};
+
+		//监听离开页面，当离开页面的时候
+		/* 	window.onbeforeunload = function() {
+				closeWebsocket();
+			} */
+
+		//关闭websocket连接
+		/* 	function closeWebsocket() {
+				websocket.close();
+				alert("客户端连接关闭");
+			} */
 	});
 </script>
 </html>

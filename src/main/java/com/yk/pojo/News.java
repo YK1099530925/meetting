@@ -1,24 +1,14 @@
 package com.yk.pojo;
 
-public class News {
-    /**
-	 * 新闻id
-	 */
+import java.io.Serializable;
+
+public class News implements Serializable{
     private Integer id;
 
-    /**
-	 * 新闻标题
-	 */
     private String title;
 
-    /**
-	 * 新闻简介
-	 */
     private String profile;
 
-    /**
-	 * 新闻内容
-	 */
     private String newsinfo;
 
     public Integer getId() {
@@ -57,5 +47,4 @@ public class News {
 	public String toString() {
 		return "News [id=" + id + ", title=" + title + ", profile=" + profile + ", newsinfo=" + newsinfo + "]";
 	}
-    
 }

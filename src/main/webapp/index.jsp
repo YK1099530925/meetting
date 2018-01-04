@@ -14,19 +14,18 @@
 <script src="${appPath }/js/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 
 <script type="text/javascript">
+	$(function() {
 
-$(function(){
-	
-});
-
+	});
 </script>
 
 <style type="text/css">
-.loginBack{
-background: url("img/loginBack.jpg");
+.loginBack {
+	background: url("img/loginBack.jpg");
 }
-.login{
-border:1px solid black;
+
+.login {
+	border: 1px solid black;
 }
 </style>
 </head>
@@ -37,22 +36,23 @@ border:1px solid black;
 				<h4>账户登录</h4>
 			</div>
 		</div>
-		
+
 		<div class="row">
 			<div class="col-md-5 col-md-offset-5">
-				<form class="form-horizontal" action="login" method="post">
+				<form class="form-horizontal" action="${appPath }/login"
+					method="post">
 					<div class="form-group">
 						<label for="userName" class="col-sm-2 control-label">账号</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="loginId" name="loginId"
-								placeholder="账号">
+							<input type="text" class="form-control" id="loginId"
+								name="loginId" placeholder="账号">
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="password" class="col-sm-2 control-label">密码</label>
 						<div class="col-sm-10">
-							<input type="password" class="form-control" id="password" name="password"
-								placeholder="密码">
+							<input type="password" class="form-control" id="password"
+								name="password" placeholder="密码">
 						</div>
 					</div>
 					<div class="form-group">
@@ -74,5 +74,7 @@ border:1px solid black;
 
 	</div>
 </body>
+<script type="text/javascript">
 
+</script>
 </html>

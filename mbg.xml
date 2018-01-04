@@ -47,5 +47,6 @@
 	<table tableName="y_news" domainObjectName="News"></table>
 	<table tableName="y_permission" domainObjectName="Permission"></table>
 	<table tableName="y_role" domainObjectName="Role"></table>
+	<table tableName="y_meettingGroup" domainObjectName="MeettingGroup"></table>
   </context>
 </generatorConfiguration>

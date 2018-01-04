@@ -15,14 +15,18 @@
 			<ul class="nav nav-pills nav-stacked nav-tabs">
 				<li><a class="text-muted" href="#myinfo" data-toggle="tab"><span
 						class="glyphicon glyphicon-user"></span>&nbsp;个人信息</a></li>
-				<li><a class="text-muted" href="#mymessage"
-					data-toggle="tab"><span class="glyphicon glyphicon-comment"></span>&nbsp;我的消息</a></li>
+				<li><a class="text-muted" href="#mymessage" data-toggle="tab"><span
+						class="glyphicon glyphicon-comment"></span>&nbsp;我的消息</a></li>
 				<li><a class="text-muted" href="#mymeetting" data-toggle="tab"><span
 						class="glyphicon glyphicon-list-alt"></span>&nbsp;我的会议</a></li>
 				<li><a class="text-muted" href="#askmeetting" data-toggle="tab"><span
 						class="glyphicon glyphicon-pencil"></span>&nbsp;申请会议</a></li>
-				<li class="active"><a class="text-muted" href="#releasemeetting" data-toggle="tab"><span
+				<li class="active"><a class="text-muted"
+					href="#releasemeetting" data-toggle="tab"><span
 						class="glyphicon glyphicon-pencil"></span>&nbsp;发布会议</a></li>
+				<li class=""><a class="text-muted"
+					href="#websocket" data-toggle="tab"><span
+						class="glyphicon glyphicon-pencil"></span>&nbsp;websocket</a></li>
 			</ul>
 		</div>
 
@@ -42,6 +46,9 @@
 			</div>
 			<div class="tab-pane fade in active" id="releasemeetting">
 				<jsp:include page="releasemeetting.jsp"></jsp:include>
+			</div>
+			<div class="tab-pane fade" id="websocket">
+				<jsp:include page="websocket.jsp"></jsp:include>
 			</div>
 		</div>
 

@@ -7,14 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.yk.dao.LoginMapper;
-import com.yk.dao.UserMapper;
 import com.yk.pojo.User;
 
 @Service
 public class LoginService {
 	
-	@Autowired
-	UserMapper userMapper;
 	@Autowired
 	LoginMapper loginMapper;
 	

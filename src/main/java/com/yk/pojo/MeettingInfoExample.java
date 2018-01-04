@@ -504,6 +504,66 @@ public class MeettingInfoExample {
             addCriterion("infomation not between", value1, value2, "infomation");
             return (Criteria) this;
         }
+
+        public Criteria andDeptidIsNull() {
+            addCriterion("deptId is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptidIsNotNull() {
+            addCriterion("deptId is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptidEqualTo(Integer value) {
+            addCriterion("deptId =", value, "deptid");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptidNotEqualTo(Integer value) {
+            addCriterion("deptId <>", value, "deptid");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptidGreaterThan(Integer value) {
+            addCriterion("deptId >", value, "deptid");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptidGreaterThanOrEqualTo(Integer value) {
+            addCriterion("deptId >=", value, "deptid");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptidLessThan(Integer value) {
+            addCriterion("deptId <", value, "deptid");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptidLessThanOrEqualTo(Integer value) {
+            addCriterion("deptId <=", value, "deptid");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptidIn(List<Integer> values) {
+            addCriterion("deptId in", values, "deptid");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptidNotIn(List<Integer> values) {
+            addCriterion("deptId not in", values, "deptid");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptidBetween(Integer value1, Integer value2) {
+            addCriterion("deptId between", value1, value2, "deptid");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptidNotBetween(Integer value1, Integer value2) {
+            addCriterion("deptId not between", value1, value2, "deptid");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

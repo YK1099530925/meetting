@@ -1,19 +1,12 @@
 package com.yk.pojo;
 
-public class Permission {
-	/**
-	 * 权限id
-	 */
+import java.io.Serializable;
+
+public class Permission implements Serializable {
     private Integer id;
-    
-    /**
-	 * 权限
-	 */
+
     private String permissionname;
 
-    /**
-	 * 角色
-	 */
     private Integer roleid;
 
     public Integer getId() {

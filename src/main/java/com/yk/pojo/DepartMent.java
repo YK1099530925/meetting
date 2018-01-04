@@ -1,33 +1,15 @@
 package com.yk.pojo;
 
-public class DepartMent {
-	/**
-	 * 部门id
-	 */
+import java.io.Serializable;
+
+public class DepartMent implements Serializable{
     private Integer id;
-    
-    /**
-	 * 部门名
-	 */
+
     private String deptname;
-    
-    /**
-	 * 部门电话
-	 */
+
     private String depttel;
 
-    public DepartMent() {
-		super();
-	}
-
-	public DepartMent(Integer id, String deptname, String depttel) {
-		super();
-		this.id = id;
-		this.deptname = deptname;
-		this.depttel = depttel;
-	}
-
-	public Integer getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -55,5 +37,4 @@ public class DepartMent {
 	public String toString() {
 		return "DepartMent [id=" + id + ", deptname=" + deptname + ", depttel=" + depttel + "]";
 	}
-    
 }
