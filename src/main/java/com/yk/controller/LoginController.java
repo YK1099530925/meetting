@@ -29,7 +29,7 @@ public class LoginController {
 			map.put("user", login);
 			map.put("loginId", loginId);
 			System.out.println("login:"+login);
-			return "homePage";
+			return "head";
 		}else {
 			return "redirect:/index.jsp";
 		}

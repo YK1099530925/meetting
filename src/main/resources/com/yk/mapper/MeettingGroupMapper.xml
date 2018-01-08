@@ -6,6 +6,7 @@
     <result column="deptId" jdbcType="INTEGER" property="deptid" />
     <result column="userId" jdbcType="INTEGER" property="userid" />
     <result column="flag" jdbcType="INTEGER" property="flag" />
+    <result column="unRead" jdbcType="INTEGER" property="unread" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -66,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    meettingId, deptId, userId, flag
+    meettingId, deptId, userId, flag, unRead
   </sql>
   <select id="selectByExample" parameterType="com.yk.pojo.MeettingGroupExample" resultMap="BaseResultMap">
     select
@@ -90,9 +91,9 @@
   </delete>
   <insert id="insert" parameterType="com.yk.pojo.MeettingGroup">
     insert into y_meettinggroup (meettingId, deptId, userId, 
-      flag)
+      flag, unRead)
     values (#{meettingid,jdbcType=INTEGER}, #{deptid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, 
-      #{flag,jdbcType=INTEGER})
+      #{flag,jdbcType=INTEGER}, #{unread,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.yk.pojo.MeettingGroup">
     insert into y_meettinggroup
@@ -109,6 +110,9 @@
       <if test="flag != null">
         flag,
       </if>
+      <if test="unread != null">
+        unRead,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="meettingid != null">
@@ -122,6 +126,9 @@
       </if>
       <if test="flag != null">
         #{flag,jdbcType=INTEGER},
+      </if>
+      <if test="unread != null">
+        #{unread,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -146,6 +153,9 @@
       <if test="record.flag != null">
         flag = #{record.flag,jdbcType=INTEGER},
       </if>
+      <if test="record.unread != null">
+        unRead = #{record.unread,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -156,7 +166,8 @@
     set meettingId = #{record.meettingid,jdbcType=INTEGER},
       deptId = #{record.deptid,jdbcType=INTEGER},
       userId = #{record.userid,jdbcType=INTEGER},
-      flag = #{record.flag,jdbcType=INTEGER}
+      flag = #{record.flag,jdbcType=INTEGER},
+      unRead = #{record.unread,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>

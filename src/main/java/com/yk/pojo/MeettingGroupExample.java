@@ -343,6 +343,66 @@ public class MeettingGroupExample {
             addCriterion("flag not between", value1, value2, "flag");
             return (Criteria) this;
         }
+
+        public Criteria andUnreadIsNull() {
+            addCriterion("unRead is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnreadIsNotNull() {
+            addCriterion("unRead is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnreadEqualTo(Integer value) {
+            addCriterion("unRead =", value, "unread");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnreadNotEqualTo(Integer value) {
+            addCriterion("unRead <>", value, "unread");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnreadGreaterThan(Integer value) {
+            addCriterion("unRead >", value, "unread");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnreadGreaterThanOrEqualTo(Integer value) {
+            addCriterion("unRead >=", value, "unread");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnreadLessThan(Integer value) {
+            addCriterion("unRead <", value, "unread");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnreadLessThanOrEqualTo(Integer value) {
+            addCriterion("unRead <=", value, "unread");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnreadIn(List<Integer> values) {
+            addCriterion("unRead in", values, "unread");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnreadNotIn(List<Integer> values) {
+            addCriterion("unRead not in", values, "unread");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnreadBetween(Integer value1, Integer value2) {
+            addCriterion("unRead between", value1, value2, "unread");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnreadNotBetween(Integer value1, Integer value2) {
+            addCriterion("unRead not between", value1, value2, "unread");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

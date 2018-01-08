@@ -37,22 +37,22 @@
 
 		<!-- 首页标签 -->
 		<div class="head-last-margin col-md-1">
-			<a class="text-muted" href="${appPath }/jsp/homePage.jsp">
+			<a class="text-muted" href="#home" data-toggle="tab">
 				<h4>首页</h4>
 			</a>
 		</div>
 		<div class="head-last-margin col-md-1">
-			<a class="text-muted" href="#">
+			<a class="text-muted" href="#" data-toggle="tab">
 				<h4>其他</h4>
 			</a>
 		</div>
 		<div class="head-last-margin col-md-1">
-			<a class="text-muted" href="#">
+			<a class="text-muted" href="#" data-toggle="tab">
 				<h4>其他</h4>
 			</a>
 		</div>
 		<div class="head-last-margin col-md-2">
-			<a class="text-muted" href="${appPath }/jsp/mycenter/mycenter.jsp">
+			<a class="text-muted" href="#mycenter" data-toggle="tab">
 				<h4>个人中心</h4>
 			</a>
 		</div>
@@ -60,48 +60,58 @@
 		<!-- 用户 -->
 		<div class="head-last-margin col-md-1">
 			<c:if test="${sessionScope.userName != null }">
-				<a href="${appPath }/jsp/mycenter/mycenter.jsp"> <label>${sessionScope.userName }</label>
+				<a href="#mycenter" data-toggle="tab"> <label>${sessionScope.userName }</label>
 				</a>
 			</c:if>
 			<c:if test="${sessionScope.userName == null }">
-				<a href="${appPath }/index.jsp"><label>登录</label></a>
+				<a href="index.jsp"><label>登录</label></a>
 			</c:if>
+		</div>
+	</div>
+	<!-- body -->
+	<div class="tab-content">
+
+		<div class="tab-pane fade" id="home">
+			<jsp:include page="body.jsp"></jsp:include>
+		</div>
+
+		<!-- 个人中心 -->
+		<div class="tab-pane fade in active" id="mycenter">
+			<jsp:include page="mycenter/mycenter.jsp"></jsp:include>
 		</div>
 	</div>
 </body>
 <script type="text/javascript">
-	$(function() {
-		var webServer = "ws://192.168.0.118:8080/metting/websocket/${sessionScope.loginId}";//服务器地址
-		var websocket = new WebSocket(webServer);//创建websocket对象;
-		alert(websocket.readyState);
+	var webServer = "ws://192.168.0.118:8080/metting/websocket/${sessionScope.loginId}";//服务器地址
+	var websocket = new WebSocket(webServer);//创建websocket对象;
 
-		//建立连接的回调方法
-		websocket.onopen = function(e) {
-			//alert("建立了websocket连接");
-		};
-		//关闭连接的回调方法
-		websocket.onclose = function(e) {
-			//alert("关闭了websocket连接");
+	//建立连接的回调方法
+	websocket.onopen = function(e) {
+		//alert("建立了websocket连接");
+	};
+	//关闭连接的回调方法
+	websocket.onclose = function(e) {
+		alert("客户端关闭了连接");
+		//alert("关闭了websocket连接");
 
-		};
-		//收到服务器信息，用e.data获取
-		websocket.onmessage = function(e) {
-			alert("服务器推送消息：" + e.data);
-		};
-		//产生异常
-		websocket.onerror = function(e) {
-		};
+	};
+	//收到服务器信息，用e.data获取
+	websocket.onmessage = function(e) {
+		alert("服务器推送消息：" + e.data);
+	};
+	//产生异常
+	websocket.onerror = function(e) {
+	};
 
-		//监听离开页面，当离开页面的时候
-		/* 	window.onbeforeunload = function() {
-				closeWebsocket();
-			} */
+	//监听离开页面，当离开页面的时候
+	/* 	window.onbeforeunload = function() {
+			closeWebsocket();
+		} */
 
-		//关闭websocket连接
-		/* 	function closeWebsocket() {
-				websocket.close();
-				alert("客户端连接关闭");
-			} */
-	});
+	//关闭websocket连接
+	/* 	function closeWebsocket() {
+			websocket.close();
+			alert("客户端连接关闭");
+		} */
 </script>
 </html>

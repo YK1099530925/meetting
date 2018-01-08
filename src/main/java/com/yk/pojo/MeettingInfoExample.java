@@ -165,6 +165,66 @@ public class MeettingInfoExample {
             return (Criteria) this;
         }
 
+        public Criteria andMeettingidIsNull() {
+            addCriterion("meettingId is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMeettingidIsNotNull() {
+            addCriterion("meettingId is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMeettingidEqualTo(Integer value) {
+            addCriterion("meettingId =", value, "meettingid");
+            return (Criteria) this;
+        }
+
+        public Criteria andMeettingidNotEqualTo(Integer value) {
+            addCriterion("meettingId <>", value, "meettingid");
+            return (Criteria) this;
+        }
+
+        public Criteria andMeettingidGreaterThan(Integer value) {
+            addCriterion("meettingId >", value, "meettingid");
+            return (Criteria) this;
+        }
+
+        public Criteria andMeettingidGreaterThanOrEqualTo(Integer value) {
+            addCriterion("meettingId >=", value, "meettingid");
+            return (Criteria) this;
+        }
+
+        public Criteria andMeettingidLessThan(Integer value) {
+            addCriterion("meettingId <", value, "meettingid");
+            return (Criteria) this;
+        }
+
+        public Criteria andMeettingidLessThanOrEqualTo(Integer value) {
+            addCriterion("meettingId <=", value, "meettingid");
+            return (Criteria) this;
+        }
+
+        public Criteria andMeettingidIn(List<Integer> values) {
+            addCriterion("meettingId in", values, "meettingid");
+            return (Criteria) this;
+        }
+
+        public Criteria andMeettingidNotIn(List<Integer> values) {
+            addCriterion("meettingId not in", values, "meettingid");
+            return (Criteria) this;
+        }
+
+        public Criteria andMeettingidBetween(Integer value1, Integer value2) {
+            addCriterion("meettingId between", value1, value2, "meettingid");
+            return (Criteria) this;
+        }
+
+        public Criteria andMeettingidNotBetween(Integer value1, Integer value2) {
+            addCriterion("meettingId not between", value1, value2, "meettingid");
+            return (Criteria) this;
+        }
+
         public Criteria andTitleIsNull() {
             addCriterion("title is null");
             return (Criteria) this;
@@ -562,6 +622,76 @@ public class MeettingInfoExample {
 
         public Criteria andDeptidNotBetween(Integer value1, Integer value2) {
             addCriterion("deptId not between", value1, value2, "deptid");
+            return (Criteria) this;
+        }
+
+        public Criteria andReleaseuserIsNull() {
+            addCriterion("releaseUser is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andReleaseuserIsNotNull() {
+            addCriterion("releaseUser is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andReleaseuserEqualTo(String value) {
+            addCriterion("releaseUser =", value, "releaseuser");
+            return (Criteria) this;
+        }
+
+        public Criteria andReleaseuserNotEqualTo(String value) {
+            addCriterion("releaseUser <>", value, "releaseuser");
+            return (Criteria) this;
+        }
+
+        public Criteria andReleaseuserGreaterThan(String value) {
+            addCriterion("releaseUser >", value, "releaseuser");
+            return (Criteria) this;
+        }
+
+        public Criteria andReleaseuserGreaterThanOrEqualTo(String value) {
+            addCriterion("releaseUser >=", value, "releaseuser");
+            return (Criteria) this;
+        }
+
+        public Criteria andReleaseuserLessThan(String value) {
+            addCriterion("releaseUser <", value, "releaseuser");
+            return (Criteria) this;
+        }
+
+        public Criteria andReleaseuserLessThanOrEqualTo(String value) {
+            addCriterion("releaseUser <=", value, "releaseuser");
+            return (Criteria) this;
+        }
+
+        public Criteria andReleaseuserLike(String value) {
+            addCriterion("releaseUser like", value, "releaseuser");
+            return (Criteria) this;
+        }
+
+        public Criteria andReleaseuserNotLike(String value) {
+            addCriterion("releaseUser not like", value, "releaseuser");
+            return (Criteria) this;
+        }
+
+        public Criteria andReleaseuserIn(List<String> values) {
+            addCriterion("releaseUser in", values, "releaseuser");
+            return (Criteria) this;
+        }
+
+        public Criteria andReleaseuserNotIn(List<String> values) {
+            addCriterion("releaseUser not in", values, "releaseuser");
+            return (Criteria) this;
+        }
+
+        public Criteria andReleaseuserBetween(String value1, String value2) {
+            addCriterion("releaseUser between", value1, value2, "releaseuser");
+            return (Criteria) this;
+        }
+
+        public Criteria andReleaseuserNotBetween(String value1, String value2) {
+            addCriterion("releaseUser not between", value1, value2, "releaseuser");
             return (Criteria) this;
         }
     }

@@ -15,21 +15,21 @@
 			</div>
 			<div class="panel-body panel-body-my">
 				<div class="input-group  col-md-5">
-					<span class="input-group-addon" id="senduserName">发送者：</span> <input
-						type="text" class="form-control" placeholder="Username"
-						aria-describedby="senduserName" value="某某" disabled>
+					<span class="input-group-addon" >发送者：</span> <input
+						id="senduserName" type="text" class="form-control" placeholder="Username"
+						aria-describedby="senduserName" value="" disabled>
 				</div>
 				<br>
 				<div class="input-group  col-md-5">
-					<span class="input-group-addon" id="sendtheme">&nbsp; 主 题：</span> <input
-						type="text" class="form-control" placeholder="Username"
-						aria-describedby="senduserName" value="股东大会" disabled>
+					<span class="input-group-addon">&nbsp; 主 题：</span> <input
+						id="sendtheme" type="text" class="form-control" placeholder="Username"
+						aria-describedby="senduserName" value="" disabled>
 				</div>
 				<br>
 				<div class="input-group col-md-10">
 					<label class="sr-only" for="inputHelpBlock"></label>
-					<textarea class="form-control" rows="10" cols="100"
-						disabled="disabled">今天下午开会！！</textarea>
+					<textarea id="sendMeettingInfo" class="form-control" rows="10" cols="100"
+						disabled="disabled"></textarea>
 				</div>
 				<br>
 				<div class="input-group">

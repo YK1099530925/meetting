@@ -1,10 +1,11 @@
 package com.yk.pojo;
 
-import java.io.Serializable;
 import java.util.Date;
 
-public class MeettingInfo implements Serializable{
+public class MeettingInfo {
     private Integer id;
+
+    private Integer meettingid;
 
     private String title;
 
@@ -18,12 +19,22 @@ public class MeettingInfo implements Serializable{
 
     private Integer deptid;
 
+    private String releaseuser;
+
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getMeettingid() {
+        return meettingid;
+    }
+
+    public void setMeettingid(Integer meettingid) {
+        this.meettingid = meettingid;
     }
 
     public String getTitle() {
@@ -74,9 +85,18 @@ public class MeettingInfo implements Serializable{
         this.deptid = deptid;
     }
 
+    public String getReleaseuser() {
+        return releaseuser;
+    }
+
+    public void setReleaseuser(String releaseuser) {
+        this.releaseuser = releaseuser == null ? null : releaseuser.trim();
+	}
+
 	@Override
 	public String toString() {
-		return "MeettingInfo [id=" + id + ", title=" + title + ", profile=" + profile + ", meettingtime=" + meettingtime
-				+ ", addr=" + addr + ", infomation=" + infomation + ", deptid=" + deptid + "]";
+		return "MeettingInfo [id=" + id + ", meettingid=" + meettingid + ", title=" + title + ", profile=" + profile
+				+ ", meettingtime=" + meettingtime + ", addr=" + addr + ", infomation=" + infomation + ", deptid="
+				+ deptid + ", releaseuser=" + releaseuser + "]";
 	}
 }

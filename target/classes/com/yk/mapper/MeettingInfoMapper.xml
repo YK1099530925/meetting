@@ -3,12 +3,14 @@
 <mapper namespace="com.yk.dao.MeettingInfoMapper">
   <resultMap id="BaseResultMap" type="com.yk.pojo.MeettingInfo">
     <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="meettingId" jdbcType="INTEGER" property="meettingid" />
     <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="profile" jdbcType="VARCHAR" property="profile" />
     <result column="meettingTime" jdbcType="TIMESTAMP" property="meettingtime" />
     <result column="addr" jdbcType="VARCHAR" property="addr" />
     <result column="infomation" jdbcType="VARCHAR" property="infomation" />
     <result column="deptId" jdbcType="INTEGER" property="deptid" />
+    <result column="releaseUser" jdbcType="VARCHAR" property="releaseuser" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -69,7 +71,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, title, profile, meettingTime, addr, infomation, deptId
+    id, meettingId, title, profile, meettingTime, addr, infomation, deptId, releaseUser
   </sql>
   <select id="selectByExample" parameterType="com.yk.pojo.MeettingInfoExample" resultMap="BaseResultMap">
     select
@@ -102,18 +104,23 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.yk.pojo.MeettingInfo">
-    insert into y_meettinginfo (id, title, profile, 
-      meettingTime, addr, infomation, 
-      deptId)
-    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{profile,jdbcType=VARCHAR}, 
-      #{meettingtime,jdbcType=TIMESTAMP}, #{addr,jdbcType=VARCHAR}, #{infomation,jdbcType=VARCHAR}, 
-      #{deptid,jdbcType=INTEGER})
+    insert into y_meettinginfo (id, meettingId, title, 
+      profile, meettingTime, addr, 
+      infomation, deptId, releaseUser
+      )
+    values (#{id,jdbcType=INTEGER}, #{meettingid,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
+      #{profile,jdbcType=VARCHAR}, #{meettingtime,jdbcType=TIMESTAMP}, #{addr,jdbcType=VARCHAR}, 
+      #{infomation,jdbcType=VARCHAR}, #{deptid,jdbcType=INTEGER}, #{releaseuser,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.yk.pojo.MeettingInfo">
     insert into y_meettinginfo
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
+      </if>
+      <if test="meettingid != null">
+        meettingId,
       </if>
       <if test="title != null">
         title,
@@ -133,10 +140,16 @@
       <if test="deptid != null">
         deptId,
       </if>
+      <if test="releaseuser != null">
+        releaseUser,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=INTEGER},
+      </if>
+      <if test="meettingid != null">
+        #{meettingid,jdbcType=INTEGER},
       </if>
       <if test="title != null">
         #{title,jdbcType=VARCHAR},
@@ -156,6 +169,9 @@
       <if test="deptid != null">
         #{deptid,jdbcType=INTEGER},
       </if>
+      <if test="releaseuser != null">
+        #{releaseuser,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.yk.pojo.MeettingInfoExample" resultType="java.lang.Long">
@@ -169,6 +185,9 @@
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.meettingid != null">
+        meettingId = #{record.meettingid,jdbcType=INTEGER},
       </if>
       <if test="record.title != null">
         title = #{record.title,jdbcType=VARCHAR},
@@ -188,6 +207,9 @@
       <if test="record.deptid != null">
         deptId = #{record.deptid,jdbcType=INTEGER},
       </if>
+      <if test="record.releaseuser != null">
+        releaseUser = #{record.releaseuser,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -196,12 +218,14 @@
   <update id="updateByExample" parameterType="map">
     update y_meettinginfo
     set id = #{record.id,jdbcType=INTEGER},
+      meettingId = #{record.meettingid,jdbcType=INTEGER},
       title = #{record.title,jdbcType=VARCHAR},
       profile = #{record.profile,jdbcType=VARCHAR},
       meettingTime = #{record.meettingtime,jdbcType=TIMESTAMP},
       addr = #{record.addr,jdbcType=VARCHAR},
       infomation = #{record.infomation,jdbcType=VARCHAR},
-      deptId = #{record.deptid,jdbcType=INTEGER}
+      deptId = #{record.deptid,jdbcType=INTEGER},
+      releaseUser = #{record.releaseuser,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -209,6 +233,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.yk.pojo.MeettingInfo">
     update y_meettinginfo
     <set>
+      <if test="meettingid != null">
+        meettingId = #{meettingid,jdbcType=INTEGER},
+      </if>
       <if test="title != null">
         title = #{title,jdbcType=VARCHAR},
       </if>
@@ -227,17 +254,22 @@
       <if test="deptid != null">
         deptId = #{deptid,jdbcType=INTEGER},
       </if>
+      <if test="releaseuser != null">
+        releaseUser = #{releaseuser,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.yk.pojo.MeettingInfo">
     update y_meettinginfo
-    set title = #{title,jdbcType=VARCHAR},
+    set meettingId = #{meettingid,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
       profile = #{profile,jdbcType=VARCHAR},
       meettingTime = #{meettingtime,jdbcType=TIMESTAMP},
       addr = #{addr,jdbcType=VARCHAR},
       infomation = #{infomation,jdbcType=VARCHAR},
-      deptId = #{deptid,jdbcType=INTEGER}
+      deptId = #{deptid,jdbcType=INTEGER},
+      releaseUser = #{releaseuser,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yk.dao.MyMapper">
+
+	<!-- 获取某个部门所有用户的loginid -->
+	<sql id="Get_One_Dept_All_UserId_List">
+		loginId
+	</sql>
+	<select id="getOneDeptAllUserId" parameterType="java.lang.Integer"
+		resultType="java.lang.Integer">
+		select
+		<include refid="Get_One_Dept_All_UserId_List"></include>
+		from y_user
+		where deptId=#{deptId}
+	</select>
+
+	<!-- 将消息表中用户的标志设置为0 -->
+	<update id="updateMeettingGroupFlag" parameterType="java.lang.Integer">
+		update
+		y_meettinggroup set flag=0 where userId=#{userId}
+	</update>
+
+	<!-- 获得发布人发布的信息 -->
+	<select id="getOneMeettingInfo" parameterType="java.lang.Integer"
+		resultType="com.yk.pojo.MeettingInfo">
+		SELECT mi.meettingId,mi.title,mi.infomation
+		FROM
+		y_meettinggroup mg LEFT JOIN y_meettinginfo mi
+		ON
+		mg.meettingId=mi.meettingId
+		WHERE mg.userId=#{loginId} AND mg.flag=0
+		AND mg.unread=1
+	</select>
+
+	<!-- 设置为已读 -->
+	<update id="setUnRead" parameterType="map">
+		update
+		y_meettinggroup mg
+		set mg.unread=0 where mg.meettingId=#{meettingid} and
+		mg.userId=#{loginId}
+	</update>
+
+	<!-- 查询个人会议信息的map -->
+	<resultMap type="com.yk.pojo.MeettingGroup" id="resultMeettingGroupAndMeettingInfoMap">
+		<result column="meettingId" jdbcType="INTEGER" property="meettingid" />
+		<result column="deptId" jdbcType="INTEGER" property="deptid" />
+		<result column="userId" jdbcType="INTEGER" property="userid" />
+		<result column="flag" jdbcType="INTEGER" property="flag" />
+		<result column="unRead" jdbcType="INTEGER" property="unread" />
+		<!-- 指定联合查询出的部门字段封装 -->
+		<association property="meettingInfo" javaType="com.yk.pojo.MeettingInfo">
+			<result column="meettingId" jdbcType="INTEGER" property="meettingid" />
+			<result column="title" jdbcType="VARCHAR" property="title" />
+			<result column="profile" jdbcType="VARCHAR" property="profile" />
+			<result column="meettingTime" jdbcType="TIMESTAMP" property="meettingtime" />
+			<result column="addr" jdbcType="VARCHAR" property="addr" />
+			<result column="infomation" jdbcType="VARCHAR" property="infomation" />
+			<result column="deptId" jdbcType="INTEGER" property="deptid" />
+			<result column="releaseUser" jdbcType="VARCHAR" property="releaseuser" />
+		</association>
+	</resultMap>
+	<select id="getMyMessage" parameterType="java.lang.Integer"
+		resultMap="resultMeettingGroupAndMeettingInfoMap">
+		SELECT *
+		FROM y_meettinggroup mg LEFT JOIN y_meettinginfo mi
+		ON mg.meettingId=mi.meettingId
+		WHERE mg.userId=#{loginId}
+	</select>
+
+
+</mapper>

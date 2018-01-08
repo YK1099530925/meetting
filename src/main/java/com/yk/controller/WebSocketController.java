@@ -19,16 +19,25 @@ import javax.websocket.Session;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.yk.config.GetHttpSessionConfigurator;
+import com.yk.service.WebsocketService;
+
+import net.sf.json.JSONObject;
 
 /**
  * websocket连接，通过@ServerEndpoint注解，将刚才继承Configurator的类配置到其中
  * @author phy
  *
  */
+@Component
 @ServerEndpoint(value="/websocket/{loginId}",configurator=GetHttpSessionConfigurator.class)
 public class WebSocketController {
+	
+	@Autowired
+	WebsocketService websocketService;
 
 	// 记录当前在线人数
 	private static int onlineCount = 0;
@@ -40,29 +49,19 @@ public class WebSocketController {
 	private String loginId = "";
 	
 	//存放每个客户端的信息
-	private static Map<String, Session> userWebsocket = new HashMap<String, Session>();
+	public static Map<String, Session> userWebsocket = new HashMap<String, Session>();
 	
 	private HttpSession httpSession;
 
 	/**
 	 * 收到客户端消息后调用的方法
-	 * 
+	 * 当处理的消息过大的时候，将生成错误关闭连接
 	 * @param message
 	 * @throws IOException
 	 * @throws InterruptedException
 	 */
 	@OnMessage
 	public void onMessage(String message, Session session) throws Exception {
-		System.out.println("浏览器发送过来的消息:" + message + ":sessionId:" + session.getId());
-
-		
-		// 每5秒发一次消息，发送2次
-/*		int sentMessages = 0;
-		while (sentMessages < 2) {
-			Thread.sleep(5000);
-			session.getBasicRemote().sendText("服务器推送消息第" + sentMessages + "次");
-			sentMessages++;
-		}*/
 
 	}
 
