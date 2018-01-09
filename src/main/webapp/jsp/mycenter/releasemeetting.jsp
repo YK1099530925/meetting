@@ -122,6 +122,8 @@
 				var title = e.title;
 				//会议信息
 				var infomation = e.infomation;
+				//会议id
+				var meettingId = e.meettingid;
 				/* 将发布的会议添加到将要跳转的checkinfo页面中 */
 				document.getElementById("senduserName").value=senduserName;
 				document.getElementById("sendtheme").value=title;
@@ -129,6 +131,9 @@
 				//动态添加向mymessage页面添加一行
 				//添加checkbox
 				var checkBox = $("<td><input type='checkbox' /></td>");
+				//会议状态（设置为已读）
+				var state = $("<td></td>").append("<label></label>");
+				state.append("<span class='glyphicon glyphicon-folder-open'></span>");
 				//添加发送者名字
 				var sendUserName = $("<td></td>").append(senduserName);
 				//添加标题
@@ -136,12 +141,16 @@
 				//添加会议（隐藏会议）
 				var meettingInfoHidden = $("<input type='hidden' value='"+infomation+"' />");
 				var meettingInfoHiddenTd = $("<td></td>").append(meettingInfoHidden);
+				//添加会议id（隐藏id）
+				var meettingIdHidden = $("<td></td>").append("<input type='hidden' value='"+meettingId+"' />");
 				//上面的td全部添加到tr中，在加入到tbody中
 				$("<tr onclick='entercheckinfo(this)'></tr>")
 					.append(checkBox)
+					.append(state)
 					.append(sendUserName)
 					.append(title)
 					.append(meettingInfoHiddenTd)
+					.append(meettingIdHidden)
 					.prependTo("#messageList tbody");	
 			}
 		});

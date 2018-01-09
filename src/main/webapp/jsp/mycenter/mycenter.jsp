@@ -54,7 +54,7 @@
 </body>
 <script type="text/javascript">
 	$(function() {
-		//点击我的信息，先查询数据库，如果有unread为1的，就将他添加到mymessage.jsp中
+		//点击我的信息，查询数据库，获取我所有的信息，添加到mymessage.jsp中,如果有unread为1的，设置为未读状态
 		mymessage = function(){
 			$.ajax({
 				url:"getMyMessage",
@@ -72,17 +72,22 @@
 						}else{
 							state.append("<span class='glyphicon glyphicon-folder-open'></span>");
 						}
-						
+						//发送者
 						var sendUserName = $("<td></td>").append(item.meettingInfo.releaseuser);
+						//会议标题
 						var title = $("<td></td>").append(item.meettingInfo.title);
+						//会议信息（隐藏节点）
 						var meettingInfoHidden = $("<input type='hidden' value='"+item.meettingInfo.infomation+"' />");
 						var meettingInfoHiddenTd = $("<td></td>").append(meettingInfoHidden);
+						//会议id（隐藏id）
+						var meettingIdHidden = $("<td></td>").append("<input type='hidden' value='"+item.meettingid+"' />");
 						$("<tr ondblclick='entercheckinfo(this)'></tr>")
 							.append(checkBox)
 							.append(state)
 							.append(sendUserName)
 							.append(title)
 							.append(meettingInfoHiddenTd)
+							.append(meettingIdHidden)
 							.prependTo("#messageList tbody");
 					});
 					

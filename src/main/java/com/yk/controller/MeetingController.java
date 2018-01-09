@@ -75,12 +75,17 @@ public class MeetingController {
 		// 通过数据库查询自己所发布的会议
 		MeettingInfo oneMeettingInfo = meettingService.getOneMeettingInfo(loginId);
 		// 获取当前设置的会议id，并将发布会议人的unread设置为0
-		meettingService.setUnRead(oneMeettingInfo.getMeettingid(), 10001);
+		meettingService.setUnRead(oneMeettingInfo.getMeettingid(), loginId);
 		JSONObject jsonObject = JSONObject.fromObject(oneMeettingInfo);
 		System.out.println("我发布的会议:" + jsonObject);
 		return jsonObject.toString();
 	}
 
+	/**
+	 * 获取个人的所有会议信息
+	 * @param loginId
+	 * @return
+	 */
 	@RequestMapping(value="/getMyMessage",method=RequestMethod.GET,produces="application/json;charset=utf-8")
 	@ResponseBody
 	public String getMyMessage(Integer loginId) {
@@ -90,6 +95,13 @@ public class MeetingController {
 		jsonObject.put("myMessage", myMessage.toString());
 		System.out.println("jsonobject:" + jsonObject);
 		return jsonObject.toString();
+	}
+	
+	@RequestMapping(value="/setUnread")
+	@ResponseBody
+	public String setUnread(Integer meettingid,Integer loginId) {
+		meettingService.setUnRead(meettingid, loginId);
+		return "";
 	}
 
 	@RequestMapping(value = "/test")
