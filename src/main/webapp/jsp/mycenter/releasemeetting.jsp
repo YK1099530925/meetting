@@ -35,7 +35,7 @@
 						<a id="release" type="submit" class="btn btn-default">发布</a>
 					</div>
 					<div class="col-md-offset-2 col-md-2">
-						<a id="cancelmeetting" type="submit" class="btn btn-default">跳页面</a>
+						<a id="cancelmeetting" type="submit" class="btn btn-default">重置</a>
 					</div>
 				</div>
 			</div>
@@ -57,22 +57,22 @@
 	$("#release").click(function() {
 		var releaseUser = "${sessionScope.userName }";
 		//获得会议的meettingid，通过随机数获得
-		var meettingid = getMeettingId();
+		var meettingidRandom = getMeettingId();
 		//将发布会议的消息封装起来
 		var title = document.getElementsByName("sendtheme")[0].value;
 		var meettingInfo = document.getElementsByName("textmeetting")[0].value;
-		var message = '{"releaseUser":"'+releaseUser+'","title":"'+title+'","meettingInfo":"'+meettingInfo+'","meettingid":"'+meettingid+'"}';
-		
+		var message = '{"releaseUser":"'+releaseUser+'","title":"'+title+'","meettingInfo":"'+meettingInfo+'","meettingid":"'+meettingidRandom+'"}';
+		var loginId = ${sessionScope.loginId};
 		/*将数据保存到数据库的消息表中，成功之后在通知每个用户有消息来了*/
 		$.ajax({
 			url:"messageInfo",
 			type:"post",
-			data:{"message":message},
+			data:{"message":message,"loginId":loginId},
 			success:function(e){
 				if(e=="success"){
 					alert("会议发布成功");
-					//发布会议成功后，将信息显示出来
-					showReleasemeettingInfo();
+					//发布会议成功后，将信息显示出来，将发布会议id查找会议
+					showReleasemeettingInfo(meettingidRandom);
 				}
 			}
 		});
@@ -93,7 +93,7 @@
 
 
 	/*发布后将信息显示出来，在获取会议的同时，将其unread设置为0*/
-	showReleasemeettingInfo = function(){
+	showReleasemeettingInfo = function(meettingidRandom){
 		/*当发布会议成功之后，将跳到checkinfo页面，在这里将从信息表中查找会议信息，
 		将发布人，发布的消息添加到checkinfo和mymessage页面中，在mymessage
 		页面使用input隐藏域存储会议的信息，然后点击查看之后，将从中读取信息到
@@ -109,10 +109,12 @@
 		//让查看信息（checkinfo页面）置位最顶层
 		document.getElementById("myunreadmessage").style.zIndex = -1;
 		document.getElementById("checkinfoback").style.zIndex = 1;
-		//Ajax请求，从数据库中拿到当前发布会议的信息
+		
+		 //Ajax请求，从数据库中拿到当前发布会议的信息
  		$.ajax({
 			url:"getOneMeettingInfo",
 			type:"get",
+			data:{"meettingId":meettingidRandom},
 			success:function(e){
 				//发送人
 				var senduserName = "${sessionScope.userName}";
@@ -122,13 +124,13 @@
 				var title = e.title;
 				//会议信息
 				var infomation = e.infomation;
-				//会议id
-				var meettingId = e.meettingid;
-				/* 将发布的会议添加到将要跳转的checkinfo页面中 */
+				//将发布的会议添加到将要跳转的checkinfo页面中
 				document.getElementById("senduserName").value=senduserName;
 				document.getElementById("sendtheme").value=title;
 				document.getElementById("sendMeettingInfo").value=infomation;
-				//动态添加向mymessage页面添加一行
+				//添加会议后，重新获取数据库，将刚刚所发布的会议显示在第一行
+				mymessage(1);
+				/* //动态添加向mymessage页面添加一行
 				//添加checkbox
 				var checkBox = $("<td><input type='checkbox' /></td>");
 				//会议状态（设置为已读）
@@ -151,9 +153,9 @@
 					.append(title)
 					.append(meettingInfoHiddenTd)
 					.append(meettingIdHidden)
-					.prependTo("#messageList tbody");	
+					.prependTo("#messageList tbody"); */	
 			}
-		});
+		}); 
 	}
 	
 </script>

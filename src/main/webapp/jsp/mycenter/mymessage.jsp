@@ -15,12 +15,12 @@
 			<div class="panel-heading">我的消息</div>
 			<div class="panel-body panel-body-my">
 				<!-- 接收消息体 -->
-				<button class="btn btn-info btn-sm">删除</button>
+				<button id="deleteMeettingInfo" class="btn btn-info btn-sm">删除</button>
 				<button class="btn btn-info btn-sm">标记为已读</button>
 				<table id="messageList" class="table table-hover">
 					<thead>
 						<tr>
-							<td><input type="checkbox" /></td>
+							<td><input type="checkbox" id="check_all" /></td>
 							<td><label>状态</label></td>
 							<td><label>发送者</label></td>
 							<td><label>主题</label></td>
@@ -29,14 +29,20 @@
 					<tbody>
 						<tr ondblclick="entercheckinfo(this)">
 							<td><input type="checkbox" /></td>
-							<td><label><span class="glyphicon glyphicon-folder-close"></span></label></td>
+							<td><label><span
+									class="glyphicon glyphicon-folder-close"></span></label></td>
 							<td>杨宽</td>
 							<td>开会</td>
-							<td><input type="hidden" value="默认会议" /></td>
-							<td><input type="hidden" value="1111"/></td>
+							<td><input type="hidden" value="会议信息" /></td>
+							<td><input type="hidden" value="1111" /></td>
 						</tr>
 					</tbody>
 				</table>
+				<div class="row">
+					<div id="page_Info" class="col-md-5 col-md-offset-4"></div>
+					<div id="page_nav" class="col-md-6 col-md-offset-4">
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -45,6 +51,10 @@
 
 </body>
 <script type="text/javascript">
+	$(function() {
+
+	});
+	//显示会议详细信息
 	function entercheckinfo(a) {
 		//让查看信息页面置位最顶层
 		document.getElementById("myunreadmessage").style.zIndex = -1;
@@ -60,14 +70,15 @@
 		//得到会议id自己点
 		var meettingId = a.children[5].firstChild.defaultValue;
 		//改变状态(如果未打开，则改变状态)
-		if(state.className != "glyphicon glyphicon-folder-open"){
+		if (state.className != "glyphicon glyphicon-folder-open") {
 			$.ajax({
-				url:"setUnread",
-				type:"post",
-				data:"meettingid="+meettingId+"&loginId=${sessionScope.loginId}",
-				success:function(e){
+				url : "setUnread",
+				type : "post",
+				data : "meettingid=" + meettingId
+						+ "&loginId=${sessionScope.loginId}",
+				success : function(e) {
 					//当成功改变unread的值后，修改状态
-					state.className="glyphicon glyphicon-folder-open";
+					state.className = "glyphicon glyphicon-folder-open";
 				}
 			});
 		}
@@ -75,7 +86,7 @@
 		document.getElementById("senduserName").value = senduserNameTd;
 		document.getElementById("sendtheme").value = sendthemeTd;
 		document.getElementById("sendMeettingInfo").value = meettingInfoTd;
-		
+
 	}
 </script>
 </html>

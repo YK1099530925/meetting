@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="com.yk.dao.MyMapper">
 
 	<!-- 获取某个部门所有用户的loginid -->
@@ -23,13 +24,8 @@
 	<!-- 获得发布人发布的信息 -->
 	<select id="getOneMeettingInfo" parameterType="java.lang.Integer"
 		resultType="com.yk.pojo.MeettingInfo">
-		SELECT mi.meettingId,mi.title,mi.infomation
-		FROM
-		y_meettinggroup mg LEFT JOIN y_meettinginfo mi
-		ON
-		mg.meettingId=mi.meettingId
-		WHERE mg.userId=#{loginId} AND mg.flag=0
-		AND mg.unread=1
+		SELECT meettingId,title,infomation FROM y_meettinginfo m
+		WHERE meettingId=#{meettingId}
 	</select>
 
 	<!-- 设置为已读 -->
@@ -64,8 +60,27 @@
 		SELECT *
 		FROM y_meettinggroup mg LEFT JOIN y_meettinginfo mi
 		ON mg.meettingId=mi.meettingId
-		WHERE mg.userId=#{loginId}
+		WHERE mg.userId=#{loginId} ORDER BY
+		mi.id
+		DESC
 	</select>
 
+	<!-- 得到未提示的信息条数 -->
+	<select id="getMyFlagCount" parameterType="java.lang.Integer"
+		resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM y_meettinggroup WHERE flag=1 AND
+		userId=#{loginId}
+	</select>
 
+	<!-- 修改flag标志，返回的数为-2147482646，因此不能根据update的返回值做任何判断 -->
+	<update id="setMyFlagCount" parameterType="java.lang.Integer">
+		UPDATE y_meettinggroup
+		SET flag=0 WHERE userId=#{loginId}
+	</update>
+
+	<delete id="deleteMeetting" parameterType="map">
+		DELETE FROM
+		y_meettinggroup WHERE meettingId = #{meettingId} AND userId =
+		#{loginId}
+	</delete>
 </mapper>

@@ -11,7 +11,7 @@
 	<div class="body-right" id="checkinfoback">
 		<div class="panel panel-info">
 			<div class="panel-heading">
-				<a id="backmymessage"><span class="glyphicon glyphicon-chevron-left"></span>我的消息</a>
+				<a id="backmymessage"><span class="glyphicon glyphicon-chevron-left"></span>返回</a>
 			</div>
 			<div class="panel-body panel-body-my">
 				<div class="input-group  col-md-5">

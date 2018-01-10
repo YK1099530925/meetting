@@ -12,9 +12,15 @@ public interface MyMapper {
 	
 	int updateMeettingGroupFlag(Integer userId);
 	
-	MeettingInfo getOneMeettingInfo(Integer loginId);
+	MeettingInfo getOneMeettingInfo(Integer meettingId);
 
 	int setUnRead(@Param("meettingid")Integer meettingid, @Param("loginId")Integer loginId);
 	
 	List<MeettingGroup> getMyMessage(Integer loginId);
+	
+	int getMyFlagCount(Integer loginId);
+	
+	int setMyFlagCount(Integer loginId);
+
+	int deleteMeetting(@Param("meettingId")Integer meettingId, @Param("loginId")Integer loginId);
 }

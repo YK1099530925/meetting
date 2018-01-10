@@ -73,13 +73,12 @@ public class WebSocketController {
 	 */
 	@OnOpen
 	public void onOpen(@PathParam(value="loginId") String loginId, Session session, EndpointConfig config) throws IOException {
-		System.out.println("打开websocket连接");
 		//判断此map中是否含有此人，有此人，则更新他的session，但当前人数不变
 		if(userWebsocket.containsKey(loginId)) {
 			userWebsocket.put(loginId, session);
 			return;
 		}
-		System.out.println("loginId:" + loginId + "进来了");
+		System.out.println("webSocektController:" + loginId + "进来了");
 		this.loginId = loginId;
 		this.session = session;
 		userWebsocket.put(loginId, session);

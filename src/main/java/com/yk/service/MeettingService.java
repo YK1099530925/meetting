@@ -1,26 +1,17 @@
 package com.yk.service;
 
-import java.io.IOException;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
-
-import javax.websocket.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.yk.controller.WebSocketController;
 import com.yk.dao.MeettingGroupMapper;
 import com.yk.dao.MeettingInfoMapper;
 import com.yk.dao.MyMapper;
 import com.yk.pojo.MeettingGroup;
+import com.yk.pojo.MeettingGroupExample;
+import com.yk.pojo.MeettingGroupExample.Criteria;
 import com.yk.pojo.MeettingInfo;
-import com.yk.utils.ToJson;
-
-import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 @Service
@@ -64,10 +55,10 @@ public class MeettingService {
 		}
 	}
 	
-	//通过消息组表，查询刚刚所发布的会议（因为自己发的，所以标志为0，但未读消息标志unread为1，查询完之后，设置unread为0）
-	public MeettingInfo getOneMeettingInfo(Integer loginId){
-		//通过loginId，flag，unread唯一定位一条消息id，就能查到自己刚刚所发会议
-		MeettingInfo oneMeettingInfo = myMapper.getOneMeettingInfo(loginId);
+	//通过消息组表，查询刚刚所发布的会议
+	public MeettingInfo getOneMeettingInfo(Integer meettingId){
+		//正确的做法：直接从前端传送会议id过来，查询出这一条消息，然后将自己的unread设置为0
+		MeettingInfo oneMeettingInfo=myMapper.getOneMeettingInfo(meettingId);
 		return oneMeettingInfo;
 	}
 
@@ -77,12 +68,24 @@ public class MeettingService {
 	}
 
 	//得到我的会议信息
-	public JSONArray getMyMessage(Integer loginId) {
+	public List<MeettingGroup> getMyMessage(Integer loginId) {
 		List<MeettingGroup> myMessage = myMapper.getMyMessage(loginId);
-		JSONArray jsonArray = new JSONArray();
-		for (MeettingGroup meettingGroup : myMessage) {
-			jsonArray.add(meettingGroup);
+		return myMessage;
+	}
+	
+	//批量删除会议
+	public void deleteMeetting(List<Integer> meettingIdList, Integer loginId) {
+		 /*//问题：这样删除会遇见外键约束，如何解决？
+		  * //创造条件
+		MeettingGroupExample example = new MeettingGroupExample();
+		//条件的准则
+		Criteria criteria = example.createCriteria();
+		//添加准则，以meettingids为准则删除
+		criteria.andMeettingidIn(meettingIdList);
+		//根据条件删除
+		meettingGroupMapper.deleteByExample(example);*/
+		for (Integer meettingId : meettingIdList) {
+			myMapper.deleteMeetting(meettingId,loginId);
 		}
-		return jsonArray;
 	}
 }

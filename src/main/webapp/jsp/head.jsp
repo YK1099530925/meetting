@@ -82,6 +82,14 @@
 	</div>
 </body>
 <script type="text/javascript">
+
+	$(window).load(function(){
+		var flagCount = ${requestScope.flagCount};
+		if(flagCount > 0){
+			alert("你有"+flagCount+"条新消息");
+		}
+	});
+
 	var webServer = "ws://192.168.0.118:8080/metting/websocket/${sessionScope.loginId}";//服务器地址
 	var websocket = new WebSocket(webServer);//创建websocket对象;
 
