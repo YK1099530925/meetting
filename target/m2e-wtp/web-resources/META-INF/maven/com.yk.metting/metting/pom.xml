@@ -180,18 +180,19 @@
 
 		<!-- shiro -->
 		<!-- https://mvnrepository.com/artifact/org.apache.shiro/shiro-core -->
-		<dependency>
-			<groupId>org.apache.shiro</groupId>
-			<artifactId>shiro-core</artifactId>
-			<version>1.2.4</version>
-		</dependency>
+		<!-- <dependency> <groupId>org.apache.shiro</groupId> <artifactId>shiro-core</artifactId> 
+			<version>1.2.4</version> </dependency> -->
 
 		<!-- https://mvnrepository.com/artifact/org.apache.shiro/shiro-web -->
+		<!-- <dependency> <groupId>org.apache.shiro</groupId> <artifactId>shiro-web</artifactId> 
+			<version>1.2.4</version> </dependency> -->
+		<!-- https://mvnrepository.com/artifact/org.apache.shiro/shiro-all -->
 		<dependency>
 			<groupId>org.apache.shiro</groupId>
-			<artifactId>shiro-web</artifactId>
-			<version>1.2.4</version>
+			<artifactId>shiro-all</artifactId>
+			<version>1.3.2</version>
 		</dependency>
+
 	</dependencies>
 
 </project>

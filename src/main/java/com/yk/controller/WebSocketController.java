@@ -1,15 +1,8 @@
 package com.yk.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.websocket.EndpointConfig;
 import javax.websocket.OnClose;
 import javax.websocket.OnError;
@@ -18,15 +11,9 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.yk.config.GetHttpSessionConfigurator;
-import com.yk.service.WebsocketService;
-
-import net.sf.json.JSONObject;
-
 /**
  * websocket连接，通过@ServerEndpoint注解，将刚才继承Configurator的类配置到其中
  * @author phy
@@ -35,9 +22,6 @@ import net.sf.json.JSONObject;
 @Component
 @ServerEndpoint(value="/websocket/{loginId}",configurator=GetHttpSessionConfigurator.class)
 public class WebSocketController {
-	
-	@Autowired
-	WebsocketService websocketService;
 
 	// 记录当前在线人数
 	private static int onlineCount = 0;
@@ -50,8 +34,6 @@ public class WebSocketController {
 	
 	//存放每个客户端的信息
 	public static Map<String, Session> userWebsocket = new HashMap<String, Session>();
-	
-	private HttpSession httpSession;
 
 	/**
 	 * 收到客户端消息后调用的方法

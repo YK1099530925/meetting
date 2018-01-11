@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+
+	<!-- 配置shiroFilter id必须和web.xml中的filter一致 -->
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<property name="securityManager" ref="securityManager"></property>
+		<!-- override these for application-specific URLs if you like: 登录页面 -->
+		<property name="loginUrl" value="/index.jsp" />
+		<!-- 登录成功页面 -->
+		<property name="successUrl" value="/jsp/homePage.jsp" />
+		<!-- 没有权限的页面 -->
+		<property name="unauthorizedUrl" value="/unauthorized.jsp" />
+		<!-- 配置那些页面需要受保护，以及访问这些页面需要的权限 anon:可以被匿名访问 authc:必须认证（即登录）后才能访问的页面 -->
+		<property name="filterChainDefinitions">
+			<value>
+				<!-- /index.jsp = anon /** = authc -->
+			</value>
+		</property>
+	</bean>
+
+	<!-- 配置SecurityManager -->
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="realm" ref="myRealm"></property>
+	</bean>
+
+	<!-- 配置Realm，直接配置实现了Realm接口的bean -->
+	<bean id="myRealm" class="com.yk.realm.MyRealm">
+
+	</bean>
+
+	<!-- 配置 lifecycleBeanPostProcessor，可以自定的来调用配置在Spring IOC 容器中shiro bean的生命周期方法 -->
+	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
+
+	<!-- 启用IOC容器中使用shiro注解，但必须在配置了lifecycleBeanPostProcessor之后才可以使用 -->
+	<!-- 以下配置将会引发二次代理问题，以下也是使用aop，自动注入，所有将会和Spring的自动注入造成二次代理问题 -->
+	<!-- <bean
+		class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+		depends-on="lifecycleBeanPostProcessor" />
+	<bean
+		class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+		<property name="securityManager" ref="securityManager" />
+	</bean> -->
+	<!-- 如果要使用shiro注解，可以使用一下方法配置，这样不会造成二次代理 -->
+	<aop:config proxy-target-class="true"></aop:config>
+	<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">  
+   		<property name="securityManager" ref="securityManager"/>  
+   	</bean>
+	
+
+</beans>
