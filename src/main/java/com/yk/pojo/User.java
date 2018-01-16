@@ -22,8 +22,6 @@ public class User implements Serializable{
 
     private Integer deptid;
 
-    private Integer roleid;
-
     public Integer getId() {
         return id;
     }
@@ -96,18 +94,10 @@ public class User implements Serializable{
         this.deptid = deptid;
     }
 
-    public Integer getRoleid() {
-        return roleid;
-    }
-
-    public void setRoleid(Integer roleid) {
-        this.roleid = roleid;
-    }
-
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", loginid=" + loginid + ", password=" + password + ", username=" + username
 				+ ", sex=" + sex + ", birthday=" + birthday + ", tel=" + tel + ", addr=" + addr + ", deptid=" + deptid
-				+ ", roleid=" + roleid + "]";
+				+ "]";
 	}
 }

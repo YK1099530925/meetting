@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -41,11 +42,14 @@
 				<h4>首页</h4>
 			</a>
 		</div>
-		<div class="head-last-margin col-md-1">
-			<a class="text-muted" href="#" data-toggle="tab">
-				<h4>其他</h4>
-			</a>
-		</div>
+		<!-- shiro的标签，如果有此权限则可以显示 -->
+		<shiro:hasPermission name="user">
+			<div class="head-last-margin col-md-1">
+				<a class="text-muted" href="#" data-toggle="tab">
+					<h4>其他</h4>
+				</a>
+			</div>
+		</shiro:hasPermission>
 		<div class="head-last-margin col-md-1">
 			<a class="text-muted" href="#" data-toggle="tab">
 				<h4>其他</h4>
@@ -90,7 +94,8 @@
 		}
 	});
 
-	var webServer = "ws://192.168.0.118:8080/metting/websocket/${sessionScope.loginId}";//服务器地址
+	/* 使用shiro的时候，使用192.168.0.118会出现连接问题，但是写localhost不会出现 */
+	var webServer = "ws://localhost:8080/metting/websocket/${sessionScope.loginId}";//服务器地址
 	var websocket = new WebSocket(webServer);//创建websocket对象;
 
 	//建立连接的回调方法

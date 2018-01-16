@@ -4,7 +4,7 @@
 <html>
 <head>
 
-<title>首页</title>
+<title>首页暂时没有用</title>
 </head>
 <body>
 	<div class="">

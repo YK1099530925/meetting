@@ -721,66 +721,6 @@ public class UserExample {
             addCriterion("deptId not between", value1, value2, "deptid");
             return (Criteria) this;
         }
-
-        public Criteria andRoleidIsNull() {
-            addCriterion("roleId is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoleidIsNotNull() {
-            addCriterion("roleId is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoleidEqualTo(Integer value) {
-            addCriterion("roleId =", value, "roleid");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoleidNotEqualTo(Integer value) {
-            addCriterion("roleId <>", value, "roleid");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoleidGreaterThan(Integer value) {
-            addCriterion("roleId >", value, "roleid");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoleidGreaterThanOrEqualTo(Integer value) {
-            addCriterion("roleId >=", value, "roleid");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoleidLessThan(Integer value) {
-            addCriterion("roleId <", value, "roleid");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoleidLessThanOrEqualTo(Integer value) {
-            addCriterion("roleId <=", value, "roleid");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoleidIn(List<Integer> values) {
-            addCriterion("roleId in", values, "roleid");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoleidNotIn(List<Integer> values) {
-            addCriterion("roleId not in", values, "roleid");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoleidBetween(Integer value1, Integer value2) {
-            addCriterion("roleId between", value1, value2, "roleid");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoleidNotBetween(Integer value1, Integer value2) {
-            addCriterion("roleId not between", value1, value2, "roleid");
-            return (Criteria) this;
-        }
     }
 
     public static class Criteria extends GeneratedCriteria {

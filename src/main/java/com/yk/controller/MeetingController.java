@@ -6,8 +6,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.transaction.Transactional;
-import javax.websocket.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,9 +21,6 @@ import com.yk.pojo.MeettingGroup;
 import com.yk.pojo.MeettingInfo;
 import com.yk.service.MeettingService;
 import com.yk.service.WebsocketService;
-import com.yk.utils.ToJson;
-
-import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 @Controller

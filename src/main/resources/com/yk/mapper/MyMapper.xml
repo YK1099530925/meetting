@@ -83,4 +83,12 @@
 		y_meettinggroup WHERE meettingId = #{meettingId} AND userId =
 		#{loginId}
 	</delete>
+
+	<select id="getPermissionListByLoginId" parameterType="java.lang.Integer"
+		resultType="string">
+		SELECT permissionName FROM y_user_role yur LEFT JOIN
+		y_role_permission yrp ON yur.roleId = yrp.roleId LEFT JOIN
+		y_permission yp
+		ON yrp.permissionId=yp.id WHERE userId = #{loginid}
+	</select>
 </mapper>

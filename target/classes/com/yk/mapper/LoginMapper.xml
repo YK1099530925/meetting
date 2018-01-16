@@ -22,5 +22,5 @@
 		<include refid="Login_Column_List"></include>
 		from y_user
 		where loginId=#{loginId}
-	</select>
+	</select>	
 </mapper>
