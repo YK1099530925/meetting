@@ -33,7 +33,7 @@ public class MeettingService {
 		meettingInfo.setTitle(messageJson.getString("title"));
 		meettingInfo.setInfomation(messageJson.getString("meettingInfo"));
 		meettingInfo.setMeettingid(meettingid);
-		meettingInfo.setAddr("四川");
+		meettingInfo.setAddr("会议室1");
 		meettingInfo.setDeptid(1);
 		meettingInfo.setMeettingtime(new Date());
 		meettingInfo.setProfile("开会");

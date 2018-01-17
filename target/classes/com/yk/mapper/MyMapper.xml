@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.yk.dao.MyMapper">
-
 	<!-- 获取某个部门所有用户的loginid -->
 	<sql id="Get_One_Dept_All_UserId_List">
 		loginId
@@ -78,17 +77,26 @@
 		SET flag=0 WHERE userId=#{loginId}
 	</update>
 
+	<!-- 删除某个会议 -->
 	<delete id="deleteMeetting" parameterType="map">
 		DELETE FROM
 		y_meettinggroup WHERE meettingId = #{meettingId} AND userId =
 		#{loginId}
 	</delete>
 
+	<!-- 获取权限信息 -->
 	<select id="getPermissionListByLoginId" parameterType="java.lang.Integer"
 		resultType="string">
 		SELECT permissionName FROM y_user_role yur LEFT JOIN
 		y_role_permission yrp ON yur.roleId = yrp.roleId LEFT JOIN
 		y_permission yp
 		ON yrp.permissionId=yp.id WHERE userId = #{loginid}
+	</select>
+	
+	<!-- 获取角色信息 -->
+	<select id="getRoleListByLoginId" parameterType="java.lang.Integer"
+		resultType="string">
+		SELECT roleName FROM y_user_role yur LEFT JOIN y_role
+		yr ON yur.roleId=yr.id WHERE yur.userId=#{loginid}
 	</select>
 </mapper>

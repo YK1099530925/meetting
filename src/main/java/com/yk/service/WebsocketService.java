@@ -18,6 +18,12 @@ public class WebsocketService {
 	@Autowired
 	MyMapper myMapper;
 
+	/**
+	 * 向在线用户推送会议
+	 * @param userIds
+	 * @param loginId
+	 * @throws IOException
+	 */
 	public void sendOnlineUser(List<Integer> userIds, Integer loginId) throws IOException {
 		// 获取在线用户
 		Map<String, Session> onlineUsers = WebSocketController.userWebsocket;

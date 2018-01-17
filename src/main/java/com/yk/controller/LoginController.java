@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.yk.pojo.User;
+import com.yk.service.AskMeettingService;
 import com.yk.service.LoginService;
 import com.yk.service.WebsocketService;
 
@@ -23,6 +24,8 @@ public class LoginController {
 	LoginService loginService;
 	@Autowired
 	WebsocketService websocketService;
+	@Autowired
+	AskMeettingService askMeettingService;
 	
 	@RequestMapping(value="/login",method=RequestMethod.POST)
 	public String login(Integer loginId, String password, Map<String,Object> map) {
@@ -44,6 +47,13 @@ public class LoginController {
 			map.put("userName", user.getUsername());
 			map.put("user", user);
 			map.put("loginId", loginId);
+			
+			//判断是否是经理，如果是经理就从数据库中看有无申请消息
+			if(subject.hasRole("manager")) {
+				//查看是否有未读的会议申请信息
+				int askMeettingCount = askMeettingService.isHasManagerFlag(loginId);
+				System.out.println("有"+askMeettingCount+"条未读消息");
+			}
 			return "head";
 		} catch (AuthenticationException e) {
 			System.out.println("认证失败");

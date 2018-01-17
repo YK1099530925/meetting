@@ -8,7 +8,7 @@
 </head>
 <body>
 	<!-- 查看信息 -->
-	<div class="body-right" id="checkinfoback">
+	<div class="body-right" id="checkAskMeetinginfoback">
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<a style="color: white;" id="backmymessage"><span class="glyphicon glyphicon-chevron-left"></span>返回</a>
@@ -50,11 +50,11 @@
 </body>
 <script type="text/javascript">
 	$(function(){
-		$("#backmymessage").click(function(){
+		$("#checkAskMeetinginfoback").click(function(){
 			/* 当点击返回的时候，将他透明度设置为0，然后将上一个透明度设置为1 */
 			//document.getElementById("checkinfoback").style.opacity=0;
-			document.getElementById("myunreadmessage").style.zIndex = 1;
-			document.getElementById("checkinfoback").style.zIndex = -1;
+			document.getElementById("myunreadAskMeettingmessage").style.zIndex = 1;
+			document.getElementById("checkAskMeetinginfoback").style.zIndex = -1;
 		});
 	});
 </script>

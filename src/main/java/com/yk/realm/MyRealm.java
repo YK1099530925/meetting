@@ -23,10 +23,11 @@ public class MyRealm extends AuthorizingRealm{
 	LoginService loginService;
 
 	/**
-	 * 授权
+	 * 权限授权
 	 */
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principal) {
+		System.out.println("MyRealm:AuthorizationInfo:权限授权");
 		//通过principal获取主身份信息，并转化为真实身份类型（user）
 		//此principle是下面认证通过之后填充到simpleAuthenticatoinInfo中的
 		User user = (User) principal.getPrimaryPrincipal();
@@ -40,6 +41,7 @@ public class MyRealm extends AuthorizingRealm{
 		if(permissionList != null) {
 			//将查询到的权限信息添加到simpleAuthorizationInfo中
 			SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
+			System.out.println("此人的权限：" + permissionList);
 			simpleAuthorizationInfo.addStringPermissions(permissionList);
 			return simpleAuthorizationInfo;
 		}
@@ -51,7 +53,7 @@ public class MyRealm extends AuthorizingRealm{
 	 */
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
-		System.out.println("shiroRealm开始进行认证");
+		System.out.println("MyRealm:AuthenticationInfo:认证");
 		//1、吧AuthenticationToken转换成UsernamePasswordToken
 		UsernamePasswordToken upToken = (UsernamePasswordToken) token;
 		//2、从token中获取username

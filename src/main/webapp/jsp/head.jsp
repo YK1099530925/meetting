@@ -18,7 +18,7 @@
 </head>
 <body>
 	<!-- 头 -->
-	<div class="head row" style="background-color: black; opacity: 0.6;">
+	<div class="head row" style="background-color: #bce8f1; opacity: 0.9;">
 
 		<!-- logo -->
 		<div class="col-md-3">

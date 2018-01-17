@@ -32,8 +32,15 @@
 
 	<!-- 配置SecurityManager -->
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="authorizer" ref="authorizer"></property>
+		<!-- 单个realm配置 -->
 		<!-- <property name="realm" ref="myRealm"></property> -->
-		<property name="realm" ref="myRealm"></property>
+		<property name="realms">
+			<list>
+				<ref bean="myRealm"/>
+				<ref bean="shiroRealm"/>
+			</list>
+		</property>
 		<!-- 将认证器authenticator加入到securityManager中 -->
 		<!-- <property name="authenticator" ref="authenticator"></property> -->
 		<!-- 如果有多个realm，可以将其配置到securityManager的realms属性中 -->
@@ -44,6 +51,7 @@
 		</property> -->
 	</bean>
 	
+	<!-- 配置多个realm用于认证 -->
 	<!-- 如果有多个realm，配置在authenticator认证器中，但这并不是最好的方式，可以直接将realms配置到securityManager中
 		  ，这样当securityManager初始化的时候就将realms添加到了其中，这样在授权的时候更好用，这样认证器中只需要配置一下认证策略即可 -->
 	<!-- <bean id="authenticator" class="org.apache.shiro.authc.pam.ModularRealmAuthenticator">
@@ -54,6 +62,11 @@
 			</list>
 		</property>
 	</bean> -->
+	
+	<!-- 配置多个realm用于授权，一个用于角色，一个用于权限 -->
+	<bean id="authorizer" class="org.apache.shiro.authz.ModularRealmAuthorizer">
+		
+	</bean>
 
 	<!-- 配置Realm，直接配置实现了Realm接口的bean -->
 	<bean id="myRealm" class="com.yk.realm.MyRealm">
@@ -65,12 +78,7 @@
 		</property>
 	</bean>
 	<bean id="shiroRealm" class="com.yk.realm.ShiroRealm">
-		<!-- 配置我们自定义realm的加密方式 -->
-		<property name="credentialsMatcher">
-			<bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
-				<property name="hashAlgorithmName" value="MD5"></property>
-			</bean>
-		</property>
+		
 	</bean>
 
 	<!-- 配置 lifecycleBeanPostProcessor，可以自定的来调用配置在Spring IOC 容器中shiro bean的生命周期方法 -->

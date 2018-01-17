@@ -9,7 +9,7 @@
 <body>
 	<!-- 我的个人资料 -->
 	<div class="body-right">
-		<div class="panel panel-info">
+		<div class="panel panel-primary">
 			<div class="panel-heading">我的基本信息</div>
 			<div class="panel-body panel-body-my">
 				<form class="form-horizontal">

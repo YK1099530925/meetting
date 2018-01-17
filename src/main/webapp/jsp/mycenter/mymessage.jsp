@@ -11,7 +11,7 @@
 	<jsp:include page="checkinfo.jsp"></jsp:include>
 	<!-- 右 -->
 	<div class="body-right" id="myunreadmessage">
-		<div class="panel panel-info">
+		<div class="panel panel-primary">
 			<div class="panel-heading">我的消息</div>
 			<div class="panel-body panel-body-my">
 				<!-- 接收消息体 -->
@@ -20,7 +20,7 @@
 				<table id="messageList" class="table table-hover">
 					<thead>
 						<tr>
-							<td><input type="checkbox" id="check_all" /></td>
+							<td><input type="checkbox" id="check_all"/></td>
 							<td><label>状态</label></td>
 							<td><label>发送者</label></td>
 							<td><label>主题</label></td>
@@ -51,9 +51,6 @@
 
 </body>
 <script type="text/javascript">
-	$(function() {
-
-	});
 	//显示会议详细信息
 	function entercheckinfo(a) {
 		//让查看信息页面置位最顶层

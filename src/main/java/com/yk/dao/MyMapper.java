@@ -26,4 +26,6 @@ public interface MyMapper {
 	int deleteMeetting(@Param("meettingId")Integer meettingId, @Param("loginId")Integer loginId);
 
 	List<String> getPermissionListByLoginId(Integer loginid);
+
+	List<String> getRoleListByLoginId(Integer loginid);
 }

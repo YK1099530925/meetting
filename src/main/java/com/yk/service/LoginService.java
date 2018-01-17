@@ -65,8 +65,21 @@ public class LoginService {
 		return user;
 	}
 
-	
+	/**
+	 * 从数据库中获取权限信息
+	 * @param loginid
+	 * @return
+	 */
 	public List<String> getPermissionListByLoginId(Integer loginid) {
 		return myMapper.getPermissionListByLoginId(loginid);
+	}
+
+	/**
+	 * 从数据库中获取角色信息
+	 * @param loginid
+	 * @return
+	 */
+	public List<String> getRoleListByLoginId(Integer loginid) {
+		return myMapper.getRoleListByLoginId(loginid);
 	}
 }

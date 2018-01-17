@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -9,7 +10,7 @@
 <body>
 	<!-- 发布会议 -->
 	<div class="body-right">
-		<div class="panel panel-info">
+		<div class="panel panel-primary">
 			<div class="panel-heading">发布会议</div>
 			<div class="panel-body panel-body-my">
 				<div class="input-group  col-md-5">
@@ -31,8 +32,13 @@
 				</div>
 				<br>
 				<div class="input-group">
-					<div class="col-md-2">
-						<a id="release" type="submit" class="btn btn-default">发布</a>
+					<shiro:hasPermission name="user:release">
+						<div class="col-md-2">
+							<a id="release" type="submit" class="btn btn-default">发布</a>
+						</div>
+					</shiro:hasPermission>
+					<div class="col-md-2 col-md-offset-2">
+						<a id="askMeetting" type="submit" class="btn btn-default">申请</a>
 					</div>
 					<div class="col-md-offset-2 col-md-2">
 						<a id="cancelmeetting" type="submit" class="btn btn-default">重置</a>
@@ -54,15 +60,28 @@
 		return meettingId;
 	}
 
-	$("#release").click(function() {
+	//获取发布的所有表单的信息
+	getMeettingFormInfo = function(){
 		var releaseUser = "${sessionScope.userName }";
 		//获得会议的meettingid，通过随机数获得
 		var meettingidRandom = getMeettingId();
 		//将发布会议的消息封装起来
 		var title = document.getElementsByName("sendtheme")[0].value;
 		var meettingInfo = document.getElementsByName("textmeetting")[0].value;
-		var message = '{"releaseUser":"'+releaseUser+'","title":"'+title+'","meettingInfo":"'+meettingInfo+'","meettingid":"'+meettingidRandom+'"}';
+		var message = '{"releaseUser":"'+releaseUser
+					+'","title":"'+title
+					+'","meettingInfo":"'+meettingInfo
+					+'","meettingid":"'+meettingidRandom
+					+'"}';
+		return message;
+	}
+
+	$("#release").click(function() {
+		var message = getMeettingFormInfo();
 		var loginId = ${sessionScope.loginId};
+
+		//先返回，还需要实现前端校验：必须每个字段都不能为空
+		return;
 		/*将数据保存到数据库的消息表中，成功之后在通知每个用户有消息来了*/
 		$.ajax({
 			url:"messageInfo",
@@ -78,17 +97,20 @@
 		});
 	});
 
- 
-	$("#cancelmeetting").click(function(){
-		/*var message = '{"title":"开发","meettingInfo":"全体成员"}';
-		  $.ajax({
-			url:"test",
+ 	//普通员工申请会议
+	$("#askMeetting").click(function(){
+		var message = getMeettingFormInfo();
+		var loginId = ${sessionScope.loginId};
+		$.ajax({
+			url:"askMeetting",
 			type:"post",
-			data: {"message":message},
+			data:{"message":message,"loginId":loginId},
 			success:function(e){
-				alert(e=="success");
+				if(e=="success"){
+					alert("申请成功");
+				}
 			}
-		}); */ 
+		});
 	});
 
 

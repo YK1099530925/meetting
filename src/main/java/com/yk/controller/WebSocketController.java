@@ -20,7 +20,7 @@ import com.yk.config.GetHttpSessionConfigurator;
  *
  */
 @Component
-@ServerEndpoint(value="/websocket/{loginId}",configurator=GetHttpSessionConfigurator.class)
+@ServerEndpoint(value="/websocket/{loginId}")
 public class WebSocketController {
 
 	// 记录当前在线人数

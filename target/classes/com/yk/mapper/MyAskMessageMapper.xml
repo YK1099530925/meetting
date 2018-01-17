@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yk.dao.MyAskMessageMapper">
+
+	<select id="getManagerId" parameterType="java.lang.Integer"
+		resultType="java.lang.Integer">
+		SELECT loginId FROM y_role yr LEFT JOIN y_user_role yur ON
+		yr.id=yur.roleId LEFT JOIN y_user yu ON yur.userId=yu.loginId WHERE
+		deptId=#{deptid} AND roleName='manager'
+	</select>
+
+	<update id="setAskMeettingFlag" parameterType="map">
+		UPDATE
+		y_askmessage SET managerFlag=#{flag} WHERE meettingId=#{meettingid}
+	</update>
+
+	<select id="isHasManagerFlag" parameterType="java.lang.Integer"
+		resultType="int">
+		SELECT count(*) FROM y_askmessage WHERE managerFlag=1 AND
+		managerId=#{loginId}
+	</select>
+	
+	<resultMap type="com.yk.pojo.AskMessage" id="resultAskMeettingMap">
+		<result column="meettingId" jdbcType="INTEGER" property="meettingid" />
+		<result column="title" jdbcType="VARCHAR" property="title" />
+		<result column="infomation" jdbcType="VARCHAR" property="infomation" />
+		<result column="askUserName" jdbcType="VARCHAR" property="askusername" />
+	</resultMap>
+	
+	<select id="getAllAskMeettingInfo" parameterType="java.lang.Integer"
+		resultType="com.yk.pojo.AskMessage">
+		SELECT * FROM y_askmessage WHERE managerId=#{loginId}
+	</select>
+</mapper>

@@ -96,7 +96,7 @@ public class MeetingController {
 		PageInfo pageInfo = new PageInfo(myMessage, 5);
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("myMessage", pageInfo);
-		System.out.println("jsonobject:" + jsonObject);
+		System.out.println("我的会议信息:" + jsonObject);
 		return jsonObject.toString();
 	}
 	
@@ -113,6 +113,12 @@ public class MeetingController {
 		return "";
 	}
 	
+	/**
+	 * 删除个人会议信息
+	 * @param meettingIds
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value="/deleteMeetting/{meettingIds}",method=RequestMethod.DELETE)
 	@ResponseBody
 	public String deleteMeetting(@PathVariable("meettingIds")String meettingIds,HttpServletRequest request) {

@@ -57,9 +57,9 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
-	<listener>
+	<!-- <listener>
 		<listener-class>com.yk.listener.RequestListener</listener-class>
-	</listener>
+	</listener> -->
 
 	<!-- 使用rest风格 -->
 	<filter>

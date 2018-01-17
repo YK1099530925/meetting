@@ -23,8 +23,10 @@
 				<li id="releasemeettingLi" class="active"><a class="text-muted"
 					href="#releasemeetting" data-toggle="tab"><span
 						class="glyphicon glyphicon-pencil"></span>&nbsp;发布会议</a></li>
-				<li id="websocketLi" class=""><a class="text-muted" href="#websocket"
-					data-toggle="tab"><span class="glyphicon glyphicon-pencil"></span>&nbsp;websocket</a></li>
+				<shiro:hasPermission name="user:*">
+					<li id="askMeettingMessageLi" class=""><a class="text-muted" onclick="askMeettingInfo(1)" href="#askMeettingMessage"
+						data-toggle="tab"><span class="glyphicon glyphicon-pencil"></span>&nbsp;会议申请消息</a></li>
+				</shiro:hasPermission>
 			</ul>
 		</div>
 
@@ -45,8 +47,8 @@
 			<div class="tab-pane fade in active" id="releasemeetting">
 				<jsp:include page="releasemeetting.jsp"></jsp:include>
 			</div>
-			<div class="tab-pane fade" id="websocket">
-				<jsp:include page="websocket.jsp"></jsp:include>
+			<div class="tab-pane fade" id="askMeettingMessage">
+				<jsp:include page="askMeettingMessage.jsp"></jsp:include>
 			</div>
 		</div>
 
@@ -64,16 +66,34 @@
 				type:"get",
 				data:"loginId=${sessionScope.loginId}&pageNum="+pagN,
 				success:function(e){
+					//添加会议body信息
 					addMeettingList(e);
 					//添加页码信息
-					addpageInfo(e);
+					addpageInfo(e,"#page_Info");
 					//添加分页导航标签
-					addPageNav(e);
+					addPageNav(e,"#page_nav");
 				}
 			});
 		}
 
-		//将查询出的会议动态添加到本页
+		//点击会议申请消息，查询数据库，获取信息
+		askMeettingInfo = function(pagN){
+			$.ajax({
+				url:"getAllAskMeettingInfo",
+				type:"get",
+				data:"loginId=${sessionScope.loginId}&pageNum="+pagN,
+				success:function(e){
+					//添加会议申请body信息
+					addAskMeettingMessage(e);
+					//添加页码信息
+					addpageInfo(e,"#page_Info_askMeetting");
+					//添加分页导航标签
+					addPageNav(e,"#page_nav_askMeetting");
+				}
+			});
+		}
+
+		//将查询出的会议动态添加到mymessage.jsp中
 		function addMeettingList(e){
 			$("#messageList tbody").empty();
 			var myMessageList1 = e.myMessage.list;
@@ -110,10 +130,48 @@
 			});
 		}
 
+		//将查询出的会议动态添加到askMeettingMessage.jsp中
+		function addAskMeettingMessage(e){
+			$("#askMeettingInfoList tbody").empty();
+			var askMeettingInfoList1 = e.myMessage.list;
+			//翻转list
+			var askMeettingInfoList = askMeettingInfoList1.reverse();
+			
+			//循环添加每一项会议到页面
+			$.each(askMeettingInfoList,function(index,item){
+				var checkBox = $("<td><input type='checkbox' class='check_item' /></td>");
+				var state = $("<td></td>").append("<label></label>");
+				//判断会议信息是否已读
+				if(item.agree == 2){
+					state.append("未处理");
+				}else{
+					state.append("已处理");
+				}
+				//发送者
+				var sendUserName = $("<td></td>").append(item.askusername);
+				//会议标题
+				var title = $("<td></td>").append(item.title);
+				//会议信息（隐藏节点）
+				var meettingInfoHidden = $("<input type='hidden' value='"+item.infomation+"' />");
+				var meettingInfoHiddenTd = $("<td></td>").append(meettingInfoHidden);
+				//会议id（隐藏id）
+				var meettingIdHidden = $("<td></td>").append("<input type='hidden' value='"+item.meettingid+"' />");
+				$("<tr ondblclick='entercheckAskMeeettinginfo(this)'></tr>")
+					.append(checkBox)
+					.append(state)
+					.append(sendUserName)
+					.append(title)
+					.append(meettingInfoHiddenTd)
+					.append(meettingIdHidden)
+					.prependTo("#askMeettingInfoList tbody");
+				
+			});
+		}
+
 		//添加页码信息
-		function addpageInfo(e){
-			$("#page_Info").empty();
-			$("#page_Info").append("当前第 "+e.myMessage.pageNum+" 页,总共 "
+		function addpageInfo(e,page_Info){
+			$(page_Info).empty();
+			$(page_Info).append("当前第 "+e.myMessage.pageNum+" 页,总共 "
 					+e.myMessage.pages+" 页,总共 "
 					+e.myMessage.total+" 记录");
 			//将本页保存
@@ -121,9 +179,9 @@
 		}
 
 		//添加分页导航标签
-		function addPageNav(e){
+		function addPageNav(e,page_nav){
 			//添加翻页导航栏
-			$("#page_nav").empty();
+			$(page_nav).empty();
 			var ul = $("<ul></ul>").addClass("pagination");
 			var firstPageLi = $("<li></li>").append($("<a></a>").append("首页").attr("href","#"));
 			var prePageLi = $("<li></li>").append($("<a></a>").append("&laquo;"));
@@ -170,7 +228,7 @@
 			ul.append(nextPageLi).append(lastPageLi);
 
 			var navEle = $("<nav></nav>").append(ul);
-			navEle.appendTo("#page_nav");
+			navEle.appendTo(page_nav);
 		}
 
 		//完成全选

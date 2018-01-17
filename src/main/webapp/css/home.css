@@ -37,24 +37,24 @@
 .body-left {
 	position: absolute;
 	margin-left: 17px;
-	margin-top: 1px;
+	margin-top: 0px;
 	height: 552px;
-	width: 250px;
+	width: 253px;
 	/* border: 1px solid black; */
-	background-color: black;
-	border-radius:6px;/* 圆角 */
-	opacity: 0.6; /* 透明度 */
+	background-color: #bce8f1;
+	border-radius:1px;/* 圆角 */
+	opacity: 0.9; /* 透明度 */
 }
 
 .body-right {
 	position: absolute;
 	margin-left: 270px;
-	margin-top: 1px;
+	margin-top: 0px;
 	height: 580px;
 	width: 1095px;
 	/* border: 1px solid black; */
 	background-color: white;
-	border-radius:6px;
+	border-radius:0px;
 	opacity: 1; /* 透明度 */
 	z-index: 1;
 }
