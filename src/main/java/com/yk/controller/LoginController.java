@@ -39,6 +39,7 @@ public class LoginController {
 			System.out.println("认证成功");
 			//从shiro的session中获得用户的信息
 			User user = (User) subject.getPrincipal();
+			System.out.println("Session:user:" + user);
 			//如果用户存在，获取其未通知的消息
 			int flagCount = loginService.isHasFlag(loginId);
 			//设置request域
@@ -53,6 +54,7 @@ public class LoginController {
 				//查看是否有未读的会议申请信息
 				int askMeettingCount = askMeettingService.isHasManagerFlag(loginId);
 				System.out.println("有"+askMeettingCount+"条未读消息");
+				map.put("askMeettingCount", askMeettingCount);
 			}
 			return "head";
 		} catch (AuthenticationException e) {

@@ -156,6 +156,11 @@
 				var meettingInfoHiddenTd = $("<td></td>").append(meettingInfoHidden);
 				//会议id（隐藏id）
 				var meettingIdHidden = $("<td></td>").append("<input type='hidden' value='"+item.meettingid+"' />");
+				//申请人的id（隐藏id）
+				var askUserIdHidden = $("<td></td>").append("<input type='hidden' value='"+item.askuserid+"' />");
+				//申请人的deptid
+				var askUserDeptIdHidden = $("<td></td>").append("<input type='hidden' value='"+item.deptid+"' />");
+				
 				$("<tr ondblclick='entercheckAskMeeettinginfo(this)'></tr>")
 					.append(checkBox)
 					.append(state)
@@ -163,6 +168,8 @@
 					.append(title)
 					.append(meettingInfoHiddenTd)
 					.append(meettingIdHidden)
+					.append(askUserIdHidden)
+					.append(askUserDeptIdHidden)
 					.prependTo("#askMeettingInfoList tbody");
 				
 			});

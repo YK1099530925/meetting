@@ -59,12 +59,15 @@
 		meettingId = parseInt(r4);
 		return meettingId;
 	}
+	//定义meettingid（为什么定义为全局？因为他将会在两个方法里面使用，所有设置成全局）
+	var meettingidRandom;
 
 	//获取发布的所有表单的信息
 	getMeettingFormInfo = function(){
 		var releaseUser = "${sessionScope.userName }";
 		//获得会议的meettingid，通过随机数获得
-		var meettingidRandom = getMeettingId();
+		meettingidRandom = getMeettingId();
+		var deptId = ${sessionScope.user.deptid};
 		//将发布会议的消息封装起来
 		var title = document.getElementsByName("sendtheme")[0].value;
 		var meettingInfo = document.getElementsByName("textmeetting")[0].value;
@@ -72,6 +75,7 @@
 					+'","title":"'+title
 					+'","meettingInfo":"'+meettingInfo
 					+'","meettingid":"'+meettingidRandom
+					+'","deptId":"'+ deptId
 					+'"}';
 		return message;
 	}
@@ -81,7 +85,7 @@
 		var loginId = ${sessionScope.loginId};
 
 		//先返回，还需要实现前端校验：必须每个字段都不能为空
-		return;
+		/* return; */
 		/*将数据保存到数据库的消息表中，成功之后在通知每个用户有消息来了*/
 		$.ajax({
 			url:"messageInfo",

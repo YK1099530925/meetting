@@ -16,4 +16,6 @@ public interface MyAskMessageMapper {
 
 	List<AskMessage> getAllAskMeettingInfo(Integer loginId);
 
+	void setAskMeettingSign(@Param("askMeettingId")Integer askMeettingId, @Param("agree")Integer agree, @Param("userFlag")Integer userFlag);
+
 }

@@ -22,7 +22,7 @@
 				<br>
 				<div class="input-group  col-md-5">
 					<span class="input-group-addon">&nbsp; 主 题：</span> <input
-						id="sendtheme" type="text" class="form-control" placeholder="Username"
+						id="sendtheme" type="text" class="form-control" placeholder="title"
 						aria-describedby="senduserName" value="" disabled>
 				</div>
 				<br>

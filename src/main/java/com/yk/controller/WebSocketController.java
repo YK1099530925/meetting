@@ -12,8 +12,6 @@ import javax.websocket.Session;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 import org.springframework.stereotype.Component;
-
-import com.yk.config.GetHttpSessionConfigurator;
 /**
  * websocket连接，通过@ServerEndpoint注解，将刚才继承Configurator的类配置到其中
  * @author phy
@@ -77,10 +75,14 @@ public class WebSocketController {
 
 	/**
 	 * 连接关闭调用的方法
+	 * 当关闭连接的时候将此人从userWebsocket中剔除
 	 */
 	@OnClose
 	public void onClose() {
-		System.out.println("服务端连接关闭");
+		System.out.println("服务端连接关闭:" + this.loginId + "退出了");
+		//移除map中此人的session
+		userWebsocket.remove(this.loginId);
+		onlineCount--;
 	}
 
 	/**

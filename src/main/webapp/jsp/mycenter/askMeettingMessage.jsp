@@ -29,12 +29,13 @@
 				<tbody>
 					<tr ondblclick="entercheckAskMeeettinginfo(this)">
 						<td><input type="checkbox" /></td>
-						<td><label><span
-								class="glyphicon glyphicon-folder-close"></span></label></td>
+						<td><label>未处理</label></td>
 						<td>杨宽</td>
 						<td>开会</td>
-						<td><input type="hidden" value="会议信息" /></td>
-						<td><input type="hidden" value="1111" /></td>
+						<td><input type="hidden" value="info" /></td>
+						<td><input type="hidden" value="meettingid" /></td>
+						<td><input type="hidden" value="askUserid" /></td>
+						<td><input type="hidden" value="askUserDeptId" /></td>
 					</tr>
 				</tbody>
 			</table>
@@ -52,6 +53,38 @@
 		//让查看信息页面置位最顶层
 		document.getElementById("myunreadAskMeettingmessage").style.zIndex = -1;
 		document.getElementById("checkAskMeetinginfoback").style.zIndex = 1;
+
+		//判断是否是已处理，如果是已处理，就将按钮变的不可用
+		var handller = "已处理";
+		if(a.children[1].innerText == handller){
+			$("#agreeAskMeetting").addClass("disabled");
+			$("#disagreeAskMeetting").addClass("disabled");
+		}else {
+			$("#agreeAskMeetting").removeClass("disabled");
+			$("#disagreeAskMeetting").removeClass("disabled");
+		}
+
+		//申请人姓名
+		var askUserName = a.children[2].innerHTML;
+		//申请的标题
+		var askTitle = a.children[3].innerHTML;
+		//申请的内容
+		var askInfomation = a.children[4].firstChild.defaultValue;
+		//会议id
+		var askMeettingId = a.children[5].firstChild.defaultValue;
+		//申请人id
+		var askUserId = a.children[6].firstChild.defaultValue;
+		//部门id
+		var askUserDeptId = a.children[7].firstChild.defaultValue;
+
+		//添加到查看页面
+		document.getElementById("askUserName").value = askUserName;
+		document.getElementById("askTitle").value = askTitle;
+		document.getElementById("askMeettingInfo").value = askInfomation;
+		document.getElementById("askMeettingId").value = askMeettingId;
+		document.getElementById("askUserId").value = askUserId;
+		document.getElementById("askUserDeptId").value = askUserDeptId;
+		
 	}
 </script>
 </html>

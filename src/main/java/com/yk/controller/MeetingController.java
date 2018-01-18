@@ -36,7 +36,8 @@ public class MeetingController {
 	WebsocketService websocketService;
 	
 	/**
-	 * 发布会议 1：保存会议 2：给在线员工提示 3：给消息表中设置标志
+	 * 1:发布会议 1：保存会议 2：给在线员工提示 3：给消息表中设置标志
+	 * 2:申请会议成功，然后也通过此方法发送
 	 * 
 	 * @param message
 	 * @return
@@ -50,7 +51,7 @@ public class MeetingController {
 		// 保存会议信息
 		meettingService.saveMeettingInfo(messageJson);
 		// 从user表中拿到对应部们人的loginid(先固定deptid=1)
-		List<Integer> userIds = myMapper.getOneDeptAllUserId(1);
+		List<Integer> userIds = myMapper.getOneDeptAllUserId(messageJson.getInt("deptId"));
 		// 将刚刚添加的信息放到消息表中（消息表：员工登录的时候需要查询是否存在未提示信息）
 		meettingService.insertMeettingGrup(Integer.parseInt(messageJson.getString("meettingid")), 1, userIds);
 		// 将会议消息推送到在线用户，并设置已推送用户的flag标志为0

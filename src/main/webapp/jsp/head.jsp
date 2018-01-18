@@ -92,6 +92,11 @@
 		if(flagCount > 0){
 			alert("你有"+flagCount+"条新消息");
 		}
+		//出现问题：只有manager权限的登录才有${requestScope.askMeettingCount}
+		/* var askMeettingCount = ${requestScope.askMeettingCount};
+		if(askMeettingCount > 0){
+			alert("你有"+askMeettingCount+"条新申请的消息");
+		} */
 	});
 
 	/* 使用shiro的时候，使用192.168.0.118会出现连接问题，但是写localhost不会出现 */

@@ -20,16 +20,21 @@
 		SELECT count(*) FROM y_askmessage WHERE managerFlag=1 AND
 		managerId=#{loginId}
 	</select>
-	
+
 	<resultMap type="com.yk.pojo.AskMessage" id="resultAskMeettingMap">
 		<result column="meettingId" jdbcType="INTEGER" property="meettingid" />
 		<result column="title" jdbcType="VARCHAR" property="title" />
 		<result column="infomation" jdbcType="VARCHAR" property="infomation" />
 		<result column="askUserName" jdbcType="VARCHAR" property="askusername" />
 	</resultMap>
-	
+
 	<select id="getAllAskMeettingInfo" parameterType="java.lang.Integer"
 		resultType="com.yk.pojo.AskMessage">
 		SELECT * FROM y_askmessage WHERE managerId=#{loginId}
+	</select>
+
+	<select id="setAskMeettingSign" resultType="map">
+		UPDATE y_askmessage
+		SET agree=#{agree},userFlag=#{userFlag} WHERE meettingId=#{askMeettingId}
 	</select>
 </mapper>
