@@ -92,11 +92,34 @@
 		y_permission yp
 		ON yrp.permissionId=yp.id WHERE userId = #{loginid}
 	</select>
-	
+
 	<!-- 获取角色信息 -->
 	<select id="getRoleListByLoginId" parameterType="java.lang.Integer"
 		resultType="string">
 		SELECT roleName FROM y_user_role yur LEFT JOIN y_role
-		yr ON yur.roleId=yr.id WHERE yur.userId=#{loginid}
+		yr ON
+		yur.roleId=yr.id WHERE yur.userId=#{loginid}
 	</select>
+
+	<resultMap id="MyInfoResultMap" type="com.yk.pojo.User">
+		<result column="loginId" jdbcType="INTEGER" property="loginid" />
+		<result column="userName" jdbcType="VARCHAR" property="username" />
+		<result column="sex" jdbcType="VARCHAR" property="sex" />
+		<result column="birthday" jdbcType="DATE" property="birthday" />
+		<result column="tel" jdbcType="VARCHAR" property="tel" />
+		<result column="addr" jdbcType="VARCHAR" property="addr" />
+		<result column="deptId" jdbcType="INTEGER" property="deptid" />
+		<association property="departMent" javaType="com.yk.pojo.DepartMent">
+			<id column="id" jdbcType="INTEGER" property="id" />
+			<result column="deptName" jdbcType="VARCHAR" property="deptname" />
+			<result column="deptTel" jdbcType="VARCHAR" property="depttel" />
+		</association>
+	</resultMap>
+
+	<select id="getMyPersonalInfo" parameterType="java.lang.Integer"
+		resultMap="MyInfoResultMap">
+		SELECT * FROM y_user yu LEFT JOIN y_dept yd ON
+		yu.deptId=yd.id WHERE yu.loginId=#{loginId}
+	</select>
+
 </mapper>

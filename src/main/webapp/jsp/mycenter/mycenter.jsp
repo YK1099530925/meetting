@@ -12,7 +12,7 @@
 		<!-- 左 -->
 		<div class="body-left">
 			<ul class="nav nav-pills nav-stacked nav-tabs">
-				<li id="myinfoLi" class=""><a class="text-muted" href="#myinfo" data-toggle="tab"><span
+				<li id="myinfoLi" class=""><a class="text-muted" onclick="myInfo()" href="#myinfo" data-toggle="tab"><span
 						class="glyphicon glyphicon-user"></span>&nbsp;个人信息</a></li>
 				<li id="mymessageLi" class=""><a class="text-muted" onclick="mymessage(1)" href="#mymessage" data-toggle="tab"><span
 						class="glyphicon glyphicon-comment"></span>&nbsp;我的消息</a></li>
@@ -56,7 +56,39 @@
 
 </body>
 <script type="text/javascript">
+
+	
+
 	$(function() {
+
+		var loginId = ${sessionScope.loginId};
+		//添加个人信息到myInfo.jsp中
+		//查询库，将整个用户信息（除密码，返回给前台）
+		myInfo = function(){
+			$.ajax({
+				url:"getMyPersonalInfoController",
+				type:"get",
+				data:{"loginId":loginId},
+				success:function(e){
+					var loginId = e.user.loginid;
+					var userName = e.user.username;
+					var sex = e.user.sex;
+					var birthday = e.user.birthday;
+					var tel = e.user.tel;
+					var addr = e.user.addr;
+					var departMent = e.user.departMent.deptname;
+					$("#loginId")[0].value = loginId;
+					$("#username")[0].value = userName;
+					$("#sex")[0].value = sex;
+					$("#birthday")[0].value = birthday;
+					$("#tel")[0].value = tel;
+					$("#addr")[0].value = addr;
+					$("#deptname")[0].value = departMent;
+					
+				}
+			});
+		}
+		
 		var thisPage;
 		//点击我的信息，查询数据库，获取我所有的信息，添加到mymessage.jsp中,如果有unread为1的，设置为未读状态
 		//传入第几页，查询第几页

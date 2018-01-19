@@ -28,4 +28,6 @@ public interface MyMapper {
 	List<String> getPermissionListByLoginId(Integer loginid);
 
 	List<String> getRoleListByLoginId(Integer loginid);
+
+	User getMyPersonalInfo(Integer loginId);
 }

@@ -3,101 +3,112 @@ package com.yk.pojo;
 import java.io.Serializable;
 import java.util.Date;
 
-public class User implements Serializable{
-    private Integer id;
+public class User implements Serializable {
+	private Integer id;
 
-    private Integer loginid;
+	private Integer loginid;
 
-    private String password;
+	private String password;
 
-    private String username;
+	private String username;
 
-    private String sex;
+	private String sex;
 
-    private Date birthday;
+	private Date birthday;
 
-    private String tel;
+	private String tel;
 
-    private String addr;
+	private String addr;
 
-    private Integer deptid;
+	private Integer deptid;
 
-    public Integer getId() {
-        return id;
-    }
+	private DepartMent departMent;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public Integer getLoginid() {
-        return loginid;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setLoginid(Integer loginid) {
-        this.loginid = loginid;
-    }
+	public Integer getLoginid() {
+		return loginid;
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	public void setLoginid(Integer loginid) {
+		this.loginid = loginid;
+	}
 
-    public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public String getUsername() {
-        return username;
-    }
+	public void setPassword(String password) {
+		this.password = password == null ? null : password.trim();
+	}
 
-    public void setUsername(String username) {
-        this.username = username == null ? null : username.trim();
-    }
+	public String getUsername() {
+		return username;
+	}
 
-    public String getSex() {
-        return sex;
-    }
+	public void setUsername(String username) {
+		this.username = username == null ? null : username.trim();
+	}
 
-    public void setSex(String sex) {
-        this.sex = sex == null ? null : sex.trim();
-    }
+	public String getSex() {
+		return sex;
+	}
 
-    public Date getBirthday() {
-        return birthday;
-    }
+	public void setSex(String sex) {
+		this.sex = sex == null ? null : sex.trim();
+	}
 
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
-    }
+	public Date getBirthday() {
+		return birthday;
+	}
 
-    public String getTel() {
-        return tel;
-    }
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
+	}
 
-    public void setTel(String tel) {
-        this.tel = tel == null ? null : tel.trim();
-    }
+	public String getTel() {
+		return tel;
+	}
 
-    public String getAddr() {
-        return addr;
-    }
+	public void setTel(String tel) {
+		this.tel = tel == null ? null : tel.trim();
+	}
 
-    public void setAddr(String addr) {
-        this.addr = addr == null ? null : addr.trim();
-    }
+	public String getAddr() {
+		return addr;
+	}
 
-    public Integer getDeptid() {
-        return deptid;
-    }
+	public void setAddr(String addr) {
+		this.addr = addr == null ? null : addr.trim();
+	}
 
-    public void setDeptid(Integer deptid) {
-        this.deptid = deptid;
-    }
+	public Integer getDeptid() {
+		return deptid;
+	}
+
+	public void setDeptid(Integer deptid) {
+		this.deptid = deptid;
+	}
+
+	public DepartMent getDepartMent() {
+		return departMent;
+	}
+
+	public void setDepartMent(DepartMent departMent) {
+		this.departMent = departMent;
+	}
 
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", loginid=" + loginid + ", password=" + password + ", username=" + username
 				+ ", sex=" + sex + ", birthday=" + birthday + ", tel=" + tel + ", addr=" + addr + ", deptid=" + deptid
-				+ "]";
+				+ ", departMent=" + departMent + "]";
 	}
+
 }
