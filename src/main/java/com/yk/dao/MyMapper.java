@@ -30,4 +30,6 @@ public interface MyMapper {
 	List<String> getRoleListByLoginId(Integer loginid);
 
 	User getMyPersonalInfo(Integer loginId);
+
+	int updateByLoginIdSelective(User user);
 }

@@ -35,6 +35,12 @@
 
 	<select id="setAskMeettingSign" resultType="map">
 		UPDATE y_askmessage
-		SET agree=#{agree},userFlag=#{userFlag} WHERE meettingId=#{askMeettingId}
+		SET agree=#{agree},userFlag=#{userFlag} WHERE
+		meettingId=#{askMeettingId}
 	</select>
+
+	<update id="setManagerFlag" parameterType="map">
+		UPDATE y_askmessage
+		SET managerFlag=#{managerFlag} WHERE managerId=#{loginId}
+	</update>
 </mapper>

@@ -17,49 +17,49 @@
 						<label for="loginId" class="col-sm-2 control-label">账号</label>
 						<div class="col-sm-5">
 							<input type="text" class="form-control" id="loginId"
-								name="loginId" value="" disabled>
+								name="loginId" value="">
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="username" class="col-sm-2 control-label">姓名</label>
 						<div class="col-sm-5">
 							<input type="text" class="form-control" id="username"
-								name="username" value="" disabled>
+								name="username" value="">
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="sex" class="col-sm-2 control-label">性别</label>
 						<div class="col-sm-5">
 							<input type="text" class="form-control" id="sex" name="sex"
-								value="" disabled>
+								value="">
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="birthday" class="col-sm-2 control-label">出生日期</label>
 						<div class="col-sm-5">
 							<input type="text" class="form-control" id="birthday"
-								name="birthday" value="" disabled>
+								name="birthday" value="">
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="tel" class="col-sm-2 control-label">联系方式</label>
 						<div class="col-sm-5">
 							<input type="text" class="form-control" id="tel" name="tel"
-								value="" disabled>
+								value="">
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="addr" class="col-sm-2 control-label">住址</label>
 						<div class="col-sm-5">
 							<input type="text" class="form-control" id="addr" name="addr"
-								value="" disabled>
+								value="">
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="deptname" class="col-sm-2 control-label">部门id</label>
 						<div class="col-sm-5">
-							<input type="text" class="form-control" id="deptname" name="deptname"
-								value="" disabled>
+							<input type="text" class="form-control" id="deptname"
+								name="departMent.deptname" value="">
 						</div>
 					</div>
 					<div class="form-group">
@@ -93,7 +93,7 @@
 							<label for="loginIdModal" class="col-sm-2 control-label">账号</label>
 							<div class="col-sm-5">
 								<input type="text" class="form-control" id="loginIdModal"
-									name="loginId" value="" disabled>
+									name="loginid" value="" disabled>
 							</div>
 						</div>
 						<div class="form-group">
@@ -127,45 +127,60 @@
 						<div class="form-group">
 							<label for="addrModal" class="col-sm-2 control-label">住址</label>
 							<div class="col-sm-5">
-								<input type="text" class="form-control" id="addrModal" name="addr"
-									value="">
+								<input type="text" class="form-control" id="addrModal"
+									name="addr" value="">
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="deptnameModal" class="col-sm-2 control-label">部门id</label>
 							<div class="col-sm-5">
 								<input type="text" class="form-control" id="deptnameModal"
-									name="deptname" value="" disabled>
+									name="departMent.deptname" value="" disabled>
 							</div>
 						</div>
 					</form>
 				</div>
 				<!-- 尾 -->
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-					<button type="button" class="btn btn-default" data-dismiss="modal">保存</button>
+					<button id="cancelMyInfoUpdateModal" type="button"
+						class="btn btn-default" data-dismiss="modal">取消</button>
+					<button id="saveMyInfoUpdateModal" type="button"
+						class="btn btn-default" data-dismiss="modal">保存</button>
 				</div>
 			</div>
 		</div>
 	</div>
 </body>
 <script type="text/javascript">
-	$(function() {
-		/* 点击修改时，将disabled属性删除 */
-		$("#update").click(function() {
-			/* $("#username").removeAttr("disabled");
-			$("#sex").removeAttr("disabled");
-			$("#birthday").removeAttr("disabled");
-			$("#tel").removeAttr("disabled");
-			$("#addr").removeAttr("disabled"); */
-		});
-		/* 点击保存时，将disabled添加属性 */
-		$("#save").click(function() {
-			/* $("#username").attr("disabled", "disabled");
-			$("#sex").attr("disabled", "disabled");
-			$("#birthday").attr("disabled", "disabled");
-			$("#tel").attr("disabled", "disabled");
-			$("#addr").attr("disabled", "disabled"); */
+	/* 点击修改时：将所有信息添加到模态框中 */
+	$("#update").click(function() {
+
+		$("#loginIdModal")[0].value = $("#loginId")[0].value;
+		$("#usernameModal")[0].value = $("#username")[0].value;
+		$("#sexModal")[0].value = $("#sex")[0].value;
+		$("#birthdayModal")[0].value = $("#birthday")[0].value;
+		$("#telModal")[0].value = $("#tel")[0].value;
+		$("#addrModal")[0].value = $("#addr")[0].value;
+		$("#deptnameModal")[0].value = $("#deptname")[0].value;
+
+		/* $("#username").removeAttr("disabled");
+		$("#sex").removeAttr("disabled");
+		$("#birthday").removeAttr("disabled");
+		$("#tel").removeAttr("disabled");
+		$("#addr").removeAttr("disabled"); */
+	});
+	/* {"user":$("#updateMyInfoModal form").serialize()} */
+	$("#saveMyInfoUpdateModal").click(function() {
+		var loginId = ${sessionScope.loginId};
+		$.ajax({
+			url : "updateMyInfo/"+loginId,
+			type : "PUT",
+			data : $("#updateMyInfoModal form").serialize(),
+			success : function(result) {
+				alert("修改成功");
+				/* 修改成功之后，将页面表单的数据变换过来 */
+				myInfo();
+			}
 		});
 	});
 </script>

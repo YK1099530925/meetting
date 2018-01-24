@@ -83,6 +83,14 @@ public class AskMeettingController {
 		return jsonObject.toString();
 	}
 
+	/**
+	 * 处理申请的会议，同意或反对
+	 * @param agree
+	 * @param askMeettingId
+	 * @param askUserId
+	 * @return
+	 * @throws IOException
+	 */
 	@RequestMapping(value = "/isOrAgreeAskMeetting")
 	@ResponseBody
 	public String isOrAgreeAskMeetting(Integer agree, Integer askMeettingId, Integer askUserId) throws IOException {

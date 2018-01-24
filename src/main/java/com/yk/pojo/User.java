@@ -3,6 +3,8 @@ package com.yk.pojo;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class User implements Serializable {
 	private Integer id;
 
@@ -14,6 +16,7 @@ public class User implements Serializable {
 
 	private String sex;
 
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date birthday;
 
 	private String tel;

@@ -32,7 +32,7 @@ public class WebsocketService {
 			if (onlineUsers.containsKey(String.valueOf(userIds.get(id)))) {
 				//向在线用户推送消息(但是不给自己提示)
 				if(userIds.get(id) != (int)loginId) {
-					onlineUsers.get(String.valueOf(userIds.get(id))).getBasicRemote().sendText("你有消息来了");
+					onlineUsers.get(String.valueOf(userIds.get(id))).getBasicRemote().sendText("你收到了新的会议");
 				}
 			} else {
 				// 将没有推送的用户id删除，之后将推送了的用户flag标志设置为0

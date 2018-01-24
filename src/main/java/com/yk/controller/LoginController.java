@@ -40,8 +40,9 @@ public class LoginController {
 			//从shiro的session中获得用户的信息
 			User user = (User) subject.getPrincipal();
 			System.out.println("Session:user:" + user);
-			//如果用户存在，获取其未通知的消息
+			//如果用户存在，获取其未通知的消息（某人发布会议，确没有通知到未在线用户）
 			int flagCount = loginService.isHasFlag(loginId);
+			System.out.println("未提示的会议消息:" + flagCount);
 			//设置request域
 			map.put("flagCount", flagCount);
 			//设置session域
@@ -49,13 +50,20 @@ public class LoginController {
 			map.put("user", user);
 			map.put("loginId", loginId);
 			
-			//判断是否是经理，如果是经理就从数据库中看有无申请消息
+			int askMeettingCount = 0;
+			//判断是否是经理，如果是经理就从数据库中查看是否有未通知的申请的会议消息
 			if(subject.hasRole("manager")) {
-				//查看是否有未读的会议申请信息
-				int askMeettingCount = askMeettingService.isHasManagerFlag(loginId);
-				System.out.println("有"+askMeettingCount+"条未读消息");
-				map.put("askMeettingCount", askMeettingCount);
+				//查看是否有未通知的申请的会议消息
+				askMeettingCount = askMeettingService.isHasManagerFlag(loginId);
+				//如果有未通知的则设置askMeettingCount的条数，并将库中managerFlag标志为0，然后前台通知
+				if(askMeettingCount > 0){
+					askMeettingService.setManagerFlag(loginId,0);
+				}
+			}else{
+				//否则是员工，什么消息被同意，什么消息被拒绝
+				
 			}
+			map.put("askMeettingCount", askMeettingCount);
 			return "head";
 		} catch (AuthenticationException e) {
 			System.out.println("认证失败");

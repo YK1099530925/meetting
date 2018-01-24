@@ -20,7 +20,7 @@
 			<table id="askMeettingInfoList" class="table table-hover">
 				<thead>
 					<tr>
-						<td><input type="checkbox" /></td>
+						<td><input type="checkbox" id="check_allAskMeetting"/></td>
 						<td><label>状态</label></td>
 						<td><label>申请者</label></td>
 						<td><label>标题</label></td>
@@ -54,7 +54,7 @@
 		document.getElementById("myunreadAskMeettingmessage").style.zIndex = -1;
 		document.getElementById("checkAskMeetinginfoback").style.zIndex = 1;
 
-		//判断是否是已处理，如果是已处理，就将按钮变的不可用
+		//判断是否是已处理，如果是已处理，就将处理按钮变的不可用
 		var handller = "已处理";
 		if(a.children[1].innerText == handller){
 			$("#agreeAskMeetting").addClass("disabled");

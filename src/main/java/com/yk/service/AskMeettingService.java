@@ -72,7 +72,7 @@ public class AskMeettingService {
 		//判断经理是否在线即经理的id是否在在线用户中
 		if(onlineUsers.containsKey(managerid.toString())) {
 			//给经理发送提示信息
-			onlineUsers.get(managerid.toString()).getBasicRemote().sendText("有一条会议申请发布");
+			onlineUsers.get(managerid.toString()).getBasicRemote().sendText("经理您好：您有一条会议需要处理");
 			//设置flag为0，表示已经提示
 			//通过meettingid查找申请发布的消息然后设置其flag=0，表示已经提示
 			myAskMessageMapper.setAskMeettingFlag(0,meettingid);
@@ -106,6 +106,15 @@ public class AskMeettingService {
 	 */
 	public void setAskMeettingSign(Integer askMeettingId, Integer agree, Integer userFlag) {
 		myAskMessageMapper.setAskMeettingSign(askMeettingId,agree,userFlag);
+	}
+
+	/**
+	 * 设置askMeetting的managerFlag
+	 * @param loginId
+	 * @param i
+	 */
+	public void setManagerFlag(Integer loginId, Integer managerFlag) {
+		myAskMessageMapper.setManagerFlag(loginId,managerFlag);
 	}
 	
 	

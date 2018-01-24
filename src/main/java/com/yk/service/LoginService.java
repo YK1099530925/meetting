@@ -51,8 +51,8 @@ public class LoginService {
 	public int isHasFlag(Integer loginId){
 		//获取flag为1的条数，并设置该用户的flag标志为0
 		int flagCount = myMapper.getMyFlagCount(loginId);
+		//设置flag标志位0
 		myMapper.setMyFlagCount(loginId);
-		System.out.println("未提示消息:" + flagCount);
 		return flagCount;
 	}
 	

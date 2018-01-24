@@ -109,7 +109,7 @@
 			data:{"agree":agree,"askMeettingId":askMeettingId,"askUserId":askUserId},
 			success:function(e){
 				alert("处理成功");
-				//处理成功然后回到上一页面
+				//处理成功然后回到上一页面（重新刷新整个页面）
 				askMeettingInfo(1);
 				document.getElementById("myunreadAskMeettingmessage").style.zIndex = 1;
 				document.getElementById("checkAskMeetinginfoback").style.zIndex = -1;

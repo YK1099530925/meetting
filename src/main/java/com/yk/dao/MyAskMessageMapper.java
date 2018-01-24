@@ -18,4 +18,6 @@ public interface MyAskMessageMapper {
 
 	void setAskMeettingSign(@Param("askMeettingId")Integer askMeettingId, @Param("agree")Integer agree, @Param("userFlag")Integer userFlag);
 
+	int setManagerFlag(@Param("loginId")Integer loginId, @Param("managerFlag")Integer managerFlag);
+
 }

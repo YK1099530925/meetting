@@ -84,8 +84,8 @@
 		var message = getMeettingFormInfo();
 		var loginId = ${sessionScope.loginId};
 
-		//先返回，还需要实现前端校验：必须每个字段都不能为空
-		/* return; */
+		//还需要实现前端校验：必须每个字段都不能为空
+		
 		/*将数据保存到数据库的消息表中，成功之后在通知每个用户有消息来了*/
 		$.ajax({
 			url:"messageInfo",

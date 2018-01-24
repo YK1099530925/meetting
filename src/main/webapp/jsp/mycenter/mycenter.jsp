@@ -57,6 +57,20 @@
 </body>
 <script type="text/javascript">
 
+	/* 将日期格式化 */
+	dateFormat = function(date){
+		var y = date.year;
+		var m = date.month + 1;
+		var d = date.date;
+		//判断是2000年前还是后
+		if(y >= 50){
+			y = 1900 + y;
+		}else{
+			y = 2000 + y;
+		}
+		var birthday = y + "-" + m + "-" + d;
+		return birthday;
+	}
 	
 
 	$(function() {
@@ -80,7 +94,7 @@
 					$("#loginId")[0].value = loginId;
 					$("#username")[0].value = userName;
 					$("#sex")[0].value = sex;
-					$("#birthday")[0].value = birthday;
+					$("#birthday")[0].value = dateFormat(birthday);
 					$("#tel")[0].value = tel;
 					$("#addr")[0].value = addr;
 					$("#deptname")[0].value = departMent;
@@ -162,7 +176,7 @@
 			});
 		}
 
-		//将查询出的会议动态添加到askMeettingMessage.jsp中
+		//将查询出申请的会议动态添加到askMeettingMessage.jsp中
 		function addAskMeettingMessage(e){
 			$("#askMeettingInfoList tbody").empty();
 			var askMeettingInfoList1 = e.myMessage.list;
@@ -171,7 +185,7 @@
 			
 			//循环添加每一项会议到页面
 			$.each(askMeettingInfoList,function(index,item){
-				var checkBox = $("<td><input type='checkbox' class='check_item' /></td>");
+				var checkBox = $("<td><input type='checkbox' class='check_itemAskMeetting' /></td>");
 				var state = $("<td></td>").append("<label></label>");
 				//判断会议信息是否已读
 				if(item.agree == 2){
@@ -207,6 +221,8 @@
 			});
 		}
 
+		/* ******************添加页面翻页导航****************** */
+		//需要的json串的格式：e.myMessage，myMessage中有page的属性，和每页的信息详情
 		//添加页码信息
 		function addpageInfo(e,page_Info){
 			$(page_Info).empty();
@@ -216,8 +232,6 @@
 			//将本页保存
 			thisPage = e.myMessage.pageNum;
 		}
-
-		//添加分页导航标签
 		function addPageNav(e,page_nav){
 			//添加翻页导航栏
 			$(page_nav).empty();
@@ -269,8 +283,9 @@
 			var navEle = $("<nav></nav>").append(ul);
 			navEle.appendTo(page_nav);
 		}
+		/* ********************************************************* */
 
-		//完成全选
+		/* **********mymessage.jsp页面:完成CheckBox全选和删除*********** */
 		$("#check_all").click(function(){
 			$(".check_item").prop("checked",$(this).prop("checked"));
 		});
@@ -302,6 +317,20 @@
 				});
 			}
 		});
+		/* ********************************************************* */
+		
+		/* **********askMeettingMessage.jsp页面:完成CheckBox全选和删除*********** */
+		$("#check_allAskMeetting").click(function(){
+			$(".check_itemAskMeetting").prop("checked",$(this).prop("checked"));
+		});
+		$(document).on("click",".check_itemAskMeetting",function(){
+			var flag = $(".check_itemAskMeetting:checked").length == $(".check_itemAskMeetting").length;
+			$("#check_allAskMeetting").prop("checked",flag);
+		});
+		
+		//只能删除已经处理过的会议，不能删除未处理的会议和还未通知的会议
+		
+		/* ********************************************************* */
 	});
 </script>
 </html>

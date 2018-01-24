@@ -9,14 +9,10 @@
 	pageContext.setAttribute("appPath", request.getContextPath());
 %>
 <script type="text/javascript" src="${appPath }/js/jquery-1.12.4.min.js"></script>
-<link href="${appPath }/js/bootstrap-3.3.7-dist/css/bootstrap.min.css"
-	rel="stylesheet">
+<link href="${appPath }/js/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="${appPath }/js/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 
 <script type="text/javascript">
-	$(function() {
-
-	});
 </script>
 
 <style type="text/css">
@@ -74,7 +70,4 @@
 
 	</div>
 </body>
-<script type="text/javascript">
-
-</script>
 </html>

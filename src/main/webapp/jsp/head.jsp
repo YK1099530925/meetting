@@ -88,15 +88,16 @@
 <script type="text/javascript">
 
 	$(window).load(function(){
+		//flagCount：所有用户（包括经理）未被通知的会议消息条数
 		var flagCount = ${requestScope.flagCount};
 		if(flagCount > 0){
-			alert("你有"+flagCount+"条新消息");
+			alert("你有"+flagCount+"条会议信息");
 		}
-		//出现问题：只有manager权限的登录才有${requestScope.askMeettingCount}
-		/* var askMeettingCount = ${requestScope.askMeettingCount};
+		
+		var askMeettingCount = ${requestScope.askMeettingCount};
 		if(askMeettingCount > 0){
-			alert("你有"+askMeettingCount+"条新申请的消息");
-		} */
+			alert("有"+askMeettingCount+"条新申请的会议");
+		}
 	});
 
 	/* 使用shiro的时候，使用192.168.0.118会出现连接问题，但是写localhost不会出现 */
@@ -115,7 +116,7 @@
 	};
 	//收到服务器信息，用e.data获取
 	websocket.onmessage = function(e) {
-		alert("服务器推送消息：" + e.data);
+		alert("消息：" + e.data);
 	};
 	//产生异常
 	websocket.onerror = function(e) {
