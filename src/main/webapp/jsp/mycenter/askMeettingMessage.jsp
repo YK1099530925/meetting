@@ -15,7 +15,7 @@
 			<div class="panel-heading">会议申请消息</div>
 		</div>
 		<div class="panel-body panel-body-my">
-			<button class="btn btn-info btn-sm">删除</button>
+			<button id="deleteAskMeetting" class="btn btn-info btn-sm">删除</button>
 			<button class="btn btn-info btn-sm">标记为已读</button>
 			<table id="askMeettingInfoList" class="table table-hover">
 				<thead>

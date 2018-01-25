@@ -8,13 +8,13 @@
 </head>
 <body>
 	
-	<!-- 中 -->
+	<!-- 身体 -->
 	<div class="body row bg-info">
 		<!-- 左 -->
 		<div class="body-left">
 			<ul class="nav nav-pills nav-stacked">
 				<li><a class="text-muted" href="#"><span
-						class="glyphicon glyphicon-inbox"></span>&nbsp;会议室</a></li>
+						class="glyphicon glyphicon-inbox"></span>&nbsp;系统介绍</a></li>
 				<li><a class="text-muted" href="#"><span
 						class="glyphicon glyphicon-list-alt"></span>&nbsp;资料室</a></li>
 				<li><a class="text-muted" href="#"><span

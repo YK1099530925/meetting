@@ -10,7 +10,7 @@ public interface MyAskMessageMapper {
 
 	Integer getManagerId(Integer deptid);
 
-	int setAskMeettingFlag(@Param("flag")Integer flag, @Param("meettingid")Integer meettingid);
+	int setAskMeettingManagerFlag(@Param("managerFlag")Integer managerFlag, @Param("meettingid")Integer meettingid);
 
 	int isHasManagerFlag(Integer loginId);
 
@@ -19,5 +19,15 @@ public interface MyAskMessageMapper {
 	void setAskMeettingSign(@Param("askMeettingId")Integer askMeettingId, @Param("agree")Integer agree, @Param("userFlag")Integer userFlag);
 
 	int setManagerFlag(@Param("loginId")Integer loginId, @Param("managerFlag")Integer managerFlag);
+
+	List<AskMessage> getAskMeettingResult(Integer AskUserId);
+
+	int setAskMeettingUserFlag(@Param("userFlag")Integer userFlag, @Param("askUserId")Integer askUserId);
+
+	AskMessage isNotCanDelete(Integer meettingid);
+	
+	void deleteAskMeetting(Integer meettingid);
+
+	AskMessage getCanNotDeleteMeettingInfo(Integer meettingid);
 
 }

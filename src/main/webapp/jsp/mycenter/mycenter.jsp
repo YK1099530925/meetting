@@ -328,7 +328,33 @@
 			$("#check_allAskMeetting").prop("checked",flag);
 		});
 		
-		//只能删除已经处理过的会议，不能删除未处理的会议和还未通知的会议
+		//只能删除已经处理过和已经通知过的会议，不能删除未处理的会议和还未通知的会议
+		$("#deleteAskMeetting").click(function(){
+			var meettingIds = "";
+			var askMeettingTitles = "";
+			$.each($(".check_itemAskMeetting:checked"),function(){
+				askMeettingTitles += $(this).parents("tr").find("td:eq(3)").text()+"-";
+				meettingIds += $(this).parents("tr")[0].children[5].firstChild.defaultValue+"-";		
+			});
+			//去除多余的横线
+			askMeettingTitles = askMeettingTitles.substring(0, askMeettingTitles.length -1);
+			meettingIds = meettingIds.substring(0, meettingIds.length - 1);
+			if(confirm("确定删除一下会议？\n"+askMeettingTitles)){
+				$.ajax({
+					url:"deleteAskMeetting/"+meettingIds,
+					type:"DELETE",
+					success:function(e){
+						if(e == "DELETEALL"){
+							alert("全部删除成功");
+						}else{
+							alert("有一部分信息不能删除，为您保留");
+						}
+						//删除之后回到本页
+						askMeettingInfo(thisPage);
+					}
+				});
+			}
+		});
 		
 		/* ********************************************************* */
 	});

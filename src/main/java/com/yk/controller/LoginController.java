@@ -1,5 +1,7 @@
 package com.yk.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.shiro.SecurityUtils;
@@ -50,7 +52,12 @@ public class LoginController {
 			map.put("user", user);
 			map.put("loginId", loginId);
 			
+			//经理有无消息的标志
 			int askMeettingCount = 0;
+			
+			//员工有无会议申请提示的标志
+			String meettingResult = "";
+			
 			//判断是否是经理，如果是经理就从数据库中查看是否有未通知的申请的会议消息
 			if(subject.hasRole("manager")) {
 				//查看是否有未通知的申请的会议消息
@@ -61,8 +68,9 @@ public class LoginController {
 				}
 			}else{
 				//否则是员工，什么消息被同意，什么消息被拒绝
-				
+				meettingResult = askMeettingService.getAskMeettingResult(loginId);
 			}
+			map.put("meettingResult",meettingResult);
 			map.put("askMeettingCount", askMeettingCount);
 			return "head";
 		} catch (AuthenticationException e) {

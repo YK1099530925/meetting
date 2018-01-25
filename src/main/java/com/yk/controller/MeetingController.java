@@ -130,11 +130,10 @@ public class MeetingController {
 			for (String mIdString : meettingIdStrArray) {
 				meettingIdList.add(Integer.parseInt(mIdString));
 			}
-			meettingService.deleteMeetting(meettingIdList,loginId);
 		}else {
 			meettingIdList.add(Integer.parseInt(meettingIds));
-			meettingService.deleteMeetting(meettingIdList,loginId);
 		}
+		meettingService.deleteMeetting(meettingIdList,loginId);
 		return "success";
 	}
 

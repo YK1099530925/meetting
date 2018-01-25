@@ -1,6 +1,7 @@
 package com.yk.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +10,7 @@ import javax.websocket.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -114,5 +116,22 @@ public class AskMeettingController {
 		//设置申请会议的标志
 		askMeettingService.setAskMeettingSign(askMeettingId,agree,userFlag);
 		return "";
+	}
+	
+	@RequestMapping(value="/deleteAskMeetting/{meettingIds}", method=RequestMethod.DELETE)
+	@ResponseBody
+	public String deleteAskMeetting(@PathVariable("meettingIds")String meettingIds) {
+		List<Integer> meettingIdList = new ArrayList<Integer>();
+		if(meettingIds.contains("-")) {
+			String[] meettingIdStrArray = meettingIds.split("-");
+			for (String mIdString : meettingIdStrArray) {
+				meettingIdList.add(Integer.parseInt(mIdString));
+			}
+		}else {
+			meettingIdList.add(Integer.parseInt(meettingIds));
+		}
+		//删除申请的会议，并返回不能被删除的会议信息
+		String canNotDeleteMeetting = askMeettingService.deleteAskMeetting(meettingIdList);
+		return canNotDeleteMeetting;
 	}
 }

@@ -14,7 +14,7 @@
 	rel="stylesheet">
 <script src="${appPath }/js/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 <link href="${appPath }/css/home.css" rel="stylesheet">
-<title>首页</title>
+<title>会议管理系统</title>
 </head>
 <body>
 	<!-- 头 -->
@@ -93,10 +93,22 @@
 		if(flagCount > 0){
 			alert("你有"+flagCount+"条会议信息");
 		}
-		
+
+		//员工申请会议给经理的提示消息
 		var askMeettingCount = ${requestScope.askMeettingCount};
 		if(askMeettingCount > 0){
 			alert("有"+askMeettingCount+"条新申请的会议");
+		}
+
+		//员工申请的会议被处理的结果提示消息
+		var result = "";
+		var meettingResult = "${requestScope.meettingResult}";
+		if(meettingResult.length != 0){
+			var results = meettingResult.split("-");
+			for(var i = 0; i < results.length; i++){
+				result += results[i] + "\n";
+			}
+			alert(result);
 		}
 	});
 

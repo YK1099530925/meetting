@@ -10,9 +10,10 @@
 		deptId=#{deptid} AND roleName='manager'
 	</select>
 
-	<update id="setAskMeettingFlag" parameterType="map">
+	<update id="setAskMeettingManagerFlag" parameterType="map">
 		UPDATE
-		y_askmessage SET managerFlag=#{flag} WHERE meettingId=#{meettingid}
+		y_askmessage SET managerFlag=#{managerFlag} WHERE
+		meettingId=#{meettingid}
 	</update>
 
 	<select id="isHasManagerFlag" parameterType="java.lang.Integer"
@@ -43,4 +44,33 @@
 		UPDATE y_askmessage
 		SET managerFlag=#{managerFlag} WHERE managerId=#{loginId}
 	</update>
+
+	<select id="getAskMeettingResult" parameterType="java.lang.Integer"
+		resultType="com.yk.pojo.AskMessage">
+		SELECT title,agree FROM y_askmessage WHERE askUserId =
+		#{AskUserId} AND userFlag = 1
+	</select>
+
+	<update id="setAskMeettingUserFlag" parameterType="map">
+		UPDATE
+		y_askmessage SET userFlag=#{userFlag} WHERE askUserId=#{askUserId}
+	</update>
+
+	<!-- 查询不能此meettingid对应的信息，如果返回null，表示不能被删除 -->
+	<select id="isNotCanDelete" parameterType="java.lang.Integer"
+		resultType="com.yk.pojo.AskMessage">
+		SELECT * FROM y_askmessage WHERE agree != 2 AND userFlag = 0 AND meettingId = #{meettingid}
+	</select>
+	
+	<!-- 删除申请的会议信息 -->
+	<delete id="deleteAskMeetting" parameterType="java.lang.Integer">
+		DELETE FROM
+		y_askmessage WHERE meettingId = #{meettingid}
+	</delete>
+	
+	<!-- 得到不能被删除的会议信息（这里只取标题） -->
+	<select id="getCanNotDeleteMeettingInfo" parameterType="java.lang.Integer"
+		resultType="com.yk.pojo.AskMessage">
+		SELECT title FROM y_askmessage WHERE meettingId = #{meettingid}
+	</select>
 </mapper>
