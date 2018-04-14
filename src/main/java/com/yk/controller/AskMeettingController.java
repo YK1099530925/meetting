@@ -118,6 +118,11 @@ public class AskMeettingController {
 		return "";
 	}
 	
+	/**
+	 * 删除请求的会议
+	 * @param meettingIds
+	 * @return
+	 */
 	@RequestMapping(value="/deleteAskMeetting/{meettingIds}", method=RequestMethod.DELETE)
 	@ResponseBody
 	public String deleteAskMeetting(@PathVariable("meettingIds")String meettingIds) {

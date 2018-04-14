@@ -15,8 +15,8 @@
 			<div class="panel-heading">我的消息</div>
 			<div class="panel-body panel-body-my">
 				<!-- 接收消息体 -->
-				<button id="deleteMeettingInfo" class="btn btn-info btn-sm">删除</button>
-				<button class="btn btn-info btn-sm">标记为已读</button>
+				<button class="btn btn-primary btn-sm">标记为已读</button>
+				<button id="deleteMeettingInfo" class="btn btn-danger btn-sm">删除</button>
 				<table id="messageList" class="table table-hover">
 					<thead>
 						<tr>

@@ -149,5 +149,9 @@
 		</set>
 		where loginId = #{loginid,jdbcType=INTEGER}
 	</update>
+	
+	<select id="getMaxloginid" resultType="java.lang.Integer">
+		SELECT MAX(loginid) FROM y_user
+	</select>
 
 </mapper>

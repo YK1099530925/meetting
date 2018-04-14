@@ -32,4 +32,6 @@ public interface MyMapper {
 	User getMyPersonalInfo(Integer loginId);
 
 	int updateByLoginIdSelective(User user);
+
+	Integer getMaxloginid();
 }

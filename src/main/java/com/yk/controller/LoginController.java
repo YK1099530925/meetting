@@ -12,10 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.yk.md5.Password;
 import com.yk.pojo.User;
 import com.yk.service.AskMeettingService;
+import com.yk.service.CompanyManageService;
 import com.yk.service.LoginService;
 import com.yk.service.WebsocketService;
 
@@ -28,6 +31,31 @@ public class LoginController {
 	WebsocketService websocketService;
 	@Autowired
 	AskMeettingService askMeettingService;
+	
+	//用于保存注册用户（保存用户的信息）
+	@Autowired
+	CompanyManageService companyManageService;
+	
+	/**
+	 * 注册
+	 * @param user
+	 * @return
+	 */
+	@RequestMapping(value="/registerUserInfo")
+	@ResponseBody
+	public String registerUserInfo(User user) {
+		//此处出现的小bug，因为session中存储了loginid，因此注册的时候，前台的session中的loginid自动放入user中了
+		//注册
+		//首先查询出最大的loginid，将其+1
+		Integer loginid = loginService.getMaxloginid() + 1;
+		user.setLoginid(loginid);
+		//对密码进行加密
+		String password = Password.md5Password(loginid, user.getPassword());
+		user.setPassword(password);
+		//保存注册的用户信息
+		companyManageService.saveUserInfo(user);
+		return loginid.toString();
+	}
 	
 	@RequestMapping(value="/login",method=RequestMethod.POST)
 	public String login(Integer loginId, String password, Map<String,Object> map) {

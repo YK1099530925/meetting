@@ -26,6 +26,88 @@
 </style>
 </head>
 <body class="bg-info">
+
+	<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="myModalLabel">注册</h4>
+	      </div>
+	      <div class="modal-body">
+	        <form class="form-horizontal">
+			  <div class="form-group">
+			    <label class="col-sm-2 control-label">姓名</label>
+			    <div class="col-sm-10">
+			      <input type="text" name="username" class="form-control" id="username_register_input" placeholder="姓名">
+			      <span class="help-block"></span>
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label class="col-sm-2 control-label">密码</label>
+			    <div class="col-sm-10">
+			      <input type="password" name="password" class="form-control" id="password_register_input" placeholder="密码">
+			      <span class="help-block"></span>
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label class="col-sm-2 control-label">确认密码</label>
+			    <div class="col-sm-10">
+			      <input type="password" class="form-control" id="confirmPassword_register_input" placeholder="确认密码">
+			      <span class="help-block"></span>
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label class="col-sm-2 control-label">性别</label>
+			    <div class="col-sm-10">
+			      <label class="radio-inline">
+					  <input type="radio" name="sex" id="sex1_register_input" value="男" checked="checked"> 男
+					</label>
+					<label class="radio-inline">
+					  <input type="radio" name="sex" id="sex2_register_input" value="女"> 女
+					</label>
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label class="col-sm-2 control-label">出生日期</label>
+			    <div class="col-sm-10">
+			      <input type="text" name="birthday" class="form-control" id="birthday_register_input" placeholder="1995-05-12">
+			      <span class="help-block"></span>
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label class="col-sm-2 control-label">联系电话</label>
+			    <div class="col-sm-10">
+			      <input type="text" name="tel" class="form-control" id="tel_register_input" placeholder="联系电话">
+			      <span class="help-block"></span>
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label class="col-sm-2 control-label">家庭地址</label>
+			    <div class="col-sm-10">
+			      <input type="text" name="addr" class="form-control" id="addr_register_input" placeholder="家庭地址">
+			      <span class="help-block"></span>
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label class="col-sm-2 control-label">部门</label>
+			    <div class="col-sm-4">
+			    	<!-- 部门提交部门id即可 -->
+			      <select class="form-control" name="deptid">
+			      </select>
+			    </div>
+			  </div>
+			</form>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+	        <button type="button" class="btn btn-primary" id="userInfo_register_btn">注册</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+
 	<div class="container">
 		<div class="row">
 			<div class="col-md-4 col-md-offset-7">
@@ -62,7 +144,9 @@
 					<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-10">
 							<button type="submit" class="btn btn-default">登录</button>
+							<a id="register" class="btn btn-default">注册</a>
 						</div>
+						
 					</div>
 				</form>
 			</div>
@@ -70,4 +154,50 @@
 
 	</div>
 </body>
+<script type="text/javascript">
+
+$("#register").click(function(){
+	//将部门显示在下拉列表中
+	registerGetDepts("#registerModal select");
+	
+	//弹出模态框
+	$("#registerModal").modal({
+		backdrop:"static"
+	});
+
+	
+
+	$("#userInfo_register_btn").click(function(){
+		//校验表单
+		
+		//注册
+ 		$.ajax({
+			url:"registerUserInfo",
+			type:"POST",
+			data:$("#registerModal form").serialize(),
+			success:function(e){
+				$("#registerModal").modal('hide');
+				alert("注册成功:您的登录id为：" + e);
+			}
+		});
+		
+	});
+});
+
+function registerGetDepts(ele){
+	$(ele).empty();
+	$.ajax({
+		url:"getDepts",
+		type:"GET",
+		success:function(e){
+			$.each(e.depts,function(){
+				var optionEle = $("<option></option>").append(this.deptname).attr("value",this.id);
+				optionEle.appendTo(ele);
+			});
+		}
+	});
+}
+
+</script>
+
 </html>

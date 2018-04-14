@@ -13,12 +13,16 @@
 <link href="${appPath }/js/bootstrap-3.3.7-dist/css/bootstrap.min.css"
 	rel="stylesheet">
 <script src="${appPath }/js/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<script src="${appPath }/js/myJs.js"></script>
+<script src="${appPath }/js/usermanage.js"></script>
+<script src="${appPath }/js/deptmanage.js"></script>
+<script src="${appPath }/js/askMeettingInfo.js"></script>
 <link href="${appPath }/css/home.css" rel="stylesheet">
 <title>会议管理系统</title>
 </head>
 <body>
 	<!-- 头 -->
-	<div class="head row" style="background-color: #bce8f1; opacity: 0.9;">
+	<div class="head row" style="background-color: #2c2c2c; opacity: 0.9;">
 
 		<!-- logo -->
 		<div class="col-md-3">
@@ -39,20 +43,20 @@
 		<!-- 首页标签 -->
 		<div class="head-last-margin col-md-1">
 			<a class="text-muted" href="#home" data-toggle="tab">
-				<h4>首页</h4>
+				<h4>系统首页</h4>
 			</a>
 		</div>
 		<!-- shiro的标签，如果有此权限则可以显示 -->
 		<shiro:hasPermission name="user">
 			<div class="head-last-margin col-md-1">
-				<a class="text-muted" href="#" data-toggle="tab">
-					<h4>其他</h4>
+				<a class="text-muted" href="#companymanage" data-toggle="tab">
+					<h4>公司管理</h4>
 				</a>
 			</div>
 		</shiro:hasPermission>
 		<div class="head-last-margin col-md-1">
-			<a class="text-muted" href="#" data-toggle="tab">
-				<h4>其他</h4>
+			<a class="text-muted" href="#">
+				<h4>新闻中心</h4>
 			</a>
 		</div>
 		<div class="head-last-margin col-md-2">
@@ -61,16 +65,17 @@
 			</a>
 		</div>
 
-		<!-- 用户 -->
-		<div class="head-last-margin col-md-1">
+		<div class="col-md-1" style="margin-top: 15px;">
 			<c:if test="${sessionScope.userName != null }">
 				<a href="#mycenter" data-toggle="tab"> <label>${sessionScope.userName }</label>
 				</a>
+				<a  href="index.jsp">&nbsp;注销</a>
 			</c:if>
 			<c:if test="${sessionScope.userName == null }">
 				<a href="index.jsp"><label>登录</label></a>
 			</c:if>
 		</div>
+		
 	</div>
 	<!-- body -->
 	<div class="tab-content">
@@ -78,15 +83,21 @@
 		<div class="tab-pane fade" id="home">
 			<jsp:include page="body.jsp"></jsp:include>
 		</div>
+		
+		<!-- 员工管理 -->
+		<div class="tab-pane fade in active" id="companymanage">
+			<jsp:include page="companymanage/companymanage.jsp"></jsp:include>
+		</div>
 
 		<!-- 个人中心 -->
-		<div class="tab-pane fade in active" id="mycenter">
+		<div class="tab-pane fade" id="mycenter">
 			<jsp:include page="mycenter/mycenter.jsp"></jsp:include>
 		</div>
 	</div>
 </body>
 <script type="text/javascript">
 
+	//在页面加载完成之后，执行该操作
 	$(window).load(function(){
 		//flagCount：所有用户（包括经理）未被通知的会议消息条数
 		var flagCount = ${requestScope.flagCount};

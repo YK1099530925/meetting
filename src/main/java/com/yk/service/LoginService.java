@@ -82,4 +82,8 @@ public class LoginService {
 	public List<String> getRoleListByLoginId(Integer loginid) {
 		return myMapper.getRoleListByLoginId(loginid);
 	}
+
+	public Integer getMaxloginid() {
+		return myMapper.getMaxloginid();
+	}
 }

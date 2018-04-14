@@ -12,7 +12,7 @@
 		<!-- 左 -->
 		<div class="body-left">
 			<ul class="nav nav-pills nav-stacked nav-tabs">
-				<li id="myinfoLi" class=""><a class="text-muted" onclick="myInfo()" href="#myinfo" data-toggle="tab"><span
+				<li id="myinfoLi" class="active"><a class="text-muted" onclick="myInfo()" href="#myinfo" data-toggle="tab"><span
 						class="glyphicon glyphicon-user"></span>&nbsp;个人信息</a></li>
 				<li id="mymessageLi" class=""><a class="text-muted" onclick="mymessage(1)" href="#mymessage" data-toggle="tab"><span
 						class="glyphicon glyphicon-comment"></span>&nbsp;我的消息</a></li>
@@ -20,19 +20,22 @@
 						class="glyphicon glyphicon-list-alt"></span>&nbsp;我的会议</a></li>
 				<li id="askmeettingLi" class=""><a class="text-muted" href="#askmeetting" data-toggle="tab"><span
 						class="glyphicon glyphicon-pencil"></span>&nbsp;申请会议</a></li>
-				<li id="releasemeettingLi" class="active"><a class="text-muted"
+				<li id="releasemeettingLi" class=""><a class="text-muted"
 					href="#releasemeetting" data-toggle="tab"><span
 						class="glyphicon glyphicon-pencil"></span>&nbsp;发布会议</a></li>
 				<shiro:hasPermission name="user:*">
 					<li id="askMeettingMessageLi" class=""><a class="text-muted" onclick="askMeettingInfo(1)" href="#askMeettingMessage"
 						data-toggle="tab"><span class="glyphicon glyphicon-pencil"></span>&nbsp;会议申请消息</a></li>
 				</shiro:hasPermission>
+				<li id="updatePasswordLi" class=""><a class="text-muted"
+					href="#updatePassword" data-toggle="tab"><span
+						class="glyphicon glyphicon-pencil"></span>&nbsp;修改密码</a></li>
 			</ul>
 		</div>
 
 		<!-- 右 -->
 		<div class="tab-content">
-			<div class="tab-pane fade" id="myinfo">
+			<div class="tab-pane fade in active" id="myinfo">
 				<jsp:include page="myinfo.jsp"></jsp:include>
 			</div>
 			<div class="tab-pane fade" id="mymessage">
@@ -44,11 +47,14 @@
 			<div class="tab-pane fade" id="askmeetting">
 				<jsp:include page="askmeetting.jsp"></jsp:include>
 			</div>
-			<div class="tab-pane fade in active" id="releasemeetting">
+			<div class="tab-pane fade" id="releasemeetting">
 				<jsp:include page="releasemeetting.jsp"></jsp:include>
 			</div>
 			<div class="tab-pane fade" id="askMeettingMessage">
 				<jsp:include page="askMeettingMessage.jsp"></jsp:include>
+			</div>
+			<div class="tab-pane fade" id="updatePassword">
+				<jsp:include page="updatePassword.jsp"></jsp:include>
 			</div>
 		</div>
 
@@ -57,8 +63,13 @@
 </body>
 <script type="text/javascript">
 
+	//页面加载完之后执行的操作
+	$(window).load(function(){
+		myInfo();
+	});
+
 	/* 将日期格式化 */
-	dateFormat = function(date){
+/* 	dateFormat = function(date){
 		var y = date.year;
 		var m = date.month + 1;
 		var d = date.date;
@@ -70,7 +81,7 @@
 		}
 		var birthday = y + "-" + m + "-" + d;
 		return birthday;
-	}
+	} */
 	
 
 	$(function() {
@@ -112,6 +123,8 @@
 				type:"get",
 				data:"loginId=${sessionScope.loginId}&pageNum="+pagN,
 				success:function(e){
+					//将本页保存
+					thisPage = e.myMessage.pageNum;
 					//添加会议body信息
 					addMeettingList(e);
 					//添加页码信息
@@ -129,12 +142,14 @@
 				type:"get",
 				data:"loginId=${sessionScope.loginId}&pageNum="+pagN,
 				success:function(e){
+					//将本页保存
+					thisPage = e.myMessage.pageNum;
 					//添加会议申请body信息
 					addAskMeettingMessage(e);
 					//添加页码信息
-					addpageInfo(e,"#page_Info_askMeetting");
+					addpageInfo_askMeettingInfo(e,"#page_Info_askMeetting");
 					//添加分页导航标签
-					addPageNav(e,"#page_nav_askMeetting");
+					addPageNav_askMeettingInfo(e,"#page_nav_askMeetting");
 				}
 			});
 		}
@@ -220,70 +235,6 @@
 				
 			});
 		}
-
-		/* ******************添加页面翻页导航****************** */
-		//需要的json串的格式：e.myMessage，myMessage中有page的属性，和每页的信息详情
-		//添加页码信息
-		function addpageInfo(e,page_Info){
-			$(page_Info).empty();
-			$(page_Info).append("当前第 "+e.myMessage.pageNum+" 页,总共 "
-					+e.myMessage.pages+" 页,总共 "
-					+e.myMessage.total+" 记录");
-			//将本页保存
-			thisPage = e.myMessage.pageNum;
-		}
-		function addPageNav(e,page_nav){
-			//添加翻页导航栏
-			$(page_nav).empty();
-			var ul = $("<ul></ul>").addClass("pagination");
-			var firstPageLi = $("<li></li>").append($("<a></a>").append("首页").attr("href","#"));
-			var prePageLi = $("<li></li>").append($("<a></a>").append("&laquo;"));
-			//判断是否有前一页
-			if(e.myMessage.hasPreviousPage == false){
-				firstPageLi.addClass("disabled");
-				prePageLi.addClass("disabled");
-			}else{
-				prePageLi.click(function() {
-					mymessage(e.myMessage.pageNum - 1);
-				});
-				firstPageLi.click(function(){
-					mymessage(1);
-				});
-			}
-			var nextPageLi = $("<li></li>").append($("<a></a>").append("&raquo;"));
-			var lastPageLi = $("<li></li>").append($("<a></a>").append("末页").attr("href","#"));
-			//判断是否有后一页
-			if(e.myMessage.hasNextPage == false){
-				nextPageLi.addClass("disabled");
-				lastPageLi.addClass("disabled");
-			}else{
-				nextPageLi.click(function(){
-					mymessage(e.myMessage.pageNum + 1);
-				});
-				lastPageLi.click(function(){
-					mymessage(e.myMessage.pages);
-				});
-			}
-			ul.append(firstPageLi).append(prePageLi);
-			/* 中间添加页码数 */
-			//循环添加li
-			var navNum = e.myMessage.navigatepageNums;
-			$.each(navNum,function(indexNav,itemNav){
-				var numLi = $("<li></li>").append($("<a></a>").append(itemNav));
-				if(e.myMessage.pageNum == itemNav){
-					numLi.addClass("active");
-				}
-				numLi.click(function(){
-					mymessage(itemNav);
-				});
-				ul.append(numLi);
-			}); 
-			ul.append(nextPageLi).append(lastPageLi);
-
-			var navEle = $("<nav></nav>").append(ul);
-			navEle.appendTo(page_nav);
-		}
-		/* ********************************************************* */
 
 		/* **********mymessage.jsp页面:完成CheckBox全选和删除*********** */
 		$("#check_all").click(function(){

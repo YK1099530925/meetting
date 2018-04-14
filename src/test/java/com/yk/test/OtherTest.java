@@ -5,6 +5,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.junit.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class OtherTest {
 	
@@ -25,6 +27,10 @@ public class OtherTest {
 				i--;
 			}
 		}
+	}
+	
+	public void beanFactory() {
+		ApplicationContext  context = new ClassPathXmlApplicationContext("");
 	}
 
 }

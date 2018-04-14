@@ -1,11 +1,11 @@
 package com.yk.pojo;
 
-import java.io.Serializable;
-
-public class Role implements Serializable{
+public class Role {
     private Integer id;
 
     private String rolename;
+
+    private String describ;
 
     public Integer getId() {
         return id;
@@ -23,8 +23,11 @@ public class Role implements Serializable{
         this.rolename = rolename == null ? null : rolename.trim();
     }
 
-	@Override
-	public String toString() {
-		return "Role [id=" + id + ", rolename=" + rolename + "]";
-	}
+    public String getDescrib() {
+        return describ;
+    }
+
+    public void setDescrib(String describ) {
+        this.describ = describ == null ? null : describ.trim();
+    }
 }
