@@ -64,7 +64,7 @@
 		var sendthemeTd = a.children[3].innerHTML;
 		//得到会议信息子节点（隐藏的子节点）
 		var meettingInfoTd = a.children[4].firstChild.defaultValue;
-		//得到会议id自己点
+		//得到会议id子节点
 		var meettingId = a.children[5].firstChild.defaultValue;
 		//改变状态(如果未打开，则改变状态)
 		if (state.className != "glyphicon glyphicon-folder-open") {
@@ -79,10 +79,30 @@
 				}
 			});
 		}
+		//查找meettingid对应的文件
+		$.ajax({
+			url:"getFileInfo",
+			type:"get",
+			data:{"meettingId":meettingId},
+			success:function(e){
+				if(e == "-1"){
+					document.getElementById("filenameLabel").innerText = "未上传文件";
+					$("#downloadFile").attr("href","#");
+				}else{
+					var filedir = e.filedir;
+					var filename = e.filename.slice(10);
+					//显示
+					document.getElementById("filenameLabel").innerText = filename;
+					$("#downloadFile").attr("href",filedir);
+				}
+			}
+		});
 		//设置checkinfo页面的值
 		document.getElementById("senduserName").value = senduserNameTd;
 		document.getElementById("sendtheme").value = sendthemeTd;
 		document.getElementById("sendMeettingInfo").value = meettingInfoTd;
+		//将meettingid设置为选座的属性
+		$("#chooseSeatBtn").attr("meettingid",meettingId);
 
 	}
 </script>

@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yk.dao.MeettingRoomMapper">
+  <resultMap id="BaseResultMap" type="com.yk.pojo.MeettingRoom">
+    <result column="meettingId" jdbcType="INTEGER" property="meettingid" />
+    <result column="seat0" jdbcType="INTEGER" property="seat0" />
+    <result column="seat1" jdbcType="INTEGER" property="seat1" />
+    <result column="seat2" jdbcType="INTEGER" property="seat2" />
+    <result column="seat3" jdbcType="INTEGER" property="seat3" />
+    <result column="seat4" jdbcType="INTEGER" property="seat4" />
+    <result column="seat5" jdbcType="INTEGER" property="seat5" />
+    <result column="seat6" jdbcType="INTEGER" property="seat6" />
+    <result column="seat7" jdbcType="INTEGER" property="seat7" />
+    <result column="seat8" jdbcType="INTEGER" property="seat8" />
+    <result column="seat9" jdbcType="INTEGER" property="seat9" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    meettingId, seat0, seat1, seat2, seat3, seat4, seat5, seat6, seat7, seat8, seat9
+  </sql>
+  <select id="selectByExample" parameterType="com.yk.pojo.MeettingRoomExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from y_meettingroom
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.yk.pojo.MeettingRoomExample">
+    delete from y_meettingroom
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yk.pojo.MeettingRoom">
+    insert into y_meettingroom (meettingId, seat0, seat1, 
+      seat2, seat3, seat4, 
+      seat5, seat6, seat7, 
+      seat8, seat9)
+    values (#{meettingid,jdbcType=INTEGER}, #{seat0,jdbcType=INTEGER}, #{seat1,jdbcType=INTEGER}, 
+      #{seat2,jdbcType=INTEGER}, #{seat3,jdbcType=INTEGER}, #{seat4,jdbcType=INTEGER}, 
+      #{seat5,jdbcType=INTEGER}, #{seat6,jdbcType=INTEGER}, #{seat7,jdbcType=INTEGER}, 
+      #{seat8,jdbcType=INTEGER}, #{seat9,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yk.pojo.MeettingRoom">
+    insert into y_meettingroom
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="meettingid != null">
+        meettingId,
+      </if>
+      <if test="seat0 != null">
+        seat0,
+      </if>
+      <if test="seat1 != null">
+        seat1,
+      </if>
+      <if test="seat2 != null">
+        seat2,
+      </if>
+      <if test="seat3 != null">
+        seat3,
+      </if>
+      <if test="seat4 != null">
+        seat4,
+      </if>
+      <if test="seat5 != null">
+        seat5,
+      </if>
+      <if test="seat6 != null">
+        seat6,
+      </if>
+      <if test="seat7 != null">
+        seat7,
+      </if>
+      <if test="seat8 != null">
+        seat8,
+      </if>
+      <if test="seat9 != null">
+        seat9,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="meettingid != null">
+        #{meettingid,jdbcType=INTEGER},
+      </if>
+      <if test="seat0 != null">
+        #{seat0,jdbcType=INTEGER},
+      </if>
+      <if test="seat1 != null">
+        #{seat1,jdbcType=INTEGER},
+      </if>
+      <if test="seat2 != null">
+        #{seat2,jdbcType=INTEGER},
+      </if>
+      <if test="seat3 != null">
+        #{seat3,jdbcType=INTEGER},
+      </if>
+      <if test="seat4 != null">
+        #{seat4,jdbcType=INTEGER},
+      </if>
+      <if test="seat5 != null">
+        #{seat5,jdbcType=INTEGER},
+      </if>
+      <if test="seat6 != null">
+        #{seat6,jdbcType=INTEGER},
+      </if>
+      <if test="seat7 != null">
+        #{seat7,jdbcType=INTEGER},
+      </if>
+      <if test="seat8 != null">
+        #{seat8,jdbcType=INTEGER},
+      </if>
+      <if test="seat9 != null">
+        #{seat9,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yk.pojo.MeettingRoomExample" resultType="java.lang.Long">
+    select count(*) from y_meettingroom
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update y_meettingroom
+    <set>
+      <if test="record.meettingid != null">
+        meettingId = #{record.meettingid,jdbcType=INTEGER},
+      </if>
+      <if test="record.seat0 != null">
+        seat0 = #{record.seat0,jdbcType=INTEGER},
+      </if>
+      <if test="record.seat1 != null">
+        seat1 = #{record.seat1,jdbcType=INTEGER},
+      </if>
+      <if test="record.seat2 != null">
+        seat2 = #{record.seat2,jdbcType=INTEGER},
+      </if>
+      <if test="record.seat3 != null">
+        seat3 = #{record.seat3,jdbcType=INTEGER},
+      </if>
+      <if test="record.seat4 != null">
+        seat4 = #{record.seat4,jdbcType=INTEGER},
+      </if>
+      <if test="record.seat5 != null">
+        seat5 = #{record.seat5,jdbcType=INTEGER},
+      </if>
+      <if test="record.seat6 != null">
+        seat6 = #{record.seat6,jdbcType=INTEGER},
+      </if>
+      <if test="record.seat7 != null">
+        seat7 = #{record.seat7,jdbcType=INTEGER},
+      </if>
+      <if test="record.seat8 != null">
+        seat8 = #{record.seat8,jdbcType=INTEGER},
+      </if>
+      <if test="record.seat9 != null">
+        seat9 = #{record.seat9,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update y_meettingroom
+    set meettingId = #{record.meettingid,jdbcType=INTEGER},
+      seat0 = #{record.seat0,jdbcType=INTEGER},
+      seat1 = #{record.seat1,jdbcType=INTEGER},
+      seat2 = #{record.seat2,jdbcType=INTEGER},
+      seat3 = #{record.seat3,jdbcType=INTEGER},
+      seat4 = #{record.seat4,jdbcType=INTEGER},
+      seat5 = #{record.seat5,jdbcType=INTEGER},
+      seat6 = #{record.seat6,jdbcType=INTEGER},
+      seat7 = #{record.seat7,jdbcType=INTEGER},
+      seat8 = #{record.seat8,jdbcType=INTEGER},
+      seat9 = #{record.seat9,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

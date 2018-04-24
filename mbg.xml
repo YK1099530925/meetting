@@ -47,9 +47,11 @@
    	<!-- <table tableName="y_user_role" domainObjectName="UserRole"></table> -->
    	<!-- <table tableName="y_dept" domainObjectName="DepartMent"></table> -->
    	<!-- <table tableName="y_meettingInfo" domainObjectName="MeettingInfo"></table> -->
-	<!-- <table tableName="y_news" domainObjectName="News"></table> -->
-	<table tableName="y_role" domainObjectName="Role"></table>
+	<table tableName="y_news" domainObjectName="News"></table>
+	<!-- <table tableName="y_role" domainObjectName="Role"></table> -->
 	<!-- <table tableName="y_meettingGroup" domainObjectName="MeettingGroup"></table> -->
 	<!-- <table tableName="y_askMessage" domainObjectName="AskMessage"></table> -->
+	<!-- <table tableName="y_file" domainObjectName="File"></table> -->
+	<!-- <table tableName="y_meettingRoom" domainObjectName="MeettingRoom"></table> -->
   </context>
 </generatorConfiguration>

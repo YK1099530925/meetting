@@ -5,7 +5,15 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title></title>
+<style type="text/css">
+.seat{
+	width:10px;
+	height:30px;
+	border: 1px solid black;
+}
+</style>
 </head>
+
 <body>
 	<!-- 查看信息 -->
 	<div class="body-right" id="checkinfoback">
@@ -32,16 +40,63 @@
 						disabled="disabled"></textarea>
 				</div>
 				<br>
+				<div class="input-group col-md-10">
+					<!-- 文件下载，label显示文件名，a标签href为真实路径 -->
+					<label id="filenameLabel"></label>
+					<a id="downloadFile" class="btn btn-default btn-sm" download>下载</a>
+				</div>
+				<br>
 				<div class="input-group">
 					<div class=" col-md-2">
-						<a type="submit" class="btn btn-default">确认</a>
+						<a id="chooseSeatBtn" class="btn btn-default">选座</a>
 					</div>
-					<div class="col-md-offset-1 col-md-2">
-						<a type="submit" class="btn btn-default">拒绝</a>
+					<div class="col-md-offset-3 col-md-2">
+						<a id="" class="btn btn-default">自评</a>
 					</div>
-					<div class="col-md-offset-1 col-md-2">
-						<a type="submit" class="btn btn-default">回复</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal fade" id="chooseSeatModal" tabindex="-1"
+		role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<!-- 头 -->
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">选择位置</h4>
+				</div>
+				<!-- 身体 -->
+				<div class="modal-body">
+					<div class="row">
+						<div id="seat1" class="btn btn-default seat col-md-1 col-md-offset-4"></div>
+						<div id="seat2" class="btn btn-default seat col-md-1 col-md-offset-1"></div>
+						<div id="seat3" class="btn btn-default seat col-md-1 col-md-offset-1"></div>
+						<div id="seat4" class="btn btn-default seat col-md-1 col-md-offset-1"></div>
 					</div>
+				
+					<div class="row">
+						<a id="seat0" class="btn btn-default seat col-md-1 col-md-offset-3"></a>
+						<a id="seat5" class="btn btn-default seat col-md-1 col-md-offset-6"></a>
+					</div>
+					<br>
+					<div class="row">
+						<div id="seat9" class="btn btn-default seat col-md-1 col-md-offset-4"></div>
+						<div id="seat8" class="btn btn-default seat col-md-1 col-md-offset-1"></div>
+						<div id="seat7" class="btn btn-default seat col-md-1 col-md-offset-1"></div>
+						<div id="seat6" class="btn btn-default seat col-md-1 col-md-offset-1"></div>
+					</div>
+				</div>
+				<!-- 尾 -->
+				<div class="modal-footer">
+					<button type="button"
+						class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button id="chooseSeatConfirmButton" type="button"
+						class="btn btn-default" data-dismiss="modal">确定</button>
 				</div>
 			</div>
 		</div>
@@ -57,5 +112,82 @@
 			document.getElementById("checkinfoback").style.zIndex = -1;
 		});
 	});
+
+	//点击选座，显示座位信息，通过meettingid查找数据库，将对应有值的元素设置为红色按钮
+	$("#chooseSeatBtn").click(function(){
+		//通过meettingid获取会议位置信息
+		var meettingid = $(this).attr("meettingid");
+		$.ajax({
+			url:"getMeettingRoomInfo",
+			type:"GET",
+			data:{"meettingid":meettingid},
+			success:function(e){
+				var count = 0;
+				jQuery.each(e, function(key, val) {  
+					//e中存在meettingid，因此第一次直接跳过
+					var loginid = ${sessionScope.loginId};
+					var seatx = "#" + key;
+					if(count != 0){
+						//接下来从seat0开始
+						if(val != 0){
+							//将按钮变为红色，并设置其loginid属性，并将其变为不可点击(注：当再次按下的时候，已经存在了danger，因此会复原，需要修改)
+							//$(seatx).toggleClass("btn-danger");
+							$(seatx).addClass("btn-danger");
+							$(seatx).attr("loginid",val);
+							$(seatx).attr("disabled");
+						}else{
+							//当选择位置后，并未确定，直接关闭，则将其复原
+							if($(seatx).hasClass('btn-danger')){
+								$(seatx).toggleClass("btn-danger");
+							}
+						}
+					}
+					count++;
+				});
+			}
+		});
+		//弹出模态框
+		$("#chooseSeatModal").modal({
+			backdrop:"static"
+		});
+	});
+
+	//点击按钮变红，再次点击变白
+	$(".seat").click(function(){
+		var loginid = $(this).attr("loginid");
+		var sessionLoginid = ${sessionScope.loginId};
+		if(loginid != undefined && loginid != sessionLoginid){
+			return;
+		}
+		$(this).toggleClass("btn-danger");
+		//按下按钮，变为红色，添加属性loginid，否则删除属性loginid
+		if($(this).hasClass('btn-danger')){
+			$(this).attr("loginid",sessionLoginid);
+		}else{
+			$(this).removeAttr("loginid");
+		}
+	});
+
+	//确定位置(如何找到用户选择的位置)
+	$("#chooseSeatConfirmButton").click(function(){
+		//遍历被选择的位置（找到loginid为sessionloginid的位置）
+		$.each($(".seat"),function(){
+			var meettingid = $("#chooseSeatBtn").attr("meettingid");
+			var loginid = $(this).attr("loginid");
+			var sessionLoginid = ${sessionScope.loginId};
+			if(loginid == sessionLoginid){
+				//将用户保存到此位置
+				$.ajax({
+					url:"chooseSeat",
+					type:"POST",
+					data:{"meettingid":meettingid,"loginid":loginid,"seat":this.id},
+					success:function(e){
+						alert("选择成功");
+					}
+				});
+			}
+		});
+	});
+	
 </script>
 </html>

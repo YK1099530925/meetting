@@ -31,6 +31,11 @@
 						cols="100"></textarea>
 				</div>
 				<br>
+				<div class="input-group col-md-10">
+					<!-- 文件上传 -->
+					<input id="uploadFile" type="file">
+				</div>
+				<br>
 				<div class="input-group">
 					<shiro:hasPermission name="user:release">
 						<div class="col-md-2">
@@ -71,11 +76,17 @@
 		//将发布会议的消息封装起来
 		var title = document.getElementsByName("sendtheme")[0].value;
 		var meettingInfo = document.getElementsByName("textmeetting")[0].value;
+		//文件的虚拟路劲，包含文件的名字
+		var filename = document.getElementById("uploadFile").value;
+		//文件的真实路径
+		var objURL = $("#uploadFile").attr("objURL");
 		var message = '{"releaseUser":"'+releaseUser
 					+'","title":"'+title
 					+'","meettingInfo":"'+meettingInfo
 					+'","meettingid":"'+meettingidRandom
 					+'","deptId":"'+ deptId
+					+'","filename":"'+ filename
+					+'","objURL":"'+ objURL
 					+'"}';
 		return message;
 	}
@@ -129,12 +140,31 @@
 		//移除当前页面的active
 		$("#releasemeettingLi").removeClass("active");
 		//让mymessage页面处于active
-		document.getElementById("mymessage").className="in active"
+		document.getElementById("mymessage").className="in active";
 		//移除当前页面active
 		$("#releasemeetting").removeClass("in active");
 		//让查看信息（checkinfo页面）置位最顶层
 		document.getElementById("myunreadmessage").style.zIndex = -1;
 		document.getElementById("checkinfoback").style.zIndex = 1;
+
+		//通过meettingid从数据库文件表中获取将文件名和路径，并将其显示在页面上
+		$.ajax({
+			url:"getFileInfo",
+			type:"get",
+			data:{"meettingId":meettingidRandom},
+			success:function(e){
+				if(e == "-1"){
+					document.getElementById("filenameLabel").innerText = "未上传文件";
+					$("#downloadFile").attr("href","#");
+				}else{
+					var filedir = e.filedir;
+					var filename = e.filename.slice(10);
+					//显示
+					document.getElementById("filenameLabel").innerText = filename;
+					$("#downloadFile").attr("href",filedir);
+				}
+			}
+		});
 		
 		 //Ajax请求，从数据库中拿到当前发布会议的信息
  		$.ajax({
@@ -183,6 +213,26 @@
 			}
 		}); 
 	}
+
+	/*文件上传--需要注意亮点：①文件的名字②文件的真实路径
+	*/
+	$(document).on('change', '#uploadFile', function () {
+		function getObjectURL(file) {  
+	        var url = null;  
+	        if (window.createObjcectURL != undefined) {  
+	            url = window.createOjcectURL(file);  
+	        } else if (window.URL != undefined) {  
+	            url = window.URL.createObjectURL(file);  
+	        } else if (window.webkitURL != undefined) {  
+	            url = window.webkitURL.createObjectURL(file);  
+	        }  
+	        return url;  
+	    }  
+		//获得文件的真实路劲（因为浏览器会隐藏真实路劲，使用fakepath代替中间路劲，因此需要获取文件的真实路劲）
+	    var objURL = getObjectURL(this.files[0]);
+	    $("#uploadFile").attr("objURL",objURL);
+	    
+	});
 	
 </script>
 </html>

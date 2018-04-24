@@ -1,15 +1,19 @@
 package com.yk.pojo;
 
-import java.io.Serializable;
+import java.util.Date;
 
-public class News implements Serializable{
+public class News {
     private Integer id;
 
     private String title;
 
-    private String profile;
+    private Date time;
 
     private String newsinfo;
+
+    private Integer views;
+
+    private Integer comment;
 
     public Integer getId() {
         return id;
@@ -27,12 +31,12 @@ public class News implements Serializable{
         this.title = title == null ? null : title.trim();
     }
 
-    public String getProfile() {
-        return profile;
+    public Date getTime() {
+        return time;
     }
 
-    public void setProfile(String profile) {
-        this.profile = profile == null ? null : profile.trim();
+    public void setTime(Date time) {
+        this.time = time;
     }
 
     public String getNewsinfo() {
@@ -43,8 +47,19 @@ public class News implements Serializable{
         this.newsinfo = newsinfo == null ? null : newsinfo.trim();
     }
 
-	@Override
-	public String toString() {
-		return "News [id=" + id + ", title=" + title + ", profile=" + profile + ", newsinfo=" + newsinfo + "]";
-	}
+    public Integer getViews() {
+        return views;
+    }
+
+    public void setViews(Integer views) {
+        this.views = views;
+    }
+
+    public Integer getComment() {
+        return comment;
+    }
+
+    public void setComment(Integer comment) {
+        this.comment = comment;
+    }
 }

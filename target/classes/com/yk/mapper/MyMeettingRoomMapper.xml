@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yk.dao.MyMeettingRoomMapper">
+
+	<resultMap id="BaseResultMap" type="com.yk.pojo.MeettingRoom">
+		<result column="meettingId" jdbcType="INTEGER" property="meettingid" />
+		<result column="seat0" jdbcType="INTEGER" property="seat0" />
+		<result column="seat1" jdbcType="INTEGER" property="seat1" />
+		<result column="seat2" jdbcType="INTEGER" property="seat2" />
+		<result column="seat3" jdbcType="INTEGER" property="seat3" />
+		<result column="seat4" jdbcType="INTEGER" property="seat4" />
+		<result column="seat5" jdbcType="INTEGER" property="seat5" />
+		<result column="seat6" jdbcType="INTEGER" property="seat6" />
+		<result column="seat7" jdbcType="INTEGER" property="seat7" />
+		<result column="seat8" jdbcType="INTEGER" property="seat8" />
+		<result column="seat9" jdbcType="INTEGER" property="seat9" />
+	</resultMap>
+
+	<select id="getMeettingRoomInfo" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		SELECT
+		* FROM
+		y_meettingroom WHERE meettingId = #{meettingid}
+	</select>
+	
+	<update id="updateSeat" parameterType="com.yk.pojo.MeettingRoom">
+		UPDATE y_meettingroom
+		<set>
+	      <if test="seat0 != null">
+	        seat0 = #{seat0,jdbcType=INTEGER},
+	      </if>
+	      <if test="seat1 != null">
+	        seat1 = #{seat1,jdbcType=INTEGER},
+	      </if>
+	      <if test="seat2 != null">
+	        seat2 = #{seat2,jdbcType=INTEGER},
+	      </if>
+	      <if test="seat3 != null">
+	        seat3 = #{seat3,jdbcType=INTEGER},
+	      </if>
+	      <if test="seat4 != null">
+	        seat4 = #{seat4,jdbcType=INTEGER},
+	      </if>
+	      <if test="seat5 != null">
+	        seat5 = #{seat5,jdbcType=INTEGER},
+	      </if>
+	      <if test="seat6 != null">
+	        seat6 = #{seat6,jdbcType=INTEGER},
+	      </if>
+	      <if test="seat7 != null">
+	        seat7 = #{seat7,jdbcType=INTEGER},
+	      </if>
+	      <if test="seat8 != null">
+	        seat8 = #{seat8,jdbcType=INTEGER},
+	      </if>
+	      <if test="seat9 != null">
+	        seat9 = #{record.seat9,jdbcType=INTEGER},
+	      </if>
+	    </set>
+	    WHERE meettingId = #{meettingid,jdbcType=INTEGER}
+	</update>
+	
+</mapper>

@@ -4,7 +4,16 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="keywords" content="" />
 <title>登录</title>
+<script type="application/x-javascript">
+	 
+addEventListener("load", function() { 
+	setTimeout(hideURLbar, 0); 
+	}, false); function hideURLbar(){ window.scrollTo(0,1); } 
+</script>
+<link href="css/style.css" rel='stylesheet' type='text/css' media="all" />
 <%
 	pageContext.setAttribute("appPath", request.getContextPath());
 %>
@@ -14,16 +23,6 @@
 
 <script type="text/javascript">
 </script>
-
-<style type="text/css">
-.loginBack {
-	background: url("img/loginBack.jpg");
-}
-
-.login {
-	border: 1px solid black;
-}
-</style>
 </head>
 <body class="bg-info">
 
@@ -106,9 +105,29 @@
 	    </div>
 	  </div>
 	</div>
+	
+	<h1></h1>
+	<div class="log">
+		<div class="content1">
+			<h2>会议管理系统</h2>
+			<form action="${appPath }/login" method="post">
+				<input type="text" id="loginId" name="loginId" value="用户名"
+					onfocus="this.value = '';"
+					onblur="if (this.value == '') {this.value = '用户名';}">
+				<input type="password" id="password" name="password" value="PASSWORD"
+					onfocus="this.value = '';"
+					onblur="if (this.value == '') {this.value = 'PASSWORD';}">
+				<div class="button-row">
+					<input type="submit" class="sign-in" value="登录"> <input type="button"
+						id="register" class="reset" value="注册">
+					<div class="clear"></div>
+				</div>
+			</form>
+		</div>
+	</div>
 
 
-	<div class="container">
+<%-- 	<div class="container">
 		<div class="row">
 			<div class="col-md-4 col-md-offset-7">
 				<h4>账户登录</h4>
@@ -146,13 +165,12 @@
 							<button type="submit" class="btn btn-default">登录</button>
 							<a id="register" class="btn btn-default">注册</a>
 						</div>
-						
 					</div>
 				</form>
 			</div>
 		</div>
 
-	</div>
+	</div> --%>
 </body>
 <script type="text/javascript">
 
@@ -164,8 +182,6 @@ $("#register").click(function(){
 	$("#registerModal").modal({
 		backdrop:"static"
 	});
-
-	
 
 	$("#userInfo_register_btn").click(function(){
 		//校验表单

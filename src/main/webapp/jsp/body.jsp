@@ -23,7 +23,6 @@
 		</div>
 
 		<!-- 右 -->
-		<jsp:include page="meet.jsp"></jsp:include>
 
 	</div>
 </body>

@@ -13,7 +13,9 @@
 <link href="${appPath }/js/bootstrap-3.3.7-dist/css/bootstrap.min.css"
 	rel="stylesheet">
 <script src="${appPath }/js/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<script src="${appPath }/js/dateFormat.js"></script>
 <script src="${appPath }/js/myJs.js"></script>
+<script src="${appPath }/js/news.js"></script>
 <script src="${appPath }/js/usermanage.js"></script>
 <script src="${appPath }/js/deptmanage.js"></script>
 <script src="${appPath }/js/askMeettingInfo.js"></script>
@@ -41,11 +43,11 @@
 		</div>
 
 		<!-- 首页标签 -->
-		<div class="head-last-margin col-md-1">
+		<!-- <div class="head-last-margin col-md-1">
 			<a class="text-muted" href="#home" data-toggle="tab">
 				<h4>系统首页</h4>
 			</a>
-		</div>
+		</div> -->
 		<!-- shiro的标签，如果有此权限则可以显示 -->
 		<shiro:hasPermission name="user">
 			<div class="head-last-margin col-md-1">
@@ -55,7 +57,7 @@
 			</div>
 		</shiro:hasPermission>
 		<div class="head-last-margin col-md-1">
-			<a class="text-muted" href="#">
+			<a class="text-muted" href="#newscenter"  data-toggle="tab">
 				<h4>新闻中心</h4>
 			</a>
 		</div>
@@ -80,13 +82,19 @@
 	<!-- body -->
 	<div class="tab-content">
 
-		<div class="tab-pane fade" id="home">
+		<!-- 首页 -->
+		<%-- <div class="tab-pane fade" id="home">
 			<jsp:include page="body.jsp"></jsp:include>
-		</div>
+		</div> --%>
 		
 		<!-- 员工管理 -->
-		<div class="tab-pane fade in active" id="companymanage">
+		<div class="tab-pane fade" id="companymanage">
 			<jsp:include page="companymanage/companymanage.jsp"></jsp:include>
+		</div>
+		
+		<!-- 新闻管理 -->
+		<div class="tab-pane fade in active" id="newscenter">
+			<jsp:include page="newscenter/newscenter.jsp"></jsp:include>
 		</div>
 
 		<!-- 个人中心 -->

@@ -8,10 +8,13 @@ import org.springframework.stereotype.Service;
 import com.yk.dao.MeettingGroupMapper;
 import com.yk.dao.MeettingInfoMapper;
 import com.yk.dao.MyMapper;
+import com.yk.dao.MyMeettingRoomMapper;
 import com.yk.pojo.MeettingGroup;
 import com.yk.pojo.MeettingGroupExample;
 import com.yk.pojo.MeettingGroupExample.Criteria;
 import com.yk.pojo.MeettingInfo;
+import com.yk.pojo.MeettingRoom;
+
 import net.sf.json.JSONObject;
 
 @Service
@@ -26,6 +29,8 @@ public class MeettingService {
 	@Autowired
 	MyMapper myMapper;
 	
+	@Autowired
+	MyMeettingRoomMapper myMeettingRoomMapper;
 
 	public void saveMeettingInfo(JSONObject messageJson) {
 		MeettingInfo meettingInfo = new MeettingInfo();
@@ -87,5 +92,13 @@ public class MeettingService {
 		for (Integer meettingId : meettingIdList) {
 			myMapper.deleteMeetting(meettingId,loginId);
 		}
+	}
+
+	public MeettingRoom getMeettingRoomInfo(Integer meettingid) {
+		return myMeettingRoomMapper.getMeettingRoomInfo(meettingid);
+	}
+
+	public void chooseSeat(MeettingRoom meettingRoom) {
+		myMeettingRoomMapper.updateSeat(meettingRoom);
 	}
 }
