@@ -9,7 +9,12 @@
 <%
 	pageContext.setAttribute("appPath", request.getContextPath());
 %>
+<%-- <script type="text/javascript" src="${appPath }/js/jquery-1.12.4.min.js"></script> --%>
+
+<link href="${appPath }/js/editormd/css/editormd.min.css" rel="stylesheet">
 <script type="text/javascript" src="${appPath }/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="${appPath }/js/editormd/editormd.min.js"></script>
+
 <link href="${appPath }/js/bootstrap-3.3.7-dist/css/bootstrap.min.css"
 	rel="stylesheet">
 <script src="${appPath }/js/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
@@ -55,6 +60,11 @@
 					<h4>公司管理</h4>
 				</a>
 			</div>
+ 			<div class="head-last-margin col-md-1">
+				<a class="text-muted" href="#releaseNews" data-toggle="tab">
+					<h4>发布新闻</h4>
+				</a>
+			</div> 
 		</shiro:hasPermission>
 		<div class="head-last-margin col-md-1">
 			<a class="text-muted" href="#newscenter"  data-toggle="tab">
@@ -90,6 +100,11 @@
 		<!-- 员工管理 -->
 		<div class="tab-pane fade" id="companymanage">
 			<jsp:include page="companymanage/companymanage.jsp"></jsp:include>
+		</div>
+		
+		<!-- 发布新闻 -->
+		<div class="tab-pane fade" id="releaseNews">
+			<jsp:include page="newscenter/editor.jsp"></jsp:include>
 		</div>
 		
 		<!-- 新闻管理 -->

@@ -296,7 +296,7 @@
 			//去除多余的横线
 			askMeettingTitles = askMeettingTitles.substring(0, askMeettingTitles.length -1);
 			meettingIds = meettingIds.substring(0, meettingIds.length - 1);
-			if(confirm("确定删除一下会议？\n"+askMeettingTitles)){
+			if(confirm("确定删除以下会议？\n"+askMeettingTitles)){
 				$.ajax({
 					url:"deleteAskMeetting/"+meettingIds,
 					type:"DELETE",

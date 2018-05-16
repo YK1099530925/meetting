@@ -13,7 +13,7 @@
 <style type="text/css">
 
 .content {
-	width: 70%;
+	width: 95%;
 	margin-left: 20px;
 }
 

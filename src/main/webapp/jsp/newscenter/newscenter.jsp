@@ -42,7 +42,7 @@
 }
 
 .newsInfoContent {
-	width: 60%;
+	width: 90%;
 	height:560px;
 	margin-left: 5%;
 	background-color: white;
@@ -94,6 +94,7 @@
 		</div>
 	</div>
 	
+	<!-- 显示新闻详情 -->
 	<div id="newsInfoContent" class="newsInfoContent" style="display: none;">
 		<!-- 显示标题 -->
 		<div class="newsInfoContent0" id="newsInfoContent0">
@@ -105,7 +106,7 @@
 		<div class="newsInfoContent1" id="newsInfoContent1">
    	 	</div>
    	 	<hr class="hrLine"/>
-   	 	<!-- 显示评论与返回 -->
+   	 	<!-- 评论与返回 -->
    	 	<div class="newsInfoContent0">
    	 		<div class="form-group">
    	 			<div class="col-md-8" style="margin-left: 20px;">

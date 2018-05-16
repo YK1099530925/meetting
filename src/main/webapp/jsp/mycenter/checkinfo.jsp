@@ -115,6 +115,9 @@
 
 	//点击选座，显示座位信息，通过meettingid查找数据库，将对应有值的元素设置为红色按钮
 	$("#chooseSeatBtn").click(function(){
+		//给chooseSeatConfirmButton按钮设置两个属性，oldSeat（原位置）和newSeat（现在新选的位置），
+		//点击选座按钮时，先将newSeat设置为空，防止选了座位，但是没有提交，然后再次点击提交引发的问题
+		$("#chooseSeatConfirmButton").attr("newSeat","");
 		//通过meettingid获取会议位置信息
 		var meettingid = $(this).attr("meettingid");
 		$.ajax({
@@ -123,19 +126,27 @@
 			data:{"meettingid":meettingid},
 			success:function(e){
 				var count = 0;
+				//key是seat属性（位置），val是loginid（seat的值）
 				jQuery.each(e, function(key, val) {  
-					//e中存在meettingid，因此第一次直接跳过
+					//e中第一个（0位置）位置是meettingid，因此第一次直接跳过，不进行操作
 					var loginid = ${sessionScope.loginId};
 					var seatx = "#" + key;
+					//count!=0就代表去掉了meettingid这个属性的位置
 					if(count != 0){
 						//接下来从seat0开始
 						if(val != 0){
-							//将按钮变为红色，并设置其loginid属性，并将其变为不可点击(注：当再次按下的时候，已经存在了danger，因此会复原，需要修改)
+							//如果是本人开始选择的座位，则将原座位设置为chooseSeatConfirmButton的oldSeat属性
+							if(loginid == val){
+								$("#chooseSeatConfirmButton").attr("oldSeat",key);
+							}
+							//将按钮变为红色，并设置其loginid属性，并将其变为不可点击
 							//$(seatx).toggleClass("btn-danger");
 							$(seatx).addClass("btn-danger");
 							$(seatx).attr("loginid",val);
 							$(seatx).attr("disabled");
 						}else{
+							//将没有被选择的座位设置loginid为0
+							$(seatx).attr("loginid",0);
 							//当选择位置后，并未确定，直接关闭，则将其复原
 							if($(seatx).hasClass('btn-danger')){
 								$(seatx).toggleClass("btn-danger");
@@ -152,26 +163,65 @@
 		});
 	});
 
-	//点击按钮变红，再次点击变白
+	//点击按钮变红，再次点击变白(toggleClass:若有此类，则移除，若没有则添加)
 	$(".seat").click(function(){
+		//点击每一个座位的时候判断，是否已经选过一个位置，如果是，请重新选择
+		//1.如果是白色（还未被选座），则判断是否已经选过位置
+		if(!($(this).hasClass('btn-danger'))){
+			var chooseSeatCount = 0;
+			var sessionScopeLoginid = ${sessionScope.loginId};
+			$.each($(".seat"),function(){
+				if($(this).attr("loginid") == sessionScopeLoginid){
+					chooseSeatCount++;
+				}
+			});
+			if(chooseSeatCount == 1){
+				alert("你已经选择一个位置，若需重新选择，则取消之前的选择");
+				return;
+			}
+		}
 		var loginid = $(this).attr("loginid");
 		var sessionLoginid = ${sessionScope.loginId};
-		if(loginid != undefined && loginid != sessionLoginid){
+		//2.如果点击的按钮式红色（即loginid不为0），并且不是自己的选的作为，就不做操作
+		if(loginid != 0 && loginid != sessionLoginid){
 			return;
 		}
+		//3.如果是红色就变白，如果是白酒变红
 		$(this).toggleClass("btn-danger");
-		//按下按钮，变为红色，添加属性loginid，否则删除属性loginid
+		//按下按钮，变为红色，添加属性loginid，并给chooseSeatConfirmButton添加newSeat属性，否则删除属性loginid
 		if($(this).hasClass('btn-danger')){
+			//给chooseSeatConfirmButton按钮添加newSeat属性
+			$("#chooseSeatConfirmButton").attr("newSeat",this.id);
 			$(this).attr("loginid",sessionLoginid);
 		}else{
+			$("#chooseSeatConfirmButton").attr("newSeat","");
 			$(this).removeAttr("loginid");
 		}
 	});
 
 	//确定位置(如何找到用户选择的位置)
 	$("#chooseSeatConfirmButton").click(function(){
+
+		//不用遍历选择的位置了，直接通过chooseSeatConfirmButton按钮的新旧位置属性，变可以完成位置的修改
+		var newSeat = $(this).attr("newSeat");
+		var oldSeat = $(this).attr("oldSeat");
+		if(newSeat == ""){
+			alert("你没有换位置");
+			return;
+		}
+		//判断位置有没有选择，如果选择了，就发送ajax 请求
+		var meettingid = $("#chooseSeatBtn").attr("meettingid");
+		var loginid = ${sessionScope.loginId};
+		$.ajax({
+			url:"chooseSeat",
+			type:"POST",
+			data:{"meettingid":meettingid,"loginid":loginid,"oldSeat":oldSeat,"newSeat":newSeat},
+			success:function(e){
+				alert("选座成功");
+			}
+		});
 		//遍历被选择的位置（找到loginid为sessionloginid的位置）
-		$.each($(".seat"),function(){
+/* 		$.each($(".seat"),function(){
 			var meettingid = $("#chooseSeatBtn").attr("meettingid");
 			var loginid = $(this).attr("loginid");
 			var sessionLoginid = ${sessionScope.loginId};
@@ -186,7 +236,7 @@
 					}
 				});
 			}
-		});
+		}); */
 	});
 	
 </script>

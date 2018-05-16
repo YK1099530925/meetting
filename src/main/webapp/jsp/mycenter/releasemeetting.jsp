@@ -67,7 +67,7 @@
 	//定义meettingid（为什么定义为全局？因为他将会在两个方法里面使用，所有设置成全局）
 	var meettingidRandom;
 
-	//获取发布的所有表单的信息
+	//获取发布的会议表单的信息
 	getMeettingFormInfo = function(){
 		var releaseUser = "${sessionScope.userName }";
 		//获得会议的meettingid，通过随机数获得

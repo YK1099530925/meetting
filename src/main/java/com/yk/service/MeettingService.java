@@ -97,8 +97,4 @@ public class MeettingService {
 	public MeettingRoom getMeettingRoomInfo(Integer meettingid) {
 		return myMeettingRoomMapper.getMeettingRoomInfo(meettingid);
 	}
-
-	public void chooseSeat(MeettingRoom meettingRoom) {
-		myMeettingRoomMapper.updateSeat(meettingRoom);
-	}
 }

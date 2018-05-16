@@ -54,7 +54,7 @@
 	        seat8 = #{seat8,jdbcType=INTEGER},
 	      </if>
 	      <if test="seat9 != null">
-	        seat9 = #{record.seat9,jdbcType=INTEGER},
+	        seat9 = #{seat9,jdbcType=INTEGER},
 	      </if>
 	    </set>
 	    WHERE meettingId = #{meettingid,jdbcType=INTEGER}

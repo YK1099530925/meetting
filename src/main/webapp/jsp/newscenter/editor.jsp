@@ -8,9 +8,7 @@
 <%
 	pageContext.setAttribute("Path", request.getContextPath());
 %>
-<link href="${Path }/js/editormd/css/editormd.min.css" rel="stylesheet">
-<script type="text/javascript" src="${Path }/js/jquery-1.12.4.min.js"></script>
-<script type="text/javascript" src="${Path }/js/editormd/editormd.min.js"></script>
+
 <style type="text/css">
 #editor_submit_button{
                 display:block;
@@ -55,10 +53,21 @@ $(function() {
 
 $("#editor_submit_button").click(function () {
 	var title = $("#newstitle")[0].value;
-	alert(title);
-	alert($("#html-code").val());
-	alert($("#markdown-code").val());
-/*      $.ajax({
+	var news = $("#html-code").val();
+	//alert(title);
+	//alert($("#html-code").val());
+	//alert($("#markdown-code").val());
+	//判断标题是否卫康
+	if(title == ""){
+		alert("标题不能为空");
+		return;
+	}
+	//判断内容是否为空
+	if(news == ""){
+		alert("内容不能为空");
+		return;
+	}
+       $.ajax({
         type: "post",
         url: "releaseNews",
         data: {
@@ -68,9 +77,10 @@ $("#editor_submit_button").click(function () {
         success: function (e) {
             alert("新闻发布成功");
         },
-        error:function () {
+        error:function (e) {
+            alert("发布失败" + e);
         }
-    }); */ 
+    }); 
 });
 </script>
 </html>

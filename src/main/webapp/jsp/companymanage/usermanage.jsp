@@ -322,7 +322,7 @@
 		//去除多余的横线
 		usernames = usernames.substring(0, usernames.length -1);
 		loginids = loginids.substring(0, loginids.length - 1);
-		if(confirm("确定删除一下会议？\n"+usernames)){
+		if(confirm("确定删除以下员工？\n"+usernames)){
 			$.ajax({
 				url:"deleteUser/"+loginids,
 				type:"DELETE",

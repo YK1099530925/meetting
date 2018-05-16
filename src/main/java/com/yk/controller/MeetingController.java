@@ -24,6 +24,7 @@ import com.yk.pojo.MeettingInfo;
 import com.yk.pojo.MeettingRoom;
 import com.yk.service.FileService;
 import com.yk.service.MeettingService;
+import com.yk.service.SeatService;
 import com.yk.service.WebsocketService;
 import net.sf.json.JSONObject;
 
@@ -42,8 +43,11 @@ public class MeetingController {
 	@Autowired
 	WebsocketService websocketService;
 	
+	@Autowired
+	SeatService seatService;
+	
 	/**
-	 * 1:发布会议 1：保存会议 2：给在线员工提示 3：给消息表中设置标志
+	 * 1:发布会议 1：保存会议 2：给在线员工提示 3：给消息表中设置标志 4：设置位置
 	 * 2:申请会议成功，然后也通过此方法发送
 	 * 
 	 * @param message
@@ -57,17 +61,23 @@ public class MeetingController {
 		// 将字符串解析为json
 		JSONObject messageJson = JSONObject.fromObject(message);
 		System.out.println("开始保存会议信息");
+		
+		Integer meettingid = Integer.parseInt(messageJson.getString("meettingid"));
+		int deptId = messageJson.getInt("deptId");
+		
 		// 保存会议信息
 		meettingService.saveMeettingInfo(messageJson);
 		System.out.println("将上传的文件保存在文件表中");
 		// 将上传的文件保存在文件表中
 		fileService.uploadFile(messageJson);
 		// 通过deptId从user表中拿到对应部们人的loginid
-		List<Integer> userIds = myMapper.getOneDeptAllUserId(messageJson.getInt("deptId"));
+		List<Integer> userIds = myMapper.getOneDeptAllUserId(deptId);
 		// 将刚刚添加的信息放到消息表中（消息表：员工登录的时候需要查询是否存在未提示信息）
-		meettingService.insertMeettingGrup(Integer.parseInt(messageJson.getString("meettingid")), 1, userIds);
+		meettingService.insertMeettingGrup(meettingid, 1, userIds);
 		// 将会议消息推送到在线用户，并设置已推送用户的flag标志为0
 		websocketService.sendOnlineUser(userIds,loginId);
+		//设置位置信息（发布会议的人位置为seat0）
+		seatService.setSeat(meettingid,0,loginId);
 
 		return "success";
 	}
@@ -82,83 +92,11 @@ public class MeetingController {
 	 */
 	@RequestMapping(value="/chooseSeat")
 	@ResponseBody
-	public String chooseSeat(Integer meettingid, Integer loginid, String seat) throws IllegalArgumentException, IllegalAccessException {
-		//首先判断开始是否选择其他位置，如果选择其他位置，则删去那个位置
+	public String chooseSeat(Integer meettingid, Integer loginid, String oldSeat, String newSeat) throws IllegalArgumentException, IllegalAccessException {
+		//获取座位的信息
 		MeettingRoom meettingRoom = meettingService.getMeettingRoomInfo(meettingid);
-		//获得实体类的所有属性，返回field数组
-		Field[] fields = meettingRoom.getClass().getDeclaredFields();
-		int count = 0;
-		//遍历整个数组，判断是否存在此用户的loginid
-		for(int i = 1; i < fields.length; i++) {
-			fields[i].setAccessible(true);
-			//fields[i].get(meettingRoom)得到的是一个对象，loginid也是integer类型，因此比较的不是值而是地址，又如果将fields[i].get(meettingRoom)转换为int，需要不为null才能转换成功，否则会出现空指针异常（null.toString()：空指针异常）
-			//因此第一层：判断fields[i].get(meettingRoom)不能为空
-			if(fields[i].get(meettingRoom) != null) {
-				//第二层在将其转换为int类型比较
-				if((int)Integer.parseInt(fields[i].get(meettingRoom).toString()) == (int)loginid && fields[i].getName().equals(seat)) {
-					//记录i，为上次位置选择的信息
-					count = i;
-				}
-			}
-		}
-		System.out.println("seat:" + seat);
-		System.out.println("count:" + count);
-		//将上次位置置零
-		switch (count) {
-		case 0:
-			break;
-		case 1:meettingRoom.setSeat0(null);
-			break;
-		case 2:meettingRoom.setSeat1(null);
-			break;
-		case 3:meettingRoom.setSeat2(null);
-			break;
-		case 4:meettingRoom.setSeat3(null);
-			break;
-		case 5:meettingRoom.setSeat4(null);
-			break;
-		case 6:meettingRoom.setSeat5(null);
-			break;
-		case 7:meettingRoom.setSeat6(null);
-			break;
-		case 8:meettingRoom.setSeat7(null);
-			break;
-		case 9:meettingRoom.setSeat8(null);
-			break;
-		case 10:meettingRoom.setSeat9(null);
-			break;
-		default:
-			break;
-		}
-		
-		//保存当前选择的位置
-		char seatx = seat.charAt(seat.length() - 1);
-		switch (seatx) {
-		case '0':meettingRoom.setSeat0(loginid);
-			break;
-		case '1':meettingRoom.setSeat1(loginid);
-			break;
-		case '2':meettingRoom.setSeat2(loginid);
-			break;
-		case '3':meettingRoom.setSeat3(loginid);
-			break;
-		case '4':meettingRoom.setSeat4(loginid);
-			break;
-		case '5':meettingRoom.setSeat5(loginid);
-			break;
-		case '6':meettingRoom.setSeat6(loginid);
-			break;
-		case '7':meettingRoom.setSeat7(loginid);
-			break;
-		case '8':meettingRoom.setSeat8(loginid);
-			break;
-		case '9':meettingRoom.setSeat9(loginid);
-			break;
-		default:
-			break;
-		}
-		System.out.println("meettingRoom:" + meettingRoom);
-		meettingService.chooseSeat(meettingRoom);
+		//根据oldSeat和newSeat修改选座的内容
+		seatService.updateChooseSeat(meettingRoom,oldSeat,newSeat,loginid);
 		return "success";
 	}
 	
