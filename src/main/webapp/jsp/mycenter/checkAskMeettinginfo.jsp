@@ -67,13 +67,22 @@
 		var askMeettingId = $("#askMeettingId")[0].value;
 		var askUserId = $("#askUserId")[0].value;
 		var askUserDeptId = $("#askUserDeptId")[0].value;
-
+		
+/* 		var message = '{"releaseUser":"'+releaseUser
+					+'","title":"'+title
+					+'","meettingInfo":"'+meettingInfo
+					+'","meettingid":"'+meettingidRandom
+					+'","deptId":"'+ deptId
+					+'","filename":"'+ filename
+					+'","objURL":"'+ objURL
+					+'"}'; */
 		var message = '{"releaseUser":"'+askUserName
 					+'","title":"'+askTitle
 					+'","meettingInfo":"'+askMeettingInfo
 					+'","meettingid":"'+askMeettingId
 					+'","deptId":"'+ askUserDeptId
 					+'"}';
+		
 		$.ajax({
 			url:"messageInfo",
 			type:"post",

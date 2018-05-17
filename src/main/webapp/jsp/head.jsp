@@ -32,12 +32,13 @@
 	<div class="head row" style="background-color: #2c2c2c; opacity: 0.9;">
 
 		<!-- logo -->
-		<div class="col-md-3">
-			<img class="head-logo" alt="" src="${appPath }/imgs/logo1.png">
+		<div class="col-md-3 ">
+			<%-- <img class="head-logo" alt="" src="${appPath }/imgs/logo1.png"> --%>
+			<h2 style="color: white;">会议管理系统</h2>
 		</div>
 
-		<div class="head-search col-md-3">
-			<form action="#">
+<!--		<div class="head-search col-md-3">
+			 <form action="#">
 				<div class="form-group has-feedback">
 					<input type="text" class="form-control"
 						aria-describedby="inputSuccess2Status"> <span
@@ -45,7 +46,7 @@
 						aria-hidden="true"></span>
 				</div>
 			</form>
-		</div>
+		</div> -->
 
 		<!-- 首页标签 -->
 		<!-- <div class="head-last-margin col-md-1">

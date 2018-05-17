@@ -220,23 +220,6 @@
 				alert("选座成功");
 			}
 		});
-		//遍历被选择的位置（找到loginid为sessionloginid的位置）
-/* 		$.each($(".seat"),function(){
-			var meettingid = $("#chooseSeatBtn").attr("meettingid");
-			var loginid = $(this).attr("loginid");
-			var sessionLoginid = ${sessionScope.loginId};
-			if(loginid == sessionLoginid){
-				//将用户保存到此位置
-				$.ajax({
-					url:"chooseSeat",
-					type:"POST",
-					data:{"meettingid":meettingid,"loginid":loginid,"seat":this.id},
-					success:function(e){
-						alert("选择成功");
-					}
-				});
-			}
-		}); */
 	});
 	
 </script>

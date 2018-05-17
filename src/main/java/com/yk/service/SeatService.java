@@ -24,33 +24,38 @@ public class SeatService {
 	}
 
 	public void updateChooseSeat(MeettingRoom meettingRoom, String oldSeat, String newSeat, Integer loginid) {
-		//将oldSeat和newSeat末尾数字提取判断应该修改哪一个
-		char oldSeatNumber = oldSeat.charAt(oldSeat.length() - 1);
+		char oldSeatNumber = 'a';
+		//将oldSeat和newSeat末尾数字提取判断应该修改哪一个，因为oldSeat可能为空（第一次选位置），因此需要判断
+		if(oldSeat != null) {
+			oldSeatNumber = oldSeat.charAt(oldSeat.length() - 1);
+		}
 		char newSeatNumber = newSeat.charAt(newSeat.length() - 1);
 		//将原位置删除
-		switch (oldSeatNumber) {
-		case '0':meettingRoom.setSeat0(0);
-			break;
-		case '1':meettingRoom.setSeat1(0);
-			break;
-		case '2':meettingRoom.setSeat2(0);
-			break;
-		case '3':meettingRoom.setSeat3(0);
-			break;
-		case '4':meettingRoom.setSeat4(0);
-			break;
-		case '5':meettingRoom.setSeat5(0);
-			break;
-		case '6':meettingRoom.setSeat6(0);
-			break;
-		case '7':meettingRoom.setSeat7(0);
-			break;
-		case '8':meettingRoom.setSeat8(0);
-			break;
-		case '9':meettingRoom.setSeat9(0);
-			break;
-		default:
-			break;
+		if(oldSeat != null) {
+			switch (oldSeatNumber) {
+			case '0':meettingRoom.setSeat0(0);
+				break;
+			case '1':meettingRoom.setSeat1(0);
+				break;
+			case '2':meettingRoom.setSeat2(0);
+				break;
+			case '3':meettingRoom.setSeat3(0);
+				break;
+			case '4':meettingRoom.setSeat4(0);
+				break;
+			case '5':meettingRoom.setSeat5(0);
+				break;
+			case '6':meettingRoom.setSeat6(0);
+				break;
+			case '7':meettingRoom.setSeat7(0);
+				break;
+			case '8':meettingRoom.setSeat8(0);
+				break;
+			case '9':meettingRoom.setSeat9(0);
+				break;
+			default:
+				break;
+			}
 		}
 		//设置新位置
 		switch (newSeatNumber) {

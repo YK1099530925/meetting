@@ -17,49 +17,49 @@
 						<label for="loginId" class="col-sm-2 control-label">账号</label>
 						<div class="col-sm-5">
 							<input type="text" class="form-control" id="loginId"
-								name="loginId" value="">
+								name="loginId" value="" disabled>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="username" class="col-sm-2 control-label">姓名</label>
 						<div class="col-sm-5">
 							<input type="text" class="form-control" id="username"
-								name="username" value="">
+								name="username" value="" disabled>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="sex" class="col-sm-2 control-label">性别</label>
 						<div class="col-sm-5">
 							<input type="text" class="form-control" id="sex" name="sex"
-								value="">
+								value="" disabled>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="birthday" class="col-sm-2 control-label">出生日期</label>
 						<div class="col-sm-5">
 							<input type="text" class="form-control" id="birthday"
-								name="birthday" value="">
+								name="birthday" value="" disabled>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="tel" class="col-sm-2 control-label">联系方式</label>
 						<div class="col-sm-5">
 							<input type="text" class="form-control" id="tel" name="tel"
-								value="">
+								value="" disabled>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="addr" class="col-sm-2 control-label">住址</label>
 						<div class="col-sm-5">
 							<input type="text" class="form-control" id="addr" name="addr"
-								value="">
+								value="" disabled>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="deptname" class="col-sm-2 control-label">部门id</label>
 						<div class="col-sm-5">
 							<input type="text" class="form-control" id="deptname"
-								name="departMent.deptname" value="">
+								name="departMent.deptname" value="" disabled>
 						</div>
 					</div>
 					<div class="form-group">

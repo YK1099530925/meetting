@@ -55,7 +55,13 @@
 		var newPassword = $("#newPassword")[0].value;
 		var confirmPassword = $("#confirmPassword")[0].value;
 		//判断两次密码是否相同（后续处理）
-
+		if(newPassword != confirmPassword){
+			alert("两次密码不相同");
+			$("#oldPassword")[0].value="";
+			$("#newPassword")[0].value="";
+			$("#confirmPassword")[0].value="";
+			return;
+		}
 		//发送请求，修改密码
  		$.ajax({
 			url:"updatePassword",

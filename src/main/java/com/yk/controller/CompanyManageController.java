@@ -49,7 +49,6 @@ public class CompanyManageController {
 	@RequestMapping(value="/updatePassword",method=RequestMethod.POST)
 	@ResponseBody
 	public String updatePassword(String loginid,String oldPassword,String newPassword) {
-		System.out.println("loginid:"+loginid+"-old:"+oldPassword+"-new:"+newPassword);
 		//对原始密码进行加密
 		String oldPasswordMd5 = Password.md5Password(Integer.parseInt(loginid), oldPassword);
 		//判断原密码是否正确
@@ -63,9 +62,9 @@ public class CompanyManageController {
 			String newPasswordMd5 = Password.md5Password(Integer.parseInt(loginid), newPassword);
 			userInfo.setPassword(newPasswordMd5);
 			myPersonalInfoService.updateMyInfo(userInfo);
-			return "密码修改成功";
+			return "success";
 		}else {
-			return "原密码错误";
+			return "oldPassword error";
 		}
 	}
 	
